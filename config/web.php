@@ -42,6 +42,19 @@ $config = [
                 ],
             ],
         ],
+        'urlManager' => [
+            #'suffix'=>'.html',
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                'site/list/id/<id:\d+>'=>'site/list',
+                'site/news/id/<id:\d+>'=>'site/news',
+                'index'=>'site/index',
+                'page/<id:\d+>'=>'site/page',
+                '404'=>'site/search-children',
+                'admin'=>'admin/index',
+            ],
+        ],
         'db' => $db,
         /*
         'urlManager' => [
