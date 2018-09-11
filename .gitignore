@@ -2,3 +2,4 @@ wwwroot/assets/
 *.DS_Store
 .idea/
 wwwroot/uploads/
+web/index.php
