@@ -18,9 +18,9 @@
     <div id=app></div>
     <?php if(YII_DEBUG):?>
     <?php else:?>
-        <script type="text/javascript" src="./static/admin/js/manifest.js"> </script>
-        <script type="text/javascript" src="./static/admin/js/vendor.js"> </script>
-        <script type="text/javascript" src="./static/admin/js/app.js"> </script>
+        <script type="text/javascript" src="/static/admin/js/manifest.js"> </script>
+        <script type="text/javascript" src="/static/admin/js/vendor.js"> </script>
+        <script type="text/javascript" src="/static/admin/js/app.js"> </script>
     <?php endif;?>
 </body>
 
