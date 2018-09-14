@@ -61,6 +61,7 @@ class SiteController extends FController
      */
     public function actionIndex()
     {
+        $this->layout = false;
         return $this->render('index');
     }
 
