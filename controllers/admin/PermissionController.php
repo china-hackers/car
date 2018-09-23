@@ -18,11 +18,9 @@ class PermissionController extends AController
 
     public function actionDelete(){
         if(!$_POST) return $this->json(400);
-        if(empty($_POST['id'])) return $this->json(403,'角色ID不能为空');
+        if(empty($_POST['id'])) return $this->json(403,'权限ID不能为空');
         $model = AdminRole::find($_POST['id'])->one();
-        if(empty($model)) return $this->json(403,'该角色不存在');
-        $count = Admin::find()->where('role_id='.$model->id)->count();
-        if($count) return $this->json(403,'该角色还有管理员，请先删除管理员');
+        if(empty($model)) return $this->json(403,'该权限不存在');
         $model->delete();
         return $this->json();
     }

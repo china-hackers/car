@@ -35,13 +35,16 @@ class AdminController extends AController
 
     public function actionList($p=1)
     {
+        $count = Admin::find()->count();
         $list = Admin::find()->offset(($p-1)*20)->limit(20)->all();
-        $data = [];
+        $data = ['total'=>$count];
+        $l2 = [];
         foreach($list as $li){
             $tmp = $li->attributes;
             $tmp['role_name'] = $li->role->role;
-            $data[] = $tmp;
+            $l2[] = $tmp;
         }
+        $data['list'] = $l2;
         $this->data['data'] = $data;
         return $this->json();
     }
