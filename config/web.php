@@ -49,7 +49,6 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'admin/admin/list/p/<id:\d+>'=>'admin/admin/list',
                 '/'=>'mobile/site/index',
                 'admin'=>'admin/site/index',
             ],
