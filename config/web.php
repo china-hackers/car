@@ -49,10 +49,10 @@ $config = [
             'rules' => [
                 'site/list/id/<id:\d+>'=>'site/list',
                 'site/news/id/<id:\d+>'=>'site/news',
-                '/'=>'site/index',
+                '/'=>'mobile/site/index',
                 'page/<id:\d+>'=>'site/page',
                 '404'=>'site/search-children',
-                'admin'=>'admin/index',
+                'admin'=>'admin/site/index',
             ],
         ],
         'db' => $db,
