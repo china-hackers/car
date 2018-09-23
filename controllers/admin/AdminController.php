@@ -58,6 +58,10 @@ class AdminController extends AController
         }
     }
 
+    public function actionAdmin(){
+
+    }
+
     public function actionEdit(){
         if(empty($this->post['id'])) return $this->json(402,'管理员ID不能为空');
         $model = Admin::find($this->post['id'])->one();
