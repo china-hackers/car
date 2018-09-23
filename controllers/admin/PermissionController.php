@@ -25,13 +25,16 @@ class PermissionController extends AController
         return $this->json();
     }
 
-    public function actionList()
+    public function actionList($p=1)
     {
-        $list = AdminRole::find()->all();
-        $data = [];
+        $count = AdminPermission::find()->count();
+        $list = AdminPermission::find()->offset(($p-1)*20)->limit(20)->all();
+        $data = ['total'=>$count];
+        $l2 = [];
         foreach($list as $li){
-            $data[] = $li->attributes;
+            $l2[] = $li->attributes;
         }
+        $data['list'] = $l2;
         $this->data['data'] = $data;
         return $this->json();
     }
@@ -39,20 +42,9 @@ class PermissionController extends AController
     public function actionAdd()
     {
         if(!$_POST) return $this->json(400);
-        if(empty($_POST['permission'])) return $this->json(401,'没有勾选任何权限');
-        $model = new AdminRole();
-        $model['role'] = $_POST['role'];
-        $model['note'] = $_POST['note'];
+        $model = new AdminPermission();
+        $model->attributes = $_POST;
         if($model->save()) {
-            $list = $_POST['permission'];
-            foreach($list as $pid){
-                $r2p = new AdminR2P();
-                if(AdminPermission::find($pid)->one()){
-                    $r2p->role_id = $model->id;
-                    $r2p->menu_id = $pid;
-                    $r2p->save();
-                }
-            }
             return $this->json();
         }else{
             $list = $model->getFirstErrors();
@@ -66,22 +58,11 @@ class PermissionController extends AController
 
     public function actionEdit(){
         if(!$_POST) return $this->json(400);
-        if(empty($_POST['id'])) return $this->json(402,'角色ID不能为空');
-        $model = AdminRole::find($_POST['id'])->one();
-        if(empty($model)) return $this->json(402,'该角色不存在');
-        $model['role'] = $_POST['role'];
-        $model['note'] = $_POST['note'];
+        if(empty($_POST['id'])) return $this->json(402,'权限ID不能为空');
+        $model = AdminPermission::find($_POST['id'])->one();
+        if(empty($model)) return $this->json(402,'该权限不存在');
+        $model->attributes = $_POST;
         if($model->save()) {
-            $list = $_POST['permission'];
-            AdminR2P::deleteAll('role_id='.$model->id);
-            foreach($list as $pid){
-                $r2p = new AdminR2P();
-                if(AdminPermission::find($pid)->one()){
-                    $r2p->role_id = $model->id;
-                    $r2p->menu_id = $pid;
-                    $r2p->save();
-                }
-            }
             return $this->json();
         }else{
             $list = $model->getFirstErrors();

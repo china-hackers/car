@@ -15,6 +15,8 @@ use Yii;
  * @property int $pid
  * @property int $orders
  * @property int $is_menu
+ *
+ * @property AdminR2p[] $adminR2ps
  */
 class AdminPermission extends \yii\db\ActiveRecord
 {
@@ -53,5 +55,13 @@ class AdminPermission extends \yii\db\ActiveRecord
             'orders' => 'Orders',
             'is_menu' => 'Is Menu',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAdminR2ps()
+    {
+        return $this->hasMany(AdminR2p::className(), ['menu_id' => 'id']);
     }
 }
