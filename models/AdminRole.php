@@ -29,6 +29,7 @@ class AdminRole extends \yii\db\ActiveRecord
         return [
             [['role'], 'string', 'max' => 20],
             [['note'], 'string', 'max' => 200],
+            [['role'], 'required'],
         ];
     }
 
