@@ -17,6 +17,7 @@
 <body module=live>
     <div id=app></div>
     <?php if(YII_DEBUG):?>
+        <script type="text/javascript" src="http://localhost:8090/app.js"></script>
     <?php else:?>
         <script type="text/javascript" src="/static/admin/js/manifest.js"> </script>
         <script type="text/javascript" src="/static/admin/js/vendor.js"> </script>
