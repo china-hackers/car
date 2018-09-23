@@ -51,6 +51,7 @@ $config = [
             'rules' => [
                 '/'=>'mobile/site/index',
                 'admin'=>'admin/site/index',
+                'admin/login'=>'admin/site/login',
             ],
         ],
         'db' => $db,
