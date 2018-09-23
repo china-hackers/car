@@ -33,12 +33,14 @@ class AdminController extends AController
         return $this->json();
     }
 
-    public function actionList()
+    public function actionList($p=1)
     {
-        $list = Admin::find()->all();
+        $list = Admin::find()->offset(($p-1)*20)->limit(20)->all();
         $data = [];
         foreach($list as $li){
-            $data[] = $li->attributes;
+            $tmp = $li->attributes;
+            $tmp['role_name'] = $li->role->role;
+            $data[] = $tmp;
         }
         $this->data['data'] = $data;
         return $this->json();

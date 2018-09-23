@@ -57,4 +57,13 @@ class Admin extends \yii\db\ActiveRecord
             'phone' => '电话',
         ];
     }
+
+    public function getRole()
+    {
+        /**
+         * 第一个参数为要关联的字表模型类名称，
+         *第二个参数指定 通过子表的 customer_id 去关联主表的 id 字段
+         */
+        return $this->hasOne(AdminRole::className(), ['id' => 'role_id']);
+    }
 }

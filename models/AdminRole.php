@@ -44,4 +44,6 @@ class AdminRole extends \yii\db\ActiveRecord
             'note' => 'Note',
         ];
     }
+
+
 }
