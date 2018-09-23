@@ -58,6 +58,13 @@ class RoleController extends AController
         }
     }
 
+    public function actionRole(){
+        $model = AdminRole::find($this->post['id'])->one();
+        if(empty($model)) return $this->json(404,'没有找到该角色');
+        $this->data['data'] = $model->attributes;
+        return $this->json();
+    }
+
     public function actionEdit(){
         if(empty($this->post['id'])) return $this->json(402,'角色ID不能为空');
         $model = AdminRole::find($this->post['id'])->one();

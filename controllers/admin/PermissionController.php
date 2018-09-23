@@ -33,9 +33,30 @@ class PermissionController extends AController
         return $this->json();
     }
 
+    public function actionChecklist(){
+        $list = AdminPermission::find()->where('level=0')->all();
+        $clist = [];
+        foreach($list as $li){
+            $tmp = $li->attributes;
+            $children = [];
+            $l2 = AdminPermission::find()->where('pid='.$li->id)->all();
+            foreach($l2 as $l){
+                $children[] = $l->attributes;
+            }
+            $tmp['children'] = $children;
+            $clist[] = $tmp;
+        }
+        $this->data['data'] = $clist;
+        return $this->json();
+    }
+
     public function actionAdd()
     {
         $model = new AdminPermission();
+        if(intval($this->post['pid'])>0)
+            $this->post['level'] = 1;
+        else
+            $this->post['level'] = 0;
         $model->attributes = $this->post;
         if($model->save()) {
             return $this->json();
@@ -47,6 +68,13 @@ class PermissionController extends AController
             }
             return $this->json(401,$msg);
         }
+    }
+
+    public function actionPermission(){
+        $model = AdminPermission::find($this->post['id'])->one();
+        if(empty($model)) return $this->json(404,'没有找到该权限');
+        $this->data['data'] = $model->attributes;
+        return $this->json();
     }
 
     public function actionEdit(){

@@ -59,7 +59,10 @@ class AdminController extends AController
     }
 
     public function actionAdmin(){
-
+        $model = Admin::find($this->post['id'])->one();
+        if(empty($model)) return $this->json(404,'没有找到该管理员');
+        $this->data['data'] = $model->attributes;
+        return $this->json();
     }
 
     public function actionEdit(){
