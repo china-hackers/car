@@ -51,7 +51,9 @@ class AdminController extends AController
 
     public function actionAdd()
     {
-        if(!$_POST) return $this->json(400);
+        $json_str = file_get_contents('php://input');
+        if(empty($json_str)) return $this->json(400);
+        $_POST = json_decode($json_str,true);
         $model = new Admin();
         $model->attributes = $_POST;
         if($model->save()) {
