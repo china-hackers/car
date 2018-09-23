@@ -37,7 +37,7 @@ class AdminController extends AController
     {
         $count = Admin::find()->count();
         $list = Admin::find()->offset(($p-1)*20)->limit(20)->all();
-        $data = ['total'=>$count];
+        $data = ['total'=>intval($count)];
         $l2 = [];
         foreach($list as $li){
             $tmp = $li->attributes;

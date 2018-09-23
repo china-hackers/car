@@ -50,10 +50,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 'admin/admin/list/p/<id:\d+>'=>'admin/admin/list',
-                'site/news/id/<id:\d+>'=>'site/news',
                 '/'=>'mobile/site/index',
-                'page/<id:\d+>'=>'site/page',
-                '404'=>'site/search-children',
                 'admin'=>'admin/site/index',
             ],
         ],

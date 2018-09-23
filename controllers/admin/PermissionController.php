@@ -29,7 +29,7 @@ class PermissionController extends AController
     {
         $count = AdminPermission::find()->count();
         $list = AdminPermission::find()->offset(($p-1)*20)->limit(20)->all();
-        $data = ['total'=>$count];
+        $data = ['total'=>intval($count)];
         $l2 = [];
         foreach($list as $li){
             $l2[] = $li->attributes;
