@@ -2,8 +2,7 @@
 
 namespace app\controllers\base;
 
-use yii\web\Controller;
 
-class MController extends Controller
+class MController extends BaseController
 {
 }

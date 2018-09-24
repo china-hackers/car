@@ -58,6 +58,18 @@ class Admin extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function login($post){
+        $model = Admin::find()->where('admin="'.$post['admin'].'" AND pswd="'.$post['pswd'].'"')->one();
+        if(empty($model)) return null;
+        $list = AdminR2P::findAll('role_id='.$model->role_id);
+        $permission = [];
+        foreach($list as $li){
+            $permission[] = $li->route;
+        }
+        Yii::$app->session->set('permission',$permission);
+        return $model;
+    }
+
     public function getRole()
     {
         /**
