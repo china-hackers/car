@@ -52,6 +52,7 @@ $config = [
                 '/'=>'mobile/site/index',
                 'admin'=>'admin/site/index',
                 'admin/login'=>'admin/site/login',
+                'admin/logout'=>'admin/site/logout',
             ],
         ],
         'db' => $db,
