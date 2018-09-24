@@ -12,7 +12,7 @@ class PermissionController extends AController
 
     public function actionDelete(){
         if(empty($this->post['id'])) return $this->json(403,'权限ID不能为空');
-        $model = AdminRole::findOne($this->post['id']);
+        $model = AdminPermission::findOne($this->post['id']);
         if(empty($model)) return $this->json(403,'该权限不存在');
         $model->delete();
         return $this->json();
