@@ -23,11 +23,15 @@ class RoleController extends AController
 
     public function actionList()
     {
-        $list = AdminRole::find()->all();
-        $data = [];
+        $p = intval($this->post['p'])?$this->post['p']:1;
+        $count = AdminRole::find()->count();
+        $list = AdminRole::find()->offset(($p-1)*20)->limit(20)->all();
+        $data = ['total'=>intval($count)];
+        $l2 = [];
         foreach($list as $li){
-            $data[] = $li->attributes;
+            $l2[] = $li->attributes;
         }
+        $data['list'] = $l2;
         $this->data['data'] = $data;
         return $this->json();
     }
