@@ -40,8 +40,8 @@ class RoleController extends AController
     {
         if(empty($this->post['permission'])) return $this->json(401,'没有勾选任何权限');
         $model = new AdminRole();
-        $model['role'] = $this->post['role'];
-        $model['note'] = $this->post['note'];
+        @$model['role'] = $this->post['role'];
+        @$model['note'] = $this->post['note'];
         if($model->save()) {
             $list = $this->post['permission'];
             foreach($list as $pid){
