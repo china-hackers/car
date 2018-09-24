@@ -18,6 +18,19 @@ class PermissionController extends AController
         return $this->json();
     }
 
+    public function actionParentlist(){
+        $list = AdminPermission::find()->where('pid=0')->all();
+        $count = count($list);
+        $data = ['total'=>intval($count)];
+        $l2 = [];
+        foreach($list as $li){
+            $l2[] = $li->attributes;
+        }
+        $data['list'] = $l2;
+        $this->data['data'] = $data;
+        return $this->json();
+    }
+
     public function actionList()
     {
         $p = intval($this->post['p'])?$this->post['p']:1;
