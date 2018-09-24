@@ -12,7 +12,7 @@ class PermissionController extends AController
 
     public function actionDelete(){
         if(empty($this->post['id'])) return $this->json(403,'权限ID不能为空');
-        $model = AdminRole::find($this->post['id'])->one();
+        $model = AdminRole::findOne($this->post['id']);
         if(empty($model)) return $this->json(403,'该权限不存在');
         $model->delete();
         return $this->json();
@@ -71,7 +71,7 @@ class PermissionController extends AController
     }
 
     public function actionPermission(){
-        $model = AdminPermission::find($this->post['id'])->one();
+        $model = AdminPermission::findOne($this->post['id']);
         if(empty($model)) return $this->json(404,'没有找到该权限');
         $this->data['data'] = $model->attributes;
         return $this->json();
@@ -79,7 +79,7 @@ class PermissionController extends AController
 
     public function actionEdit(){
         if(empty($this->post['id'])) return $this->json(402,'权限ID不能为空');
-        $model = AdminPermission::find($this->post['id'])->one();
+        $model = AdminPermission::findOne($this->post['id']);
         if(empty($model)) return $this->json(402,'该权限不存在');
         $model->attributes = $this->post;
         if($model->save()) {

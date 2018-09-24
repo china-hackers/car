@@ -6,13 +6,14 @@ use app\controllers\base\AController;
 use app\models\AdminPermission;
 use app\models\AdminR2P;
 use app\models\AdminRole;
+use app\models\Admin;
 
 class RoleController extends AController
 {
 
     public function actionDelete(){
         if(empty($this->post['id'])) return $this->json(403,'角色ID不能为空');
-        $model = AdminRole::find($this->post['id'])->one();
+        $model = AdminRole::findOne($this->post['id']);
         if(empty($model)) return $this->json(403,'该角色不存在');
         $count = Admin::find()->where('role_id='.$model->id)->count();
         if($count) return $this->json(403,'该角色还有管理员，请先删除管理员');
@@ -41,7 +42,7 @@ class RoleController extends AController
             $list = $this->post['permission'];
             foreach($list as $pid){
                 $r2p = new AdminR2P();
-                if(AdminPermission::find($pid)->one()){
+                if(AdminPermission::findOne($pid)){
                     $r2p->role_id = $model->id;
                     $r2p->menu_id = $pid;
                     $r2p->save();
@@ -59,7 +60,7 @@ class RoleController extends AController
     }
 
     public function actionRole(){
-        $model = AdminRole::find($this->post['id'])->one();
+        $model = AdminRole::findOne($this->post['id']);
         if(empty($model)) return $this->json(404,'没有找到该角色');
         $this->data['data'] = $model->attributes;
         return $this->json();
@@ -67,7 +68,7 @@ class RoleController extends AController
 
     public function actionEdit(){
         if(empty($this->post['id'])) return $this->json(402,'角色ID不能为空');
-        $model = AdminRole::find($this->post['id'])->one();
+        $model = AdminRole::findOne($this->post['id']);
         if(empty($model)) return $this->json(402,'该角色不存在');
         $model['role'] = $this->post['role'];
         $model['note'] = $this->post['note'];
@@ -76,7 +77,7 @@ class RoleController extends AController
             AdminR2P::deleteAll('role_id='.$model->id);
             foreach($list as $pid){
                 $r2p = new AdminR2P();
-                if(AdminPermission::find($pid)->one()){
+                if(AdminPermission::findOne($pid)){
                     $r2p->role_id = $model->id;
                     $r2p->menu_id = $pid;
                     $r2p->save();

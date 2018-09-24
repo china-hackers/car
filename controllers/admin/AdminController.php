@@ -10,7 +10,7 @@ class AdminController extends AController
 
     public function actionReset(){
         if(empty($this->post['id'])) return $this->json(402,'管理员ID不能为空');
-        $model = Admin::find($this->post['id'])->one();
+        $model = Admin::findOne($this->post['id']);
         if(empty($model)) return $this->json(402,'该管理员不存在');
         $model->pswd = '123456';
         $model->save();
@@ -19,7 +19,7 @@ class AdminController extends AController
 
     public function actionDelete(){
         if(empty($this->post['id'])) return $this->json(403,'管理员ID不能为空');
-        $model = Admin::find($this->post['id'])->one();
+        $model = Admin::findOne($this->post['id']);
         if(empty($model)) return $this->json(403,'该管理员不存在');
         $model->delete();
         return $this->json();
@@ -60,7 +60,7 @@ class AdminController extends AController
 
     public function actionPassword(){
         if(empty($this->post['id'])) return $this->json(402,'管理员ID不能为空');
-        $model = Admin::find($this->post['id'])->one();
+        $model = Admin::findOne($this->post['id']);
         if(empty($model)) return $this->json(402,'该管理员不存在');
         $model->pswd = $this->post['pswd'];
         if($model->save()) {
@@ -76,7 +76,7 @@ class AdminController extends AController
     }
 
     public function actionAdmin(){
-        $model = Admin::find($this->post['id'])->one();
+        $model = Admin::findOne($this->post['id']);
         if(empty($model)) return $this->json(404,'没有找到该管理员');
         $this->data['data'] = $model->attributes;
         return $this->json();
@@ -84,7 +84,7 @@ class AdminController extends AController
 
     public function actionEdit(){
         if(empty($this->post['id'])) return $this->json(402,'管理员ID不能为空');
-        $model = Admin::find($this->post['id'])->one();
+        $model = Admin::findOne($this->post['id']);
         if(empty($model)) return $this->json(402,'该管理员不存在');
         unset($this->post['pswd']);
         $model->attributes = $this->post;
