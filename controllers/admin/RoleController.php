@@ -67,7 +67,7 @@ class RoleController extends AController
         $model = AdminRole::findOne($this->post['id']);
         if(empty($model)) return $this->json(404,'没有找到该角色');
         $this->data['data'] = $model->attributes;
-        $list = AdminR2P::findAll('role_id='.$model->id);
+        $list = AdminR2P::find()->where('role_id='.$model->id)->all();
         $ids = [];
         foreach($list as $li){
             $ids[] = $li->pid;
