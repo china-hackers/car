@@ -1,2 +1,0 @@
-webpackJsonp([0],{"0wMN":function(i,n,e){"use strict";n.a={data:function(){return{pagination:{curPage:1,pageSize:20,pageTotal:1}}},methods:{pageSizeChange:function(i){this.pagination.pageSize=i,this.req()},pageCurPageChange:function(i){this.pagination.curPage=i,this.req()},req:function(){}}}},Quz9:function(i,n,e){"use strict";n.a={data:function(){return{visible:!1,saveLoading:!1}},methods:{open:function(){this.clear&&this.clear(),this.visible=!0},clear:function(){}}}}});
-//# sourceMappingURL=0.c0ea2bdce24d21acb852.js.map
