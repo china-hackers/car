@@ -3,6 +3,7 @@
 namespace app\controllers\base;
 
 use yii\web\Controller;
+use yii;
 
 class BaseController extends Controller
 {
@@ -27,8 +28,9 @@ class BaseController extends Controller
     ];
 
     protected function json($code=200,$msg=''){
+        Yii::$app->response->statusCode = 200;
         $this->data['code'] = $code;
         $this->data['message'] = $this->error[$code].$msg;
-        echo json_encode($this->data);
+        Yii::$app->response->content = json_encode($this->data);
     }
 }
