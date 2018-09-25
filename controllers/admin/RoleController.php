@@ -70,7 +70,7 @@ class RoleController extends AController
         $list = AdminR2P::find()->where('role_id='.$model->id)->all();
         $ids = [];
         foreach($list as $li){
-            $ids[] = $li->pid;
+            $ids[] = $li->menu_id;
         }
         $this->data['data']['permission'] = $ids;
         return $this->json();
