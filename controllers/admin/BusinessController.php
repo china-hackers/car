@@ -48,6 +48,7 @@ class BusinessController extends AController
             $business->delete();
             return $this->json(404,'申请者已经不存在');
         }
+        if($business->is_checked) return $this->json(402,'请不要重复审核，已经审核通过了');
         if($check){
             $business->is_checked = 1;
             $user->is_checked = 1;
