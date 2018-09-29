@@ -5,13 +5,14 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "car".
+ * This is the model class for table "brand".
  *
  * @property int $id
  * @property string $letter
  * @property string $brand
  * @property string $model
- * @property string $core 关键ID
+ * @property string $star
+ * @property string $keywords
  */
 class Brand extends \yii\db\ActiveRecord
 {
@@ -29,8 +30,10 @@ class Brand extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['star'], 'number'],
             [['letter'], 'string', 'max' => 1],
             [['brand', 'model'], 'string', 'max' => 100],
+            [['keywords'], 'string', 'max' => 250],
         ];
     }
 
@@ -44,6 +47,8 @@ class Brand extends \yii\db\ActiveRecord
             'letter' => 'Letter',
             'brand' => 'Brand',
             'model' => 'Model',
+            'star' => 'Star',
+            'keywords' => 'Keywords',
         ];
     }
 }
