@@ -8,6 +8,21 @@ use app\models\Brand;
 class CarController extends AController
 {
 
+    public function actionAdd(){
+        $model = new Brand();
+        $model->attributes = $this->post;
+        if($model->save()){
+            return $this->json();
+        }else{
+            $list = $model->getFirstErrors();
+            $msg = '';
+            foreach($list as $key=>$value){
+                $msg .= $value;
+            }
+            return $this->json(401,$msg);
+        }
+    }
+
     public function actionLetterlist(){
         $list = Brand::find()->groupBy('letter')->all();
         $count = count($list);

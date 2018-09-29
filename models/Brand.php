@@ -31,7 +31,6 @@ class Brand extends \yii\db\ActiveRecord
         return [
             [['letter'], 'string', 'max' => 1],
             [['brand', 'model'], 'string', 'max' => 100],
-            [['core'], 'string', 'max' => 20],
         ];
     }
 
@@ -45,7 +44,6 @@ class Brand extends \yii\db\ActiveRecord
             'letter' => 'Letter',
             'brand' => 'Brand',
             'model' => 'Model',
-            'core' => 'Core',
         ];
     }
 }
