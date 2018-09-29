@@ -12,15 +12,20 @@ class BusinessController extends AController
     public function actionList(){
         @$p = intval($this->post['p'])?$this->post['p']:1;
         @$check = $this->post['check'];
+        @$name = $this->post['name'];
+        if($name)
+            $where = ' AND name like "%'.$name.'%"';
+        else
+            $where = '';
         if($check === 0){
-            $count = Business::find()->where('is_checked=0')->count();
-            $list = Business::find()->where('is_checked=0')->offset(($p-1)*20)->limit(20)->all();
+            $count = Business::find()->where('is_checked=0'.$where)->count();
+            $list = Business::find()->where('is_checked=0'.$where)->offset(($p-1)*20)->limit(20)->all();
         }elseif($check == 1){
-            $count = Business::find()->where('is_checked=1')->count();
-            $list = Business::find()->where('is_checked=1')->offset(($p-1)*20)->limit(20)->all();
+            $count = Business::find()->where('is_checked=1'.$where)->count();
+            $list = Business::find()->where('is_checked=1'.$where)->offset(($p-1)*20)->limit(20)->all();
         }else{
-            $count = Business::find()->count();
-            $list = Business::find()->offset(($p-1)*20)->limit(20)->all();
+            $count = Business::find()->where('1=1'.$where)->count();
+            $list = Business::find()->where('1=1'.$where)->offset(($p-1)*20)->limit(20)->all();
         }
         $l2 = [];
         foreach($list as $li){
@@ -88,22 +93,6 @@ class BusinessController extends AController
     public function actionUserlist(){
         $bid = $this->post['bid'];
         $list = User::find()->where('business_id='.$bid)->all();
-        $count = count($list);
-        $data = ['total'=>intval($count)];
-        $l2 = [];
-        foreach($list as $li){
-            $tmp = $li->attributes;
-            //$tmp['role_name'] = $li->role->role;
-            $l2[] = $tmp;
-        }
-        $data['list'] = $l2;
-        $this->data['data'] = $data;
-        return $this->json();
-    }
-
-    public function actionSearch(){
-        $name = $this->post['name'];
-        $list = Business::find()->where('name like "%'.$name.'%"')->all();
         $count = count($list);
         $data = ['total'=>intval($count)];
         $l2 = [];
