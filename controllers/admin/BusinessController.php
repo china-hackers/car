@@ -101,6 +101,22 @@ class BusinessController extends AController
         return $this->json();
     }
 
+    public function actionSearch(){
+        $name = $this->post['name'];
+        $list = Business::find()->where('name like "%'.$name.'%"')->all();
+        $count = count($list);
+        $data = ['total'=>intval($count)];
+        $l2 = [];
+        foreach($list as $li){
+            $tmp = $li->attributes;
+            //$tmp['role_name'] = $li->role->role;
+            $l2[] = $tmp;
+        }
+        $data['list'] = $l2;
+        $this->data['data'] = $data;
+        return $this->json();
+    }
+
     public function actionDeleteuser(){
         if(empty($this->post['id'])) return $this->json(403,'用户ID不能为空');
         $model = User::findOne($this->post['id']);
