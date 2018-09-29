@@ -23,6 +23,29 @@ class CarController extends AController
         }
     }
 
+    public function actionEdit(){
+        $model = Brand::findOne($this->post['id']);
+        if(!$model) return $this->json(404,'没有找到该车型');
+        $model->attributes = $this->post;
+        if($model->save()){
+            return $this->json();
+        }else{
+            $list = $model->getFirstErrors();
+            $msg = '';
+            foreach($list as $key=>$value){
+                $msg .= $value;
+            }
+            return $this->json(402,$msg);
+        }
+    }
+
+    public function actionDelete(){
+        $model = Brand::findOne($this->post['id']);
+        if(!$model) return $this->json(404,'没有找到该车型');
+        $model->delete();
+        return $this->json();
+    }
+
     public function actionLetterlist(){
         $list = Brand::find()->groupBy('letter')->all();
         $count = count($list);
