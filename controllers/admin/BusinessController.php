@@ -52,6 +52,7 @@ class BusinessController extends AController
         if($check){
             $business->is_checked = 1;
             $user->is_checked = 1;
+            $user->is_manager = 1;
             $business->save();
             $user->save();
         }else{

@@ -20,6 +20,7 @@ class ComposerStaticInit7f0c025356017b17b86ac6bd52872b45
         'y' => 
         array (
             'yii\\swiftmailer\\' => 16,
+            'yii\\httpclient\\' => 15,
             'yii\\gii\\' => 8,
             'yii\\faker\\' => 10,
             'yii\\debug\\' => 10,
@@ -34,6 +35,10 @@ class ComposerStaticInit7f0c025356017b17b86ac6bd52872b45
         'c' => 
         array (
             'cebe\\markdown\\' => 14,
+        ),
+        'a' => 
+        array (
+            'abei2017\\wx\\' => 12,
         ),
         'W' => 
         array (
@@ -83,6 +88,10 @@ class ComposerStaticInit7f0c025356017b17b86ac6bd52872b45
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer',
         ),
+        'yii\\httpclient\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yiisoft/yii2-httpclient/src',
+        ),
         'yii\\gii\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-gii/src',
@@ -116,6 +125,10 @@ class ComposerStaticInit7f0c025356017b17b86ac6bd52872b45
         'cebe\\markdown\\' => 
         array (
             0 => __DIR__ . '/..' . '/cebe/markdown',
+        ),
+        'abei2017\\wx\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/abei2017/yii2-wx/src',
         ),
         'Webmozart\\Assert\\' => 
         array (

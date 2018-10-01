@@ -48,4 +48,22 @@ return array (
       '@yii/faker' => $vendorDir . '/yiisoft/yii2-faker',
     ),
   ),
+  'yiisoft/yii2-httpclient' => 
+  array (
+    'name' => 'yiisoft/yii2-httpclient',
+    'version' => '2.0.6.0',
+    'alias' => 
+    array (
+      '@yii/httpclient' => $vendorDir . '/yiisoft/yii2-httpclient/src',
+    ),
+  ),
+  'abei2017/yii2-wx' => 
+  array (
+    'name' => 'abei2017/yii2-wx',
+    'version' => '1.1.1.0',
+    'alias' => 
+    array (
+      '@abei2017/wx' => $vendorDir . '/abei2017/yii2-wx/src',
+    ),
+  ),
 );
