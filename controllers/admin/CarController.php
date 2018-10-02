@@ -62,9 +62,9 @@ class CarController extends AController
     public function actionBrandlist(){
         @$letter = $this->post['letter'];
         if($letter){
-            $list = Brand::find()->select('id,letter,brand')->where('letter="'.$letter.'"')->groupBy('brand')->all();
+            $list = Brand::find()->where('letter="'.$letter.'"')->groupBy('brand')->all();
         }else{
-            $list = Brand::find()->select('id,letter,brand')->groupBy('brand')->orderBy('id asc')->all();
+            $list = Brand::find()->groupBy('brand')->orderBy('id asc')->all();
         }
         $count = count($list);
         $data = ['total'=>intval($count)];
@@ -80,7 +80,7 @@ class CarController extends AController
     public function actionModellist(){
         if(empty($this->post['brand'])) return $this->json(404,'没有传递品牌ID');
         $brand = $this->post['brand'];
-        $list = Brand::find()->select('id,model')->where('brand="'.$brand.'"')->all();
+        $list = Brand::find()->where('brand="'.$brand.'"')->all();
         $count = count($list);
         $data = ['total'=>intval($count)];
         $l2 = [];
