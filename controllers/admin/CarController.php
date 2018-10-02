@@ -79,7 +79,10 @@ class CarController extends AController
         $data = ['total'=>intval($count)];
         $l2 = [];
         foreach($list as $li){
-            $l2[] = ($li->attributes);
+            $tmp = ($li->attributes);
+            $key = explode('|',$tmp['keywords']);
+            $tmp['keywords'] = $key;
+            $l2[] = $tmp;
         }
         $data['list'] = $l2;
         $this->data['data'] = $data;
@@ -94,7 +97,10 @@ class CarController extends AController
         $data = ['total'=>intval($count)];
         $l2 = [];
         foreach($list as $li){
-            $l2[] = ($li->attributes);
+            $tmp = ($li->attributes);
+            $key = explode('|',$tmp['keywords']);
+            $tmp['keywords'] = $key;
+            $l2[] = $tmp;
         }
         $data['list'] = $l2;
         $this->data['data'] = $data;
