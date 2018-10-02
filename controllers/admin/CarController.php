@@ -29,7 +29,10 @@ class CarController extends AController
         $model = Brand::findOne($this->post['id']);
         if(!$model) return $this->json(404,'没有找到该车型');
         $this->data['data'] = $model->attributes;
-        $key = explode('|',$model->keywords);
+        if(empty($model->keywords))
+            $key = [];
+        else
+            $key = explode('|',$model->keywords);
         $this->data['data']['keywords'] = $key;
         return $this->json();
     }
@@ -82,7 +85,10 @@ class CarController extends AController
         $l2 = [];
         foreach($list as $li){
             $tmp = ($li->attributes);
-            $key = explode('|',$tmp['keywords']);
+            if(empty($li->keywords))
+                $key = [];
+            else
+                $key = explode('|',$tmp['keywords']);
             $tmp['keywords'] = $key;
             $l2[] = $tmp;
         }
@@ -100,7 +106,10 @@ class CarController extends AController
         $l2 = [];
         foreach($list as $li){
             $tmp = ($li->attributes);
-            $key = explode('|',$tmp['keywords']);
+            if(empty($li->keywords))
+                $key = [];
+            else
+                $key = explode('|',$tmp['keywords']);
             $tmp['keywords'] = $key;
             $l2[] = $tmp;
         }
