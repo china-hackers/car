@@ -70,7 +70,7 @@ class CarController extends AController
         $data = ['total'=>intval($count)];
         $l2 = [];
         foreach($list as $li){
-            $l2[] = array_filter($li->attributes);
+            $l2[] = ($li->attributes);
         }
         $data['list'] = $l2;
         $this->data['data'] = $data;
@@ -85,7 +85,7 @@ class CarController extends AController
         $data = ['total'=>intval($count)];
         $l2 = [];
         foreach($list as $li){
-            $l2[] = array_filter($li->attributes);
+            $l2[] = ($li->attributes);
         }
         $data['list'] = $l2;
         $this->data['data'] = $data;
