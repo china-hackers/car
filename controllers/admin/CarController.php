@@ -11,6 +11,8 @@ class CarController extends AController
     public function actionAdd(){
         $model = new Brand();
         $model->attributes = $this->post;
+        $keyword = implode("|",$this->post['keywords']);
+        $model->keywords = $keyword;
         if($model->save()){
             return $this->json();
         }else{
