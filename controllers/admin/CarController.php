@@ -23,6 +23,15 @@ class CarController extends AController
         }
     }
 
+    public function actionCar(){
+        $model = Brand::findOne($this->post['id']);
+        if(!$model) return $this->json(404,'没有找到该车型');
+        $this->data['data'] = $model->attributes;
+        $key = explode('|',$model->keywords);
+        $this->data['data']['keywords'] = $key;
+        return $this->json();
+    }
+
     public function actionEdit(){
         $model = Brand::findOne($this->post['id']);
         if(!$model) return $this->json(404,'没有找到该车型');
