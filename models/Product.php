@@ -10,22 +10,18 @@ use Yii;
  * @property int $id
  * @property int $car_id
  * @property string $title
- * @property string $note
- * @property string $price 总价
- * @property string $guid_price 官方指导价
- * @property string $down_payment 首付
- * @property int $month_payment 月供
- * @property string $itype
+ * @property string $price 卖价
+ * @property string $price_new 新车价
+ * @property string $tax 购置税
  * @property int $business_id
  * @property int $user_id
- * @property string $voice
- * @property string $city 归属地
+ * @property string $reg_date 上牌时间
+ * @property int $city_id 归属地
  * @property string $km 公里数
  * @property string $emission_std 排放标准
- * @property string $gear_box 变速箱
- * @property string $color 颜色
- * @property string $overdue 年检到期时间
- * @property string $summary 车辆描述
+ * @property string $itype 类型
+ *
+ * @property Brand $car
  */
 class Product extends \yii\db\ActiveRecord
 {
@@ -43,14 +39,13 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['car_id', 'month_payment', 'business_id', 'user_id'], 'integer'],
-            [['price', 'down_payment'], 'number'],
+            [['car_id', 'business_id', 'user_id', 'city_id'], 'integer'],
+            [['price', 'price_new', 'tax'], 'number'],
             [['business_id', 'user_id'], 'required'],
-            [['summary'], 'string'],
             [['title'], 'string', 'max' => 250],
-            [['note', 'voice'], 'string', 'max' => 200],
-            [['guid_price'], 'string', 'max' => 100],
-            [['itype', 'city', 'km', 'emission_std', 'gear_box', 'color', 'overdue'], 'string', 'max' => 20],
+            [['reg_date', 'km', 'emission_std'], 'string', 'max' => 20],
+            [['itype'], 'string', 'max' => 10],
+            [['car_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::className(), 'targetAttribute' => ['car_id' => 'id']],
         ];
     }
 
@@ -63,22 +58,28 @@ class Product extends \yii\db\ActiveRecord
             'id' => 'ID',
             'car_id' => 'Car ID',
             'title' => 'Title',
-            'note' => 'Note',
             'price' => 'Price',
-            'guid_price' => 'Guid Price',
-            'down_payment' => 'Down Payment',
-            'month_payment' => 'Month Payment',
-            'itype' => 'Itype',
+            'price_new' => 'Price New',
+            'tax' => 'Tax',
             'business_id' => 'Business ID',
             'user_id' => 'User ID',
-            'voice' => 'Voice',
-            'city' => 'City',
+            'reg_date' => 'Reg Date',
+            'city_id' => 'City ID',
             'km' => 'Km',
             'emission_std' => 'Emission Std',
-            'gear_box' => 'Gear Box',
-            'color' => 'Color',
-            'overdue' => 'Overdue',
-            'summary' => 'Summary',
+            'itype' => 'Itype',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCar()
+    {
+        return $this->hasOne(Brand::className(), ['id' => 'car_id']);
+    }
+
+    public function getCity(){
+        return $this->hasOne(City::className(),['id'=>'city_id']);
     }
 }
