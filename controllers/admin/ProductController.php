@@ -231,7 +231,7 @@ class ProductController extends AController
             foreach($list as $key=>$value){
                 $msg .= $value;
             }
-            return $this->json($code,$msg);
+            return $this->json(402,$msg);
         }
     }
 
