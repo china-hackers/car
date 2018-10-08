@@ -36,4 +36,26 @@ class CityController extends MController{
         $this->data['data'] = $data;
         return $this->json();
     }
+
+    public function actionCities(){
+        $data = [];
+        $list = City::find()->where('parent_id=0')->all();
+        foreach($list as $li){
+            $d1 = ['value'=>'','label'=>'','children'=>[]];
+            $d1['value'] = $li->id;
+            $d1['label'] = $li->name;
+            $list2 = City::find()->where('parent_id='.$li->id)->all();
+            $child = [];
+            foreach($list2 as $l2){
+                $d2 = [];
+                $d2['value']=$l2->id;
+                $d2['label']=$l2->name;
+                $child[] = $d2;
+            }
+            $d1['children'] = $child;
+            $data[] = $d1;
+        }
+        $this->data['data']=$data;
+        return $this->json();
+    }
 }

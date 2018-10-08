@@ -255,6 +255,7 @@ class ProductController extends AController
         }
         $model->attributes = $this->post;
         if($model->save()){
+            $this->data['data']['id'] = $model->id;
             return $this->json();
         }else{
             $list = $model->getFirstErrors();
