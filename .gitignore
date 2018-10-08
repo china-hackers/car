@@ -1,5 +1,5 @@
 web/assets/
 *.DS_Store
 .idea/
-web/uploads/
+web/upload/
 web/index.*
