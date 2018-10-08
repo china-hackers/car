@@ -16,8 +16,8 @@ use app\models\ProductImg;
 class ProductController extends AController
 {
     public function actionImgsave(){
-        if ($this->post['id']) {
-            $model = ProductImg::find()->where('pid='.$this->post['id'])->one();
+        $model = ProductImg::find()->where('pid='.$this->post['id'])->one();
+        if ($model) {
         }else{
             $model = new ProductImg();
         }
@@ -50,8 +50,8 @@ class ProductController extends AController
     }
 
     public function actionTaxsave(){
-        if ($this->post['id']) {
-            $model = ProductTax::find()->where('pid='.$this->post['id'])->one();
+        $model = ProductTax::find()->where('pid='.$this->post['id'])->one();
+        if ($model) {
         }else{
             $model = new ProductTax();
         }
@@ -80,8 +80,8 @@ class ProductController extends AController
     }
 
     public function actionTyresave(){
-        if ($this->post['id']) {
-            $model = ProductTyre::find()->where('pid='.$this->post['id'])->one();
+        $model = ProductTyre::find()->where('pid='.$this->post['id'])->one();
+        if ($model) {
         }else{
             $model = new ProductTyre();
         }
@@ -110,8 +110,8 @@ class ProductController extends AController
     }
 
     public function actionUndersave(){
-        if ($this->post['id']) {
-            $model = ProductUnder::find()->where('pid='.$this->post['id'])->one();
+        $model = ProductUnder::find()->where('pid='.$this->post['id'])->one();
+        if ($model) {
         }else{
             $model = new ProductUnder();
         }
@@ -202,8 +202,8 @@ class ProductController extends AController
 
     public function actionBasesave()
     {
-        if ($this->post['id']) {
-            $model = ProductBase::findOne($this->post['id']);
+        $model = ProductBase::find()->where('pid='.$this->post['id'])->one();
+        if ($model) {
         }else{
             $model = new ProductBase();
         }
@@ -224,7 +224,7 @@ class ProductController extends AController
 
     public function actionBase(){
         if(empty($this->post['id'])) return $this->json(404,'商品ID不能为空');
-        $model = ProductBase::findOne($this->post['id']);
+        $model = ProductBase::find()->where('pid='.$this->post['id'])->one();
         if(empty($model)) return $this->json(404,'没有找到该商品');
         $this->data['data'] = $model->attributes;
         unset($this->data['data']['id']);

@@ -38,22 +38,28 @@ class CityController extends MController{
     }
 
     public function actionCities(){
-        $data = [];
-        $list = City::find()->where('parent_id=0')->all();
-        foreach($list as $li){
-            $d1 = ['value'=>'','label'=>''];
-            $d1['value'] = $li->id;
-            $d1['label'] = $li->name;
-            $list2 = City::find()->where('parent_id='.$li->id)->all();
-            $child = [];
-            foreach($list2 as $l2){
-                $d2 = [];
-                $d2['value']=$l2->id;
-                $d2['label']=$l2->name;
-                $child[] = $d2;
+        $cache = \Yii::$app->cache;
+        if($cache->exists('city')){
+            $data = $cache->get('city');
+        }else {
+            $data = [];
+            $list = City::find()->where('parent_id=0')->all();
+            foreach ($list as $li) {
+                $d1 = ['value' => '', 'label' => ''];
+                $d1['value'] = $li->id;
+                $d1['label'] = $li->name;
+                $list2 = City::find()->where('parent_id=' . $li->id)->all();
+                $child = [];
+                foreach ($list2 as $l2) {
+                    $d2 = [];
+                    $d2['value'] = $l2->id;
+                    $d2['label'] = $l2->name;
+                    $child[] = $d2;
+                }
+                if ($child) $d1['children'] = $child;
+                $data[] = $d1;
             }
-            if($child) $d1['children'] = $child;
-            $data[] = $d1;
+            $cache->add('city',$data);
         }
         $this->data['data']=$data;
         return $this->json();

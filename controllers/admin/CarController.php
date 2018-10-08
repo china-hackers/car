@@ -14,6 +14,8 @@ class CarController extends AController
         $keyword = implode("|",$this->post['keywords']);
         $model->keywords = $keyword;
         if($model->save()){
+            $cache = \Yii::$app->cache;
+            $cache->delete('car');
             return $this->json();
         }else{
             $list = $model->getFirstErrors();
@@ -42,6 +44,8 @@ class CarController extends AController
         if(!$model) return $this->json(404,'没有找到该车型');
         $model->attributes = $this->post;
         if($model->save()){
+            $cache = \Yii::$app->cache;
+            $cache->delete('car');
             return $this->json();
         }else{
             $list = $model->getFirstErrors();
@@ -115,6 +119,44 @@ class CarController extends AController
         }
         $data['list'] = $l2;
         $this->data['data'] = $data;
+        return $this->json();
+    }
+
+    public function actionCars(){
+        $cache = \Yii::$app->cache;
+        if($cache->exists('car')){
+            $data = $cache->get('car');
+        }else {
+            $data = [];
+            $list = Brand::find()->groupBy('letter')->all();
+            foreach ($list as $li) {
+                $d1 = ['value' => '', 'label' => ''];
+                $d1['value'] = $li->letter;
+                $d1['label'] = $li->letter;
+                $list2 = Brand::find()->where('letter="' . $li->letter . '"')->groupBy('brand')->all();
+                $child = [];
+                foreach ($list2 as $l2) {
+                    $d2 = [];
+                    $d2['value'] = $l2->brand;
+                    $d2['label'] = $l2->brand;
+                    $child[] = $d2;
+                    $list3 = Brand::find()->where('brand="' . $li->brand . '"')->all();
+                    $child2 = [];
+                    foreach ($list3 as $l3) {
+                        $d3 = [];
+                        $d3['value'] = $l3->id;
+                        $d3['label'] = $l3->model;
+                        $child2[] = $d3;
+                    }
+                    if ($child2) $d2['children'] = $child2;
+                    $data2[] = $d2;
+                }
+                if ($child) $d1['children'] = $d2;
+                $data[] = $d1;
+            }
+            $cache->add('car',$data);
+        }
+        $this->data['data']=$data;
         return $this->json();
     }
 
