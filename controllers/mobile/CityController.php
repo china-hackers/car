@@ -41,7 +41,7 @@ class CityController extends MController{
         $data = [];
         $list = City::find()->where('parent_id=0')->all();
         foreach($list as $li){
-            $d1 = ['value'=>'','label'=>'','children'=>[]];
+            $d1 = ['value'=>'','label'=>''];
             $d1['value'] = $li->id;
             $d1['label'] = $li->name;
             $list2 = City::find()->where('parent_id='.$li->id)->all();
@@ -52,7 +52,7 @@ class CityController extends MController{
                 $d2['label']=$l2->name;
                 $child[] = $d2;
             }
-            $d1['children'] = $child;
+            if($child) $d1['children'] = $child;
             $data[] = $d1;
         }
         $this->data['data']=$data;

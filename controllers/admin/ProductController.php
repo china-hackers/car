@@ -17,10 +17,8 @@ class ProductController extends AController
 {
     public function actionImgsave(){
         if ($this->post['id']) {
-            $code = 402;
             $model = ProductImg::find()->where('pid='.$this->post['id'])->one();
         }else{
-            $code = 401;
             $model = new ProductImg();
         }
         $model->attributes = $this->post;
@@ -32,7 +30,7 @@ class ProductController extends AController
             foreach($list as $key=>$value){
                 $msg .= $value;
             }
-            return $this->json($code,$msg);
+            return $this->json(402,$msg);
         }
     }
 
@@ -53,10 +51,8 @@ class ProductController extends AController
 
     public function actionTaxsave(){
         if ($this->post['id']) {
-            $code = 402;
             $model = ProductTax::find()->where('pid='.$this->post['id'])->one();
         }else{
-            $code = 401;
             $model = new ProductTax();
         }
         @$this->post['pid'] = $this->post['id'];
@@ -70,7 +66,7 @@ class ProductController extends AController
             foreach($list as $key=>$value){
                 $msg .= $value;
             }
-            return $this->json($code,$msg);
+            return $this->json(402,$msg);
         }
     }
 
@@ -85,10 +81,8 @@ class ProductController extends AController
 
     public function actionTyresave(){
         if ($this->post['id']) {
-            $code = 402;
             $model = ProductTyre::find()->where('pid='.$this->post['id'])->one();
         }else{
-            $code = 401;
             $model = new ProductTyre();
         }
         @$this->post['pid'] = $this->post['id'];
@@ -102,7 +96,7 @@ class ProductController extends AController
             foreach($list as $key=>$value){
                 $msg .= $value;
             }
-            return $this->json($code,$msg);
+            return $this->json(402,$msg);
         }
     }
 
@@ -117,10 +111,8 @@ class ProductController extends AController
 
     public function actionUndersave(){
         if ($this->post['id']) {
-            $code = 402;
             $model = ProductUnder::find()->where('pid='.$this->post['id'])->one();
         }else{
-            $code = 401;
             $model = new ProductUnder();
         }
         @$this->post['pid'] = $this->post['id'];
@@ -134,7 +126,7 @@ class ProductController extends AController
             foreach($list as $key=>$value){
                 $msg .= $value;
             }
-            return $this->json($code,$msg);
+            return $this->json(402,$msg);
         }
     }
 
@@ -148,11 +140,9 @@ class ProductController extends AController
     }
 
     public function actionEnginesave(){
-        if ($this->post['id']) {
-            $code = 402;
-            $model = ProductEngine::find()->where('pid='.$this->post['id'])->one();
+        $model = ProductEngine::find()->where('pid='.$this->post['id'])->one();
+        if ($model) {
         }else{
-            $code = 401;
             $model = new ProductEngine();
         }
         @$this->post['pid'] = $this->post['id'];
@@ -166,7 +156,7 @@ class ProductController extends AController
             foreach($list as $key=>$value){
                 $msg .= $value;
             }
-            return $this->json($code,$msg);
+            return $this->json(402,$msg);
         }
     }
 
@@ -180,11 +170,10 @@ class ProductController extends AController
     }
 
     public function actionInfosave(){
-        if ($this->post['id']) {
-            $code = 402;
-            $model = ProductInfo::find()->where('pid='.$this->post['id'])->one();
+        $model = ProductInfo::find()->where('pid='.$this->post['id'])->one();
+        if ($model) {
+
         }else{
-            $code = 401;
             $model = new ProductInfo();
         }
         @$this->post['pid'] = $this->post['id'];
@@ -198,7 +187,7 @@ class ProductController extends AController
             foreach($list as $key=>$value){
                 $msg .= $value;
             }
-            return $this->json($code,$msg);
+            return $this->json(402,$msg);
         }
     }
 
@@ -214,10 +203,8 @@ class ProductController extends AController
     public function actionBasesave()
     {
         if ($this->post['id']) {
-            $code = 402;
             $model = ProductBase::findOne($this->post['id']);
         }else{
-            $code = 401;
             $model = new ProductBase();
         }
         @$this->post['pid'] = $this->post['id'];
