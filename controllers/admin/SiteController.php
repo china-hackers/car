@@ -5,10 +5,27 @@ namespace app\controllers\admin;
 
 use app\controllers\base\BaseController;
 use app\models\Admin;
+use app\models\UploadModel;
+use yii\web\UploadedFile;
 use Yii;
 
 class SiteController extends BaseController
 {
+
+    public function actionProductimg(){
+        $this->layout = false;
+        $model = new UploadModel();
+        if (Yii::$app->request->isPost) {
+            $model->images = UploadedFile::getInstances($model, 'images');
+            $list = $model->upload();
+            if (count($list)) {
+                $this->data['data'] = $list;
+                return $this->json();
+            }else{
+                return $this->json(401,'上传图片失败');
+            }
+        }
+    }
 
     public function actionIndex(){
         $this->layout = false;
