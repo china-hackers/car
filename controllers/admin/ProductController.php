@@ -277,7 +277,7 @@ class ProductController extends AController
         $tmp = [];
         $tmp[] = ['type'=>'letter','value'=>$car->letter];
         $tmp[] = ['type'=>'brand','value'=>$car->brand];
-        $tmp[] = ['type'=>'model','value'=>$car->model];
+        $tmp[] = ['type'=>'model','value'=>$car->id];
         $this->data['data']['car'] = $tmp;
         return $this->json();
     }
