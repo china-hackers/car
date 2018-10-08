@@ -262,15 +262,10 @@ class ProductController extends AController
         $this->data['data']['business'] = $model->business->name;
         $this->data['data']['user'] = $model->user->name;
         $car = $model->car;
-        $tmp = [];
-        $tmp[] = ['type'=>'letter','value'=>$car->letter];
-        $tmp[] = ['type'=>'brand','value'=>$car->brand];
-        $tmp[] = ['type'=>'model','value'=>$car->id];
+        $tmp = [$car->letter,$car->brand,$car->id];
         $this->data['data']['car'] = $tmp;
         $city = $model->city;
-        $tmp = [];
-        $tmp[] = ['type'=>'province','value'=>$city->parent_id];
-        $tmp[] = ['type'=>'city','value'=>$city->id];
+        $tmp = [$city->parent_id,$city->id];
         $this->data['data']['city'] = $tmp;
         return $this->json();
     }
