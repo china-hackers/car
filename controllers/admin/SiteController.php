@@ -22,7 +22,7 @@ class SiteController extends BaseController
             if (count($list)) {
                 foreach($list as $li){
                     $img = new ProductImg();
-                    $img->pid = $this->post['id'];
+                    $img->pid = $_POST['id'];
                     $img->img = $li;
                     $img->save();
                 }
