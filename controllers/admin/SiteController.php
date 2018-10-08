@@ -5,6 +5,7 @@ namespace app\controllers\admin;
 
 use app\controllers\base\BaseController;
 use app\models\Admin;
+use app\models\ProductImg;
 use app\models\UploadModel;
 use yii\web\UploadedFile;
 use Yii;
@@ -19,6 +20,12 @@ class SiteController extends BaseController
             $model->images = UploadedFile::getInstances($model, 'images');
             $list = $model->upload();
             if (count($list)) {
+                foreach($list as $li){
+                    $img = new ProductImg();
+                    $img->pid = $this->post['id'];
+                    $img->img = $li;
+                    $img->save();
+                }
                 $this->data['data'] = $list;
                 return $this->json();
             }else{
