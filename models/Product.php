@@ -74,9 +74,16 @@ class Product extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCar()
-    {
+    public function getCar(){
         return $this->hasOne(Brand::className(), ['id' => 'car_id']);
+    }
+
+    public function getBusiness(){
+        return $this->hasOne(Business::className(), ['id' => 'business_id']);
+    }
+
+    public function getUser(){
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     public function getCity(){

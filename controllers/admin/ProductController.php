@@ -271,6 +271,14 @@ class ProductController extends AController
         $model = Product::findOne($this->post['id']);
         if(empty($model)) return $this->json(404,'没有找到该商品');
         $this->data['data'] = $model->attributes;
+        $this->data['data']['business'] = $model->business->name;
+        $this->data['data']['user'] = $model->user->name;
+        $car = $model->car;
+        $tmp = [];
+        $tmp[] = ['type'=>'letter','value'=>$car->letter];
+        $tmp[] = ['type'=>'brand','value'=>$car->brand];
+        $tmp[] = ['type'=>'model','value'=>$car->model];
+        $this->data['data']['car'] = $tmp;
         return $this->json();
     }
 
