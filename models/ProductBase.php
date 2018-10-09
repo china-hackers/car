@@ -21,6 +21,7 @@ use Yii;
  * @property int $doors 门数
  * @property int $chairs 座位数
  * @property string $wheel 轮毂材质
+ * @property string $model 车型
  */
 class ProductBase extends \yii\db\ActiveRecord
 {
@@ -38,9 +39,10 @@ class ProductBase extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['pid'], 'required'],
             [['pid', 'length', 'width', 'hight', 'wheelbase', 'capacity', 'weight', 'doors', 'chairs'], 'integer'],
             [['color'], 'string', 'max' => 10],
-            [['gear_box', 'wheel'], 'string', 'max' => 20],
+            [['gear_box', 'wheel', 'model'], 'string', 'max' => 20],
             [['gear_model'], 'string', 'max' => 50],
         ];
     }
@@ -65,6 +67,7 @@ class ProductBase extends \yii\db\ActiveRecord
             'doors' => 'Doors',
             'chairs' => 'Chairs',
             'wheel' => 'Wheel',
+            'model' => 'Model',
         ];
     }
 }

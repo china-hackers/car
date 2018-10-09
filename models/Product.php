@@ -39,11 +39,11 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['car_id', 'business_id', 'user_id', 'city_id'], 'integer'],
+            [['car_id', 'business_id', 'user_id', 'city_id', 'km'], 'integer'],
             [['price', 'price_new', 'tax'], 'number'],
             [['business_id', 'user_id'], 'required'],
             [['title'], 'string', 'max' => 250],
-            [['reg_date', 'km', 'emission_std'], 'string', 'max' => 20],
+            [['reg_date',  'emission_std'], 'string', 'max' => 20],
             [['itype'], 'string', 'max' => 10],
             [['car_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::className(), 'targetAttribute' => ['car_id' => 'id']],
         ];
