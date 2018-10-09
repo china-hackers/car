@@ -11,7 +11,7 @@ use Yii;
  * @property int $pid
  * @property int $length
  * @property int $width
- * @property int $hight
+ * @property int $height
  * @property int $wheelbase 轴距
  * @property int $capacity 后备箱容量
  * @property int $weight 整备质量
@@ -40,7 +40,7 @@ class ProductBase extends \yii\db\ActiveRecord
     {
         return [
             [['pid'], 'required'],
-            [['pid', 'length', 'width', 'hight', 'wheelbase', 'capacity', 'weight', 'doors', 'chairs'], 'integer'],
+            [['pid', 'length', 'width', 'height', 'wheelbase', 'capacity', 'weight', 'doors', 'chairs'], 'integer'],
             [['color'], 'string', 'max' => 10],
             [['gear_box', 'wheel', 'model'], 'string', 'max' => 20],
             [['gear_model'], 'string', 'max' => 50],
@@ -57,7 +57,7 @@ class ProductBase extends \yii\db\ActiveRecord
             'pid' => 'Pid',
             'length' => 'Length',
             'width' => 'Width',
-            'hight' => 'Hight',
+            'height' => 'Height',
             'wheelbase' => 'Wheelbase',
             'capacity' => 'Capacity',
             'weight' => 'Weight',
