@@ -124,7 +124,6 @@ class CarController extends AController
 
     public function actionCars(){
         $cache = \Yii::$app->cache;
-        $cache->delete('cars');
         if($cache->exists('cars')){
             $data = $cache->get('cars');
         }else {
