@@ -124,8 +124,8 @@ class CarController extends AController
 
     public function actionCars(){
         $cache = \Yii::$app->cache;
-        if($cache->exists('car')){
-            $data = $cache->get('car');
+        if($cache->exists('cars')){
+            $data = $cache->get('cars');
         }else {
             $data = [];
             $list = Brand::find()->groupBy('letter')->all();
@@ -151,10 +151,10 @@ class CarController extends AController
                     if ($child2) $d2['children'] = $child2;
                     $data2[] = $d2;
                 }
-                if ($child) $d1['children'] = $d2;
+                if ($child) $d1['children'] = $data2;
                 $data[] = $d1;
             }
-            $cache->add('car',$data);
+            $cache->add('cars',$data);
         }
         $this->data['data']=$data;
         return $this->json();
