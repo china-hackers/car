@@ -19,7 +19,7 @@ use Yii;
  * @property int $business_id 所属车商
  * @property int $is_manager 是否管理员
  * @property int $id_card 身份证号
- * @property int $uid 推荐人ID
+ * @property int $rid 推荐人ID
  */
 class User extends \yii\db\ActiveRecord
 {
@@ -38,7 +38,7 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['avator'], 'required'],
-            [['city_id', 'is_checked', 'business_id', 'is_manager', 'id_card', 'uid'], 'integer'],
+            [['city_id', 'is_checked', 'business_id', 'is_manager', 'id_card', 'rid'], 'integer'],
             [['nick'], 'string', 'max' => 50],
             [['avator', 'open_id'], 'string', 'max' => 250],
             [['name'], 'string', 'max' => 30],
@@ -65,7 +65,7 @@ class User extends \yii\db\ActiveRecord
             'business_id' => 'Business ID',
             'is_manager' => 'Is Manager',
             'id_card' => 'Id Card',
-            'uid' => 'Uid',
+            'rid' => 'Rid',
         ];
     }
 }

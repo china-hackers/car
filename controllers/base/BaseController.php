@@ -33,4 +33,13 @@ class BaseController extends Controller
         $this->data['message'] = $this->error[$code].$msg;
         Yii::$app->response->content = json_encode($this->data);
     }
+
+    protected function error($model,$code=401){
+        $list = $model->getFirstErrors();
+        $msg = '';
+        foreach($list as $key=>$value){
+            $msg .= $value;
+        }
+        return $this->json($code,$msg);
+    }
 }

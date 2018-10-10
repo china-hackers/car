@@ -5,6 +5,7 @@ namespace app\controllers\base;
 
 class MController extends BaseController
 {
+    public $uid = 1;
 
     public function beforeAction($action){
         $this->layout = false;

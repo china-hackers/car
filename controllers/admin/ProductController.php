@@ -15,24 +15,6 @@ use app\models\ProductImg;
 
 class ProductController extends AController
 {
-    public function actionImgsave(){
-        $model = ProductImg::find()->where('pid='.$this->post['id'])->one();
-        if ($model) {
-        }else{
-            $model = new ProductImg();
-        }
-        $model->attributes = $this->post;
-        if($model->save()){
-            return $this->json();
-        }else{
-            $list = $model->getFirstErrors();
-            $msg = '';
-            foreach($list as $key=>$value){
-                $msg .= $value;
-            }
-            return $this->json(402,$msg);
-        }
-    }
 
     public function actionImg(){
         if(empty($this->post['id'])) return $this->json(404,'商品ID不能为空');
@@ -61,12 +43,7 @@ class ProductController extends AController
         if($model->save()){
             return $this->json();
         }else{
-            $list = $model->getFirstErrors();
-            $msg = '';
-            foreach($list as $key=>$value){
-                $msg .= $value;
-            }
-            return $this->json(402,$msg);
+            return $this->error($model,402);
         }
     }
 
@@ -91,12 +68,7 @@ class ProductController extends AController
         if($model->save()){
             return $this->json();
         }else{
-            $list = $model->getFirstErrors();
-            $msg = '';
-            foreach($list as $key=>$value){
-                $msg .= $value;
-            }
-            return $this->json(402,$msg);
+            return $this->error($model,402);
         }
     }
 
@@ -121,12 +93,7 @@ class ProductController extends AController
         if($model->save()){
             return $this->json();
         }else{
-            $list = $model->getFirstErrors();
-            $msg = '';
-            foreach($list as $key=>$value){
-                $msg .= $value;
-            }
-            return $this->json(402,$msg);
+            return $this->error($model,402);
         }
     }
 
@@ -151,12 +118,7 @@ class ProductController extends AController
         if($model->save()){
             return $this->json();
         }else{
-            $list = $model->getFirstErrors();
-            $msg = '';
-            foreach($list as $key=>$value){
-                $msg .= $value;
-            }
-            return $this->json(402,$msg);
+            return $this->error($model,402);
         }
     }
 
@@ -182,12 +144,7 @@ class ProductController extends AController
         if($model->save()){
             return $this->json();
         }else{
-            $list = $model->getFirstErrors();
-            $msg = '';
-            foreach($list as $key=>$value){
-                $msg .= $value;
-            }
-            return $this->json(402,$msg);
+            return $this->error($model,402);
         }
     }
 
@@ -213,12 +170,7 @@ class ProductController extends AController
         if($model->save()){
             return $this->json();
         }else{
-            $list = $model->getFirstErrors();
-            $msg = '';
-            foreach($list as $key=>$value){
-                $msg .= $value;
-            }
-            return $this->json(402,$msg);
+            return $this->error($model,402);
         }
     }
 
@@ -245,12 +197,7 @@ class ProductController extends AController
             $this->data['data']['id'] = $model->id;
             return $this->json();
         }else{
-            $list = $model->getFirstErrors();
-            $msg = '';
-            foreach($list as $key=>$value){
-                $msg .= $value;
-            }
-            return $this->json($code,$msg);
+            return $this->error($model,$code);
         }
     }
 

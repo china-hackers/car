@@ -54,12 +54,7 @@ class RoleController extends AController
             }
             return $this->json();
         }else{
-            $list = $model->getFirstErrors();
-            $msg = '';
-            foreach($list as $key=>$value){
-                $msg .= $value;
-            }
-            return $this->json(401,$msg);
+            return $this->error($model);
         }
     }
 
@@ -95,12 +90,7 @@ class RoleController extends AController
             }
             return $this->json();
         }else{
-            $list = $model->getFirstErrors();
-            $msg = '';
-            foreach($list as $key=>$value){
-                $msg .= $value;
-            }
-            return $this->json(402,$msg);
+            return $this->error($model,402);
         }
     }
 
