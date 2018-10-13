@@ -26,7 +26,7 @@ class SiteController extends BaseController
                     $img->pid = $_POST['id'];
                     $img->img = $li;
                     $img->save();
-                    $data[] = [$img->id => $li];
+                    $data[] = [intval($img->id) , $li];
                 }
                 $this->data['data'] = $data;
                 return $this->json();
