@@ -19,14 +19,16 @@ class SiteController extends BaseController
         if (Yii::$app->request->isPost) {
             $model->images = UploadedFile::getInstances($model, 'images');
             $list = $model->upload();
+            $data = [];
             if (count($list)) {
                 foreach($list as $li){
                     $img = new ProductImg();
                     $img->pid = $_POST['id'];
                     $img->img = $li;
                     $img->save();
+                    $data[] = [$img->id => $li];
                 }
-                $this->data['data'] = $list;
+                $this->data['data'] = $data;
                 return $this->json();
             }else{
                 return $this->json(401,'上传图片失败');
