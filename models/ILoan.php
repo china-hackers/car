@@ -8,13 +8,16 @@ use Yii;
  * This is the model class for table "i_loan".
  *
  * @property int $id
- * @property string $name
- * @property string $phone
- * @property string $itype
- * @property string $created
+ * @property string $name 姓名
+ * @property string $phone 电话
+ * @property string $itype 贷款类型
+ * @property int $created
  * @property int $uid
  * @property int $is_deal
- * @property int $rid
+ * @property int $money 贷款金额
+ * @property int $years 贷款时间
+ * @property string $r_name 推荐人
+ * @property string $r_phone 推荐人电话
  */
 class ILoan extends \yii\db\ActiveRecord
 {
@@ -32,9 +35,8 @@ class ILoan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'phone', 'itype'], 'required'],
-            [['uid', 'is_deal', 'rid'], 'integer'],
-            [['name', 'phone', 'itype', 'created'], 'string', 'max' => 20],
+            [['created', 'uid', 'is_deal', 'money', 'years'], 'integer'],
+            [['name', 'phone', 'itype', 'r_name', 'r_phone'], 'string', 'max' => 20],
         ];
     }
 
@@ -45,13 +47,16 @@ class ILoan extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'phone' => 'Phone',
-            'itype' => 'Itype',
+            'name' => '姓名',
+            'phone' => '电话',
+            'itype' => '贷款类型',
             'created' => 'Created',
             'uid' => 'Uid',
             'is_deal' => 'Is Deal',
-            'rid' => 'Rid',
+            'money' => '贷款金额',
+            'years' => '贷款时间',
+            'r_name' => '推荐人',
+            'r_phone' => '推荐人电话',
         ];
     }
 }
