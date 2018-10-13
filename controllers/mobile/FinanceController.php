@@ -10,17 +10,22 @@ namespace app\controllers\mobile;
 
 use app\models\ILoan;
 use app\models\ISafe;
-use app\models\User;
 use app\controllers\base\MController;
 
 class FinanceController extends MController{
 
+    public function actionLoan(){
+        if(empty($this->post['id'])) return $this->json(404,'ID不能为空');
+        $model = ILoan::findOne($this->post['id']);
+        if(!$model) return $this->json(404,'没有找到该车贷');
+        $this->data['data'] = $model->attributes;
+        return $this->json();
+    }
+
     public function actionLoanadd(){
         $model = new ILoan();
         $model->attributes = $this->post;
-        $model->uid = $this->uid;
-        $user = User::findOne($this->uid);
-        $model->rid = $user->rid;
+        $model->created = time();
         if($model->save()){
             return $this->json();
         }else{

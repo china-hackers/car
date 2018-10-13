@@ -16,6 +16,13 @@ use app\models\ProductImg;
 class ProductController extends AController
 {
 
+    public function actionImgdelete(){
+        if(empty($this->post['img_id'])) return $this->json(404,'图片ID不能为空');
+        $model = ProductImg::findOne($this->post['img_id']);
+        if($model) $model->delete();
+        return $this->json();
+    }
+
     public function actionImg(){
         if(empty($this->post['id'])) return $this->json(404,'商品ID不能为空');
         $list = ProductImg::find()->where('pid='.$this->post['id'])->all();
