@@ -11,26 +11,16 @@ use app\models\ISafeLog;
 class FinanceController extends AController
 {
 
+
     public function actionLoanlist(){
         $p = @$this->post['p']?$this->post['p']:1;
-        $count = ILoan::find()->count();
-        $list = ILoan::find()->offset(($p-1)*20)->limit(20)->all();
-        $data = ['total'=>intval($count)];
-        $l2 = [];
-        foreach($list as $li){
-            $tmp = $li->attributes;
-            $l2[] = $tmp;
+        if($this->post['name']) {
+            $count = ILoan::find()->where('name like "%' . $this->post['name'] . '%"')->count();
+            $list = ILoan::find()->where('name like "%' . $this->post['name'] . '%"')->offset(($p - 1) * 20)->limit(20)->all();
+        }else{
+            $count = ILoan::find()->count();
+            $list = ILoan::find()->offset(($p-1)*20)->limit(20)->all();
         }
-        $data['list'] = $l2;
-        $this->data['data'] = $data;
-        return $this->json();
-    }
-
-    public function actionLoansearch(){
-        if(empty($this->post['name'])) return $this->json(404,'姓名不能为空');
-        $p = @$this->post['p']?$this->post['p']:1;
-        $count = ILoan::find()->where('name like "%'.$this->post['name'].'%"')->count();
-        $list = ILoan::find()->where('name like "%'.$this->post['name'].'%"')->offset(($p-1)*20)->limit(20)->all();
         $data = ['total'=>intval($count)];
         $l2 = [];
         foreach($list as $li){
