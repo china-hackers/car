@@ -33,8 +33,8 @@ class ISafe extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['is_deal', 'uid'], 'integer'],
-            [['name', 'phone', 'car_no', 'option', 'created'], 'string', 'max' => 20],
+            [['is_deal', 'uid', 'created'], 'integer'],
+            [['name', 'phone', 'car_no', 'option'], 'string', 'max' => 20],
             [['driver_card'], 'string', 'max' => 200],
         ];
     }
