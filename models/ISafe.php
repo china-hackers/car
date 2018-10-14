@@ -10,8 +10,8 @@ use Yii;
  * @property int $id
  * @property string $name
  * @property string $phone
- * @property string $card_no
- * @property string $drive_no
+ * @property string $car_no
+ * @property string $driver_card
  * @property string $option
  * @property string $created
  * @property int $is_deal
@@ -33,9 +33,9 @@ class ISafe extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'phone', 'card_no', 'drive_no'], 'required'],
             [['is_deal', 'uid'], 'integer'],
-            [['name', 'phone', 'card_no', 'drive_no', 'option', 'created'], 'string', 'max' => 20],
+            [['name', 'phone', 'car_no', 'option', 'created'], 'string', 'max' => 20],
+            [['driver_card'], 'string', 'max' => 200],
         ];
     }
 
@@ -48,8 +48,8 @@ class ISafe extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'phone' => 'Phone',
-            'card_no' => 'Card No',
-            'drive_no' => 'Drive No',
+            'car_no' => 'Car No',
+            'driver_card' => 'Driver Card',
             'option' => 'Option',
             'created' => 'Created',
             'is_deal' => 'Is Deal',
