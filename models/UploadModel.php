@@ -30,8 +30,9 @@ class UploadModel extends Model
         return @mkdir($dir, $mode);
     }
 
-    public function upload($path='upload/product/')
+    public function upload($path='product')
     {
+        $path = 'upload/'.$path.'/';
         if ($this->validate()) {
             $list = [];
             $date = date('Y-m');
