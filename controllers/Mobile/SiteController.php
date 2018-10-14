@@ -19,7 +19,7 @@ class SiteController extends BaseController
             $model->images = UploadedFile::getInstances($model, 'images');
             $list = $model->upload('safe');
             if (count($list)) {
-                $this->data['data'] = $list;
+                $this->data['data'] = $list[0];
                 return $this->json();
             }else{
                 return $this->json(401,'上传图片失败');
