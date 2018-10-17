@@ -13,12 +13,29 @@ use Yii;
 class SiteController extends BaseController
 {
 
+    public function actionBannerimg(){
+        $this->layout = false;
+        $model = new UploadModel();
+        if (Yii::$app->request->isPost) {
+            $model->image = UploadedFile::getInstance($model, 'image');
+            $path = $model->upload('banner');
+            if ($path) {
+                $this->data['data'][] = $path;
+                return $this->json();
+            }else{
+                return $this->json(401,'上传图片失败');
+            }
+        }else{
+            return $this->json(401,'未提交内容');
+        }
+    }
+
     public function actionProductimg(){
         $this->layout = false;
         $model = new UploadModel();
         if (Yii::$app->request->isPost) {
             $model->images = UploadedFile::getInstances($model, 'images');
-            $list = $model->upload();
+            $list = $model->uploads();
             $data = [];
             if (count($list)) {
                 foreach($list as $li){
