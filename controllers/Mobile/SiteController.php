@@ -16,10 +16,10 @@ class SiteController extends BaseController
         $this->layout = false;
         $model = new UploadModel();
         if (Yii::$app->request->isPost) {
-            $model->images = UploadedFile::getInstances($model, 'images');
-            $list = $model->uploads('safe');
-            if (count($list)) {
-                $this->data['data'] = $list[0];
+            $model->image = UploadedFile::getInstances($model, 'image');
+            $path = $model->upload('safe');
+            if ($path) {
+                $this->data['data'][] = $path;
                 return $this->json();
             }else{
                 return $this->json(401,'上传图片失败');
