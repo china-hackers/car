@@ -47,6 +47,10 @@ class ProductController extends AController
         @$this->post['pid'] = $this->post['id'];
         unset($this->post['id']);
         $model->attributes = $this->post;
+        $product = Product::findOne($this->post['pid']);
+        $product->shoufu = $model->shoufu;
+        $product->yuegong = $model->yuegong;
+        $product->save();
         if($model->save()){
             return $this->json();
         }else{
@@ -122,6 +126,10 @@ class ProductController extends AController
         @$this->post['pid'] = $this->post['id'];
         unset($this->post['id']);
         $model->attributes = $this->post;
+        $product = Product::findOne($this->post['pid']);
+        $product->displacement = $model->displacement;
+        $product->air_in = $model->air_in;
+        $product->save();
         if($model->save()){
             return $this->json();
         }else{
@@ -174,6 +182,9 @@ class ProductController extends AController
         @$this->post['pid'] = $this->post['id'];
         unset($this->post['id']);
         $model->attributes = $this->post;
+        $product = Product::findOne($this->post['pid']);
+        $product->gear_box = $model->gear_box;
+        $product->save();
         if($model->save()){
             return $this->json();
         }else{
@@ -200,6 +211,8 @@ class ProductController extends AController
             $model = new Product();
         }
         $model->attributes = $this->post;
+        @$car = Brand::findOne($model->car_id);
+        @$model->brand = $car->brand;
         if($model->save()){
             $this->data['data']['id'] = $model->id;
             return $this->json();
