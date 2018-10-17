@@ -16,11 +16,13 @@ class UploadModel extends Model
      * @var UploadedFile[]
      */
     public $images;
+    public $image;
 
     public function rules()
     {
         return [
-            [['images'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg', 'maxFiles' => 9],
+            [['images'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg, gif', 'maxFiles' => 9],
+            [['image'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg, gif'],
         ];
     }
 
@@ -33,7 +35,23 @@ class UploadModel extends Model
     public function upload($path='product')
     {
         $path = 'upload/'.$path.'/';
-        if ($this->validate()) {
+        if ($this->validate(['image'])) {
+            $date = date('Y-m');
+            $time = time();
+            $path .= $date.'/';
+            $this->mkdirs($path);
+            $name = $time.'.'.$this->image->extension;
+            $this->image->saveAs($path . $name);
+            return '/'.$path.$name;
+        } else {
+            return '';
+        }
+    }
+
+    public function uploads($path='product')
+    {
+        $path = 'upload/'.$path.'/';
+        if ($this->validate(['images'])) {
             $list = [];
             $date = date('Y-m');
             $time = time();
