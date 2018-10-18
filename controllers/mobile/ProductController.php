@@ -12,9 +12,100 @@ namespace app\controllers\mobile;
 use app\controllers\base\MController;
 use app\models\Brand;
 use app\models\Product;
+use app\models\ProductBase;
+use app\models\ProductEngine;
+use app\models\ProductImg;
+use app\models\ProductInfo;
+use app\models\ProductTax;
+use app\models\ProductTyre;
+use app\models\ProductUnder;
 
 class ProductController extends MController{
 
+
+    public function actionImg(){
+        if(empty($this->post['id'])) return $this->json(404,'商品ID不能为空');
+        $list = ProductImg::find()->where('pid='.$this->post['id'])->all();
+        if(empty($list)) return $this->json(404,'没有找到该商品');
+        $data = ['total'=>intval(count($list))];
+        $l2 = [];
+        foreach($list as $li){
+            $tmp = $li->attributes;
+            $l2[] = $tmp;
+        }
+        $data['list'] = $l2;
+        $this->data['data'] = $data;
+        return $this->json();
+    }
+
+    public function actionTax(){
+        if(empty($this->post['id'])) return $this->json(404,'商品ID不能为空');
+        $model = ProductTax::find()->where('pid='.$this->post['id'])->one();
+        if(empty($model)) return $this->json(404,'没有找到该商品');
+        $this->data['data'] = $model->attributes;
+        unset($this->data['data']['id']);
+        return $this->json();
+    }
+
+    public function actionTyre(){
+        if(empty($this->post['id'])) return $this->json(404,'商品ID不能为空');
+        $model = ProductTyre::find()->where('pid='.$this->post['id'])->one();
+        if(empty($model)) return $this->json(404,'没有找到该商品');
+        $this->data['data'] = $model->attributes;
+        unset($this->data['data']['id']);
+        return $this->json();
+    }
+
+    public function actionUnder(){
+        if(empty($this->post['id'])) return $this->json(404,'商品ID不能为空');
+        $model = ProductUnder::find()->where('pid='.$this->post['id'])->one();
+        if(empty($model)) return $this->json(404,'没有找到该商品');
+        $this->data['data'] = $model->attributes;
+        unset($this->data['data']['id']);
+        return $this->json();
+    }
+
+    public function actionEngine(){
+        if(empty($this->post['id'])) return $this->json(404,'商品ID不能为空');
+        $model = ProductEngine::find()->where('pid='.$this->post['id'])->one();
+        if(empty($model)) return $this->json(404,'没有找到该商品');
+        $this->data['data'] = $model->attributes;
+        unset($this->data['data']['id']);
+        return $this->json();
+    }
+
+    public function actionInfo(){
+        if(empty($this->post['id'])) return $this->json(404,'商品ID不能为空');
+        $model = ProductInfo::find()->where('pid='.$this->post['id'])->one();
+        if(empty($model)) return $this->json(404,'没有找到该商品');
+        $this->data['data'] = $model->attributes;
+        unset($this->data['data']['id']);
+        return $this->json();
+    }
+
+    public function actionBase(){
+        if(empty($this->post['id'])) return $this->json(404,'商品ID不能为空');
+        $model = ProductBase::find()->where('pid='.$this->post['id'])->one();
+        if(empty($model)) return $this->json(404,'没有找到该商品');
+        $this->data['data'] = $model->attributes;
+        unset($this->data['data']['id']);
+        return $this->json();
+    }
+    public function actionProduct(){
+        if(empty($this->post['id'])) return $this->json(404,'商品ID不能为空');
+        $model = Product::findOne($this->post['id']);
+        if(empty($model)) return $this->json(404,'没有找到该商品');
+        $this->data['data'] = $model->attributes;
+        $this->data['data']['business'] = $model->business->name;
+        $this->data['data']['user'] = $model->user->name;
+        $car = $model->car;
+        $tmp = [$car->letter,$car->brand,$car->id];
+        $this->data['data']['car'] = $tmp;
+        $city = $model->city;
+        $tmp = [$city->parent_id,$city->id];
+        $this->data['data']['city'] = $tmp;
+        return $this->json();
+    }
 
     public function actionList(){
         $p = @intval($this->post['p'])?$this->post['p']:1;
