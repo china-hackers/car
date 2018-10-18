@@ -10,7 +10,6 @@ namespace app\controllers\mobile;
 
 
 use app\controllers\base\MController;
-use app\models\Brand;
 use app\models\Product;
 use app\models\ProductBase;
 use app\models\ProductEngine;
@@ -19,9 +18,22 @@ use app\models\ProductInfo;
 use app\models\ProductTax;
 use app\models\ProductTyre;
 use app\models\ProductUnder;
+use app\models\UserStore;
 
 class ProductController extends MController{
 
+    public function actionStore(){
+        if(empty($this->post['pid'])) return $this->json(404,'商品ID不能为空');
+        $model = new UserStore();
+        $model->created = time();
+        $model->pid = $this->post['pid'];
+        $model->uid = $this->uid;
+        if($model->save()){
+            return $this->json();
+        }else{
+            return $this->error($model);
+        }
+    }
 
     public function actionImg(){
         if(empty($this->post['id'])) return $this->json(404,'商品ID不能为空');
