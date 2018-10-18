@@ -36,12 +36,12 @@ class BannerController extends AController
 
     public function actionSave()
     {
-        if($this->post['id'])
+        if(!@$this->post['id'])
             $model = new Banner();
         else
             $model = Banner::findOne($this->post['id']);
         $model->attributes = $this->post;
-        $model->outdate = strtotime($this->post['outdate']);
+        $model->outdate = @strtotime($this->post['outdate']);
         $model->created = time();
         if($model->save()) {
             return $this->json();
