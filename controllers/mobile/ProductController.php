@@ -18,7 +18,9 @@ class ProductController extends MController{
 
     public function actionList(){
         $p = @intval($this->post['p'])?$this->post['p']:1;
-        $where = '1=1';
+        $order = @$this->post['order']?$this->post['order']:'id DESC';
+        if(@$this->post['itype']) $where = 'itype="'.$this->post['itype'].'"';
+        else $where = 'itype="i尊车"';
         if(@$this->post['brand']) $where .= ' AND brand="'.$this->post['brand'].'"';
         if(@$this->post['price_from']) $where .= ' AND price>='.$this->post['price_from'];
         if(@$this->post['price_to']) $where .= ' AND price<='.$this->post['price_to'];
@@ -32,12 +34,12 @@ class ProductController extends MController{
         if(@$this->post['air_in']) $where .= ' AND air_in="'.$this->post['air_in'].'"';
         if(@$this->post['gear_box']) $where .= ' AND gear_box="'.$this->post['gear_box'].'"';
         $count = Product::find()->where($where)->count();
-        $list = Product::find()->where($where)->offset(($p-1)*20)->limit(20)->all();
+        $list = Product::find()->where($where)->orderBy($order)->offset(($p-1)*20)->limit(20)->all();
         $data = ['total'=>intval($count)];
         $l2 = [];
         foreach($list as $li){
             $tmp = $li->attributes;
-            $tmp['img'] = empty($li->city->name)?'':$li->productImg->img;
+            $tmp['img'] = empty($li->city->name)?'':@$li->productImg->img;
             $l2[] = $tmp;
         }
         $data['list'] = $l2;
