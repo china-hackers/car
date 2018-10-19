@@ -136,6 +136,7 @@ class ProductController extends MController{
         if(@$this->post['gear_box']) $where .= ' AND gear_box="'.$this->post['gear_box'].'"';
         if(@$this->post['air_in']) $where .= ' AND air_in="'.$this->post['air_in'].'"';
         if(@$this->post['gear_box']) $where .= ' AND gear_box="'.$this->post['gear_box'].'"';
+        if(@$this->post['title']) $where .= ' AND title like "%'.$this->post['title'].'%"';
         $count = Product::find()->where($where)->count();
         $list = Product::find()->where($where)->orderBy($order)->offset(($p-1)*20)->limit(20)->all();
         $data = ['total'=>intval($count)];
