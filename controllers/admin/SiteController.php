@@ -9,6 +9,7 @@ use app\models\ProductImg;
 use app\models\UploadModel;
 use yii\web\UploadedFile;
 use Yii;
+use abei2017\wx\Application;
 
 class SiteController extends BaseController
 {
@@ -75,5 +76,10 @@ class SiteController extends BaseController
         Yii::$app->session->close();
         Yii::$app->session->destroy();
         return $this->redirect('/admin/login');
+    }
+
+    public function actionWeixinMenu(){
+        $menu = (new Application())->driver("mp.menu");
+        $menu->create();
     }
 }
