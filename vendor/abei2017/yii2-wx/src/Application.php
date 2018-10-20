@@ -83,6 +83,7 @@ class Application extends Component {
         $this->httpClient = new Client([
             'transport' => 'yii\httpclient\CurlTransport',
         ]);
+        $this->conf = Yii::$app->params['wx']['mp'];
     }
 
     /**
