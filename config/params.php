@@ -24,7 +24,7 @@ return [
 
             'oauth' => [
                 'scopes'   => 'snsapi_userinfo',
-                'callback' => '',
+                'callback' => 'http://test.iamlk.cn/mobile/api/weixin',
             ],
         ],
         'mini'=>[
