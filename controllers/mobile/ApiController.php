@@ -22,7 +22,7 @@ class ApiController extends Controller
         $callback = Yii::$app->urlManager->createAbsoluteUrl(['/wechat/oauth','url'=>urlencode($url)]);
 
         $conf['oauth']['callback'] = $callback;
-        $app = new Application(['conf'=>$conf]);
+        $app = new Application();
 
         $oauth = $app->driver('mp.oauth');
         $wxLoginUser = Yii::$app->session->get('wx_login_user');
