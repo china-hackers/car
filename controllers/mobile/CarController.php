@@ -49,7 +49,8 @@ class CarController extends MController{
             foreach ($list2 as $l2) {
                 $data2[] = $l2->brand;
             }
-            $d1[$li->letter] = $data2;
+            $d1['letter'] = $li->letter;
+            $d1['list'] = $data2;
             $data[] = $d1;
         }
         $this->data['data']=$data;

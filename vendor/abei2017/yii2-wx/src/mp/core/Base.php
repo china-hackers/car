@@ -43,4 +43,10 @@ class Base extends Driver {
 
         return $data['ip_list'];
     }
+
+    public function getAccessToken(){
+        $access = new AccessToken(['conf'=>$this->conf,'httpClient'=>$this->httpClient]);
+        $accessToken = $access->getToken();
+        return $accessToken;
+    }
 }
