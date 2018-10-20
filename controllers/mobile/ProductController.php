@@ -10,6 +10,7 @@ namespace app\controllers\mobile;
 
 
 use app\controllers\base\MController;
+use app\models\Brand;
 use app\models\Product;
 use app\models\ProductBase;
 use app\models\ProductEngine;
@@ -47,6 +48,15 @@ class ProductController extends MController{
         }
         $data['list'] = $l2;
         $this->data['data'] = $data;
+        return $this->json();
+    }
+
+    public function actionKoubei(){
+        if(empty($this->post['id'])) return $this->json(404,'商品ID不能为空');
+        $model = Product::findOne($this->post['id']);
+        if(!$model)return $this->json(404,'没有找到该商品');
+        $car = Brand::findOne($model->car_id);
+        $this->data['data'] = explode("|",$car->keywords);
         return $this->json();
     }
 
@@ -103,6 +113,7 @@ class ProductController extends MController{
         unset($this->data['data']['id']);
         return $this->json();
     }
+
     public function actionProduct(){
         if(empty($this->post['id'])) return $this->json(404,'商品ID不能为空');
         $model = Product::findOne($this->post['id']);
