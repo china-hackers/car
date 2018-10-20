@@ -5,6 +5,7 @@ namespace app\controllers\mobile;
 use yii\web\Controller;
 use abei2017\wx\Application;
 use abei2017\wx\core\AccessToken;
+use yii;
 
 class ApiController extends Controller
 {
@@ -13,6 +14,26 @@ class ApiController extends Controller
         $this->layout = false;
         echo $_GET['echostr'];
         exit;
+    }
+
+    private function checkOauth(){
+        $conf = [];
+        $url = Yii::$app->request->getUrl();
+        $callback = Yii::$app->urlManager->createAbsoluteUrl(['/wechat/oauth','url'=>urlencode($url)]);
+
+        $conf['oauth']['callback'] = $callback;
+        $app = new Application(['conf'=>$conf]);
+
+        $oauth = $app->driver('mp.oauth');
+        $wxLoginUser = Yii::$app->session->get('wx_login_user');
+        if($wxLoginUser == null){
+            $oauth->send();
+            die();
+        }
+    }
+
+    public function actionTest(){
+        $this->checkOauth();
     }
 
     public function actionMenu(){
