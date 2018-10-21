@@ -28,9 +28,8 @@ class ProductController extends MController{
         $this->checkUser();
         if(empty($this->post['pid'])) return $this->json(404,'商品ID不能为空');
         $store = @$this->post['store'];
-        $uid = $this->uid;
         $pid = $this->post['pid'];
-        $this->data['data']['store'] = UserStore::store($store,$uid,$pid);
+        $this->data['data']['store'] = UserStore::store($store,$this->uid,$pid);
         return $this->json();
     }
 
