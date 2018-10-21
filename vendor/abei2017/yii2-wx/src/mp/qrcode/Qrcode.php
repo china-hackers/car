@@ -43,14 +43,37 @@ class Qrcode extends Driver {
      * @return array
      */
     public function intTemp($seconds = 2592000,$val){
-        return $this->temp('QR_SCENE',$seconds,['scene_id'=>$val]);
+        return $this->temp($seconds,$val);
     }
 
     public function strTemp($seconds = 2592000,$val){
-        return $this->temp('QR_STR_SCENE',$seconds,['scene_str'=>$val]);
+        return $this->temp($seconds,$val);
     }
 
-    private function temp($action = 'QR_SCENE', $seconds = 2592000, $scene = ['scene_id'=>0]){
+    /**
+     * 生成一个临时二维码
+     * 此方法会根据$val的类型来决定是字符串还是整数。
+     *
+     * @param int $seconds  过期时间
+     * @param $val 值
+     * @since 1.2
+     */
+    public function temp($seconds = 2592000,$val){
+        if(is_int($val) && $val > 0){
+            return $this->tempQrcode('QR_SCENE',$seconds,['scene_id'=>$val]);
+        }else{
+            return $this->tempQrcode('QR_STR_SCENE',$seconds,['scene_str'=>$val]);
+        }
+    }
+
+    /**
+     * 生成临时二维码
+     * @param string $action    数字还是字符串类型
+     * @param int $seconds  二维码过期时间
+     * @param array $scene  值
+     * @return mixed
+     */
+    private function tempQrcode($action = 'QR_SCENE', $seconds = 2592000, $scene = ['scene_id'=>0]){
         $params = array_merge(['expire_seconds'=>$seconds,'action_name'=>$action,'action_info'=>['scene'=>$scene]]);
         $response = $this->post(Qrcode::API_QRCODE_URL."?access_token={$this->accessToken}",$params)
             ->setFormat(Client::FORMAT_JSON)->send();
@@ -65,7 +88,7 @@ class Qrcode extends Driver {
      * @return mixed
      */
     public function intForver($val){
-        return $this->forver('QR_LIMIT_SCENE',['scene_id'=>$val]);
+        return $this->foreverQrcode('QR_LIMIT_SCENE',['scene_id'=>$val]);
     }
 
     /**
@@ -74,10 +97,25 @@ class Qrcode extends Driver {
      * @return mixed
      */
     public function strForver($val){
-        return $this->forver('QR_LIMIT_STR_SCENE',['scene_str'=>$val]);
+        return $this->foreverQrcode('QR_LIMIT_STR_SCENE',['scene_str'=>$val]);
     }
 
-    private function forver($action = 'QR_LIMIT_SCENE', $scene = ['scene_id'=>0]){
+    /**
+     * 生成一个永久二维码
+     * 此方法会根据$val的类型来决定是字符串还是整数。
+     *
+     * @param $val 值
+     * @since 1.2
+     */
+    public function forever($val){
+        if(is_int($val) && $val > 0){
+            return $this->foreverQrcode('QR_LIMIT_SCENE',['scene_id'=>$val]);
+        }else{
+            return $this->foreverQrcode('QR_LIMIT_STR_SCENE',['scene_str'=>$val]);
+        }
+    }
+
+    private function foreverQrcode($action = 'QR_LIMIT_SCENE', $scene = ['scene_id'=>0]){
         $params = array_merge(['action_name'=>$action,'action_info'=>['scene'=>$scene]]);
         $response = $this->post(Qrcode::API_QRCODE_URL."?access_token={$this->accessToken}",$params)
             ->setFormat(Client::FORMAT_JSON)->send();

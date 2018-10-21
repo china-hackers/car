@@ -5,6 +5,7 @@ namespace app\controllers\mobile;
 use app\controllers\base\BaseController;
 use abei2017\wx\Application;
 use app\models\User;
+use app\models\UserQrcode;
 use yii;
 
 class ApiController extends BaseController
@@ -16,11 +17,21 @@ class ApiController extends BaseController
 
         $server->setMessageHandler(function($message) {
             file_put_contents('./t.txt',print_r($message,true));
-            return "欢迎你";
+            if($message['MsgType']=='text'){
+                return "我们已收到您的留言，谢谢~";
+            }elseif($message['MsgType']=='subscribe'){
+                if(@$message['EventKey']){
+                    $model = new UserQrcode();
+                    $model->uid = str_replace('qrscene_','',$message['EventKey']);
+                    $model->openid = $message['FromUserName'];
+                    $model->created = time();
+                    $model->save();
+                }
+                return "欢迎关注我们的公众号~";
+            }
         });
 
         $response = $server->serve();
-        file_put_contents('t2.txt',print_r($response,true));
         return $response;
     }
 
@@ -31,9 +42,11 @@ class ApiController extends BaseController
         if($model){
             Yii::$app->session->set('uid',$model->id);
         }else{
+            $qrcode = UserQrcode::find()->where(['openid'=>$user['openid']])->one();
             $model = new User();
             $model->attributes = $user;
             $model->sex = ($user['sex']==1)?'男':'女';
+            if($qrcode) $model->rid = $qrcode->uid;
             $model->save();
             Yii::$app->session->set('uid',$model->id);
         }

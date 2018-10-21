@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace abei2017\wx\mp\encryptor;
+namespace abei2017\wx\mini\encryptor;
 
 use Yii;
 use abei2017\wx\core\Driver;
@@ -22,7 +22,7 @@ use abei2017\wx\helpers\Xml;
  *
  * @author abei<abei@nai8.me>
  * @link https://nai8.me/yii2wx
- * @package abei2017\wx\mp\encryptor
+ * @package abei2017\wx\mini\encryptor
  */
 class Encryptor extends Driver {
 

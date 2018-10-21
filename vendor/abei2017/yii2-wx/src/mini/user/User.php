@@ -17,7 +17,7 @@ use abei2017\wx\core\Exception;
 /**
  * User
  * @author abei<abei@nai8.me>
- * @link https://nai8.me/yii2wx
+ * @link https://nai8.me/study/yii2wx.html
  * @package abei2017\wx\mini\user
  */
 class User extends Driver {
@@ -33,5 +33,25 @@ class User extends Driver {
 
         $data = $response->getData();
         return $data;
+    }
+
+    /**
+     * 解密信息
+     * 主要用于wx.getUserInfo时对加密数据的解密。
+     *
+     * @param $sessionKey
+     * @param $iv
+     * @param $encryptedData
+     * @return array
+     * @since 1.3.1
+     */
+    public function decryptData($sessionKey,$iv,$encryptedData){
+        $aesKey = base64_decode($sessionKey);
+        $aesIV = base64_decode($iv);
+        $aesCipher = base64_decode($encryptedData);
+        $result=openssl_decrypt( $aesCipher, "AES-128-CBC", $aesKey, 1, $aesIV);
+
+        $dataObj = json_decode( $result,true );
+        return $dataObj;
     }
 }
