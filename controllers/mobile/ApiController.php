@@ -20,6 +20,7 @@ class ApiController extends BaseController
         });
 
         $response = $server->serve();
+        file_put_contents('.t2.txt',$response);
         return $response;
     }
 
