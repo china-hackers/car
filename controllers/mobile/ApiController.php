@@ -17,6 +17,7 @@ class ApiController extends BaseController
 
         $server->setMessageHandler(function($message) {
             file_put_contents('./t.txt',print_r($message,true));
+            return 'test';
             if($message['MsgType']=='text'){
                 return "我们已收到您的留言，谢谢~";
             }elseif($message['MsgType']=='subscribe'){
