@@ -2,12 +2,12 @@
 
 namespace app\controllers\mobile;
 
-use yii\web\Controller;
+use app\controllers\base\BaseController;
 use abei2017\wx\Application;
-use abei2017\wx\core\AccessToken;
+use app\models\User;
 use yii;
 
-class ApiController extends Controller
+class ApiController extends BaseController
 {
 
     public function actionWeixin(){
@@ -16,36 +16,17 @@ class ApiController extends Controller
         exit;
     }
 
-    private function checkOauth(){
-        $conf = [];
-        $url = Yii::$app->request->getUrl();
-        $callback = Yii::$app->urlManager->createAbsoluteUrl(['/wechat/oauth','url'=>urlencode($url)]);
-
-        $conf['oauth']['callback'] = $callback;
-        $app = new Application();
-
-        $oauth = $app->driver('mp.oauth');
-        $wxLoginUser = Yii::$app->session->get('wx_login_user');
-        if($wxLoginUser == null){
-            $oauth->send();
-            die();
-        }
-    }
-
     public function actionOauth(){
-        $url = Yii::$app->request->get('url');
-
         $oauth = (new Application())->driver('mp.oauth');
         $user = $oauth->user();
-
-        $check = User::find()->where(['type'=>User::WX_MP_LOGIN,'auth_id'=>$user['openid']])->one();
-        if($check == false){
-            //生成新会员
+        print_r($user);
+        $model = User::find()->where(['open_id'=>$user['openid']])->one();
+        if($model){
+            Yii::$app->session->set('uid',$model->id);
+        }else{
+            $model = new User();
+            $model->nick = $user['nickname'];
         }
-
-        Yii::$app->session->set('wx_login_user',$check);
-
-        header('location:'.urldecode($url));
     }
 
     public function actionTest(){

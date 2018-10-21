@@ -4,6 +4,7 @@ namespace app\controllers\base;
 
 use yii\web\Controller;
 use yii;
+use abei2017\wx\Application;
 
 class BaseController extends Controller
 {
@@ -26,6 +27,15 @@ class BaseController extends Controller
         403=>'删除数据失败：',
         404=>'获取数据失败：',
     ];
+
+    protected function checkOauth(){
+        $uid = Yii::$app->session->get('uid');
+        if(!$uid){
+            $oauth = (new Application())->driver('mp.oauth');
+            $oauth->send();
+            die();
+        }
+    }
 
     protected function json($code=200,$msg=''){
         Yii::$app->response->statusCode = 200;

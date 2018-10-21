@@ -11,7 +11,6 @@ class SiteController extends BaseController
 {
 
 
-
     public function actionSafeimg(){
         $this->layout = false;
         $model = new UploadModel();
@@ -37,6 +36,7 @@ class SiteController extends BaseController
     public function actionIndex()
     {
         $this->layout = false;
+        $this->checkOauth();
         return $this->render('index');
     }
 }

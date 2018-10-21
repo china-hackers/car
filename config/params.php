@@ -24,7 +24,7 @@ return [
 
             'oauth' => [
                 'scopes'   => 'snsapi_userinfo',
-                'callback' => 'http://test.iamlk.cn/',
+                'callback' => 'http://test.iamlk.cn/mobile/api/oauth',
             ],
         ],
         'mini'=>[
