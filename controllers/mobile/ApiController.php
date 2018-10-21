@@ -18,10 +18,6 @@ class ApiController extends BaseController
             file_put_contents('./t.txt',print_r($message,true));
             return "欢迎你";
         });
-
-        $response = $server->serve();
-        file_put_contents('.t2.txt',$response);
-        return $response;
     }
 
     public function actionOauth(){
