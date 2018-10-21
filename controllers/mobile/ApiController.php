@@ -16,13 +16,10 @@ class ApiController extends BaseController
         $server = (new Application())->driver("mp.server");
 
         $server->setMessageHandler(function($message) {
-            file_put_contents('./t.txt',print_r($message,true));
-            return 'test';
             if($message['MsgType']=='text'){
                 return "我们已收到您的留言，谢谢~";
-            }elseif($message['MsgType']=='subscribe'){
-                if(@$message['EventKey']){
-                    file_put_contents('./tt.tt','');
+            }elseif($message['MsgType']=='event'){
+                if(@$message['EventKey'] && $message['Event']=='subscribe'){
                     $model = new UserQrcode();
                     $model->uid = str_replace('qrscene_','',$message['EventKey']);
                     $model->openid = $message['FromUserName'];
