@@ -32,6 +32,22 @@ class ApiController extends Controller
         }
     }
 
+    public function actionOauth(){
+        $url = Yii::$app->request->get('url');
+
+        $oauth = (new Application())->driver('mp.oauth');
+        $user = $oauth->user();
+
+        $check = User::find()->where(['type'=>User::WX_MP_LOGIN,'auth_id'=>$user['openid']])->one();
+        if($check == false){
+            //生成新会员
+        }
+
+        Yii::$app->session->set('wx_login_user',$check);
+
+        header('location:'.urldecode($url));
+    }
+
     public function actionTest(){
         $this->checkOauth();
     }

@@ -50,6 +50,32 @@ class UserStore extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function store($store, $uid , $pid){
+        $store = intval($store);
+        if($store==2){//读取
+            $model = UserStore::find()->where('uid='.$uid.' AND pid='.$pid)->one();
+            if($model)
+                return 1;
+            else
+                return 0;
+        }elseif($store ==1){//收藏
+            $model = UserStore::find()->where('uid='.$uid.' AND pid='.$pid)->one();
+            if(!$model){
+                $model = new UserStore();
+                $model->uid = $uid;
+                $model->pid = $pid;
+                $model->save();
+            }
+            return 1;
+        }else{
+            $model = UserStore::find()->where('uid='.$uid.' AND pid='.$pid)->one();
+            if($model){
+                $model->delete();
+            }
+            return 0;
+        }
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
