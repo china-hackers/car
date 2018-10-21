@@ -6,10 +6,10 @@ use app\controllers\base\BaseController;
 use app\models\UploadModel;
 use yii\web\UploadedFile;
 use yii;
+use abei2017\wx\Application;
 
 class SiteController extends BaseController
 {
-
 
 
     public function actionSafeimg(){
@@ -31,12 +31,21 @@ class SiteController extends BaseController
 
     public function actionLogin(){
         $this->layout = false;
+        $qrcode = (new Application())->driver("mp.qrcode");
+        $r = $qrcode->forever(100);
+        echo 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.$r['ticket'];
         return $this->render('login');
     }
 
     public function actionIndex()
     {
         $this->layout = false;
-        return $this->render('index');
+        if(Yii::$app->session->get('uid')){
+            return $this->render('index');
+        }else{
+            $oauth = (new Application())->driver('mp.oauth');
+            $oauth->send();
+            die();
+        }
     }
 }

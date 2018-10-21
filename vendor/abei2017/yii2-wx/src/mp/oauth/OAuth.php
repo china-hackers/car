@@ -48,8 +48,7 @@ class OAuth extends Driver {
      * 跳转到授权页面
      */
     public function send(){
-        $callback = urlencode($this->conf['oauth']['callback']);
-        $url = self::API_AUTHORIZE_URL."?appid={$this->conf['app_id']}&redirect_uri={$callback}&response_type=code&scope={$this->conf['oauth']['scopes']}&state=STATE#wechat_redirect";
+        $url = self::API_AUTHORIZE_URL."?appid={$this->conf['app_id']}&redirect_uri={$this->conf['oauth']['callback']}&response_type=code&scope={$this->conf['oauth']['scopes']}&state=STATE#wechat_redirect";
         header("location:{$url}");
     }
 

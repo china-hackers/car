@@ -7,6 +7,7 @@ use yii;
 
 class BaseController extends Controller
 {
+    protected $uid = 0;
     protected $post = [];
 
     protected $data = [

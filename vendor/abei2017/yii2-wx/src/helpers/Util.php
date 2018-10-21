@@ -45,4 +45,5 @@ class Util extends Component {
         $str .= "&key=".$key;
         return strtoupper(md5($str));
     }
+
 }

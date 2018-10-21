@@ -11,6 +11,7 @@ namespace app\controllers\mobile;
 
 use app\controllers\base\MController;
 use app\models\Brand;
+use app\models\Business;
 use app\models\Product;
 use app\models\ProductBase;
 use app\models\ProductEngine;
@@ -24,16 +25,12 @@ use app\models\UserStore;
 class ProductController extends MController{
 
     public function actionStore(){
+        $this->checkUser();
         if(empty($this->post['pid'])) return $this->json(404,'商品ID不能为空');
-        $model = new UserStore();
-        $model->created = time();
-        $model->pid = $this->post['pid'];
-        $model->uid = $this->uid;
-        if($model->save()){
-            return $this->json();
-        }else{
-            return $this->error($model);
-        }
+        $store = @$this->post['store'];
+        $pid = $this->post['pid'];
+        $this->data['data']['store'] = UserStore::store($store,$this->uid,$pid);
+        return $this->json();
     }
 
     public function actionImg(){
@@ -51,12 +48,22 @@ class ProductController extends MController{
         return $this->json();
     }
 
+    public function actionBusiness(){
+        if(empty($this->post['id'])) return $this->json(404,'商品ID不能为空');
+        $model = Product::findOne($this->post['id']);
+        if(!$model)return $this->json(404,'没有找到该商品');
+        $business = Business::findOne($model->business_id);
+        $this->data['data'] = $business->attributes;
+        return $this->json();
+    }
+
     public function actionKoubei(){
         if(empty($this->post['id'])) return $this->json(404,'商品ID不能为空');
         $model = Product::findOne($this->post['id']);
         if(!$model)return $this->json(404,'没有找到该商品');
         $car = Brand::findOne($model->car_id);
-        $this->data['data'] = explode("|",$car->keywords);
+        $this->data['data']['keywords'] = explode("|",$car->keywords);
+        $this->data['data']['star'] = $car->star;
         return $this->json();
     }
 

@@ -44,6 +44,7 @@ class FinanceController extends MController{
     }
 
     public function actionSafeadd(){
+        $this->checkUser();
         $model = new ISafe();
         $model->attributes = $this->post;
         $model->created = time();
@@ -81,6 +82,7 @@ class FinanceController extends MController{
     }
 
     public function actionLoanadd(){
+        $this->checkUser();
         $model = new ILoan();
         $model->attributes = $this->post;
         $model->created = time();
@@ -118,6 +120,7 @@ class FinanceController extends MController{
     }
 
     public function actionBuyadd(){
+        $this->checkUser();
         $model = new IBuy();
         $model->attributes = $this->post;
         $model->created = time();

@@ -2,38 +2,54 @@
 
 namespace app\controllers\mobile;
 
-use yii\web\Controller;
+use app\controllers\base\BaseController;
 use abei2017\wx\Application;
-use abei2017\wx\core\AccessToken;
+use app\models\User;
+use app\models\UserQrcode;
 use yii;
 
-class ApiController extends Controller
+class ApiController extends BaseController
 {
 
     public function actionWeixin(){
         $this->layout = false;
-        echo $_GET['echostr'];
-        exit;
+        $server = (new Application())->driver("mp.server");
+
+        $server->setMessageHandler(function($message) {
+            if($message['MsgType']=='text'){
+                return "我们已收到您的留言，谢谢~";
+            }elseif($message['MsgType']=='event'){
+                if(@$message['EventKey'] && $message['Event']=='subscribe'){
+                    $model = new UserQrcode();
+                    $model->uid = str_replace('qrscene_','',$message['EventKey']);
+                    $model->openid = $message['FromUserName'];
+                    $model->created = time();
+                    $model->save();
+                }
+                return "欢迎关注我们的公众号~";
+            }
+        });
+
+        $response = $server->serve();
+        return $response;
     }
 
-    private function checkOauth(){
-        $conf = [];
-        $url = Yii::$app->request->getUrl();
-        $callback = Yii::$app->urlManager->createAbsoluteUrl(['/wechat/oauth','url'=>urlencode($url)]);
-
-        $conf['oauth']['callback'] = $callback;
-        $app = new Application();
-
-        $oauth = $app->driver('mp.oauth');
-        $wxLoginUser = Yii::$app->session->get('wx_login_user');
-        if($wxLoginUser == null){
-            $oauth->send();
-            die();
+    public function actionOauth(){
+        $oauth = (new Application())->driver('mp.oauth');
+        $user = $oauth->user();
+        $model = User::find()->where(['openid'=>$user['openid']])->one();
+        if($model){
+            Yii::$app->session->set('uid',$model->id);
+        }else{
+            $qrcode = UserQrcode::find()->where(['openid'=>$user['openid']])->one();
+            $model = new User();
+            $model->attributes = $user;
+            $model->sex = ($user['sex']==1)?'男':'女';
+            if($qrcode) $model->rid = $qrcode->uid;
+            $model->save();
+            Yii::$app->session->set('uid',$model->id);
         }
-    }
-
-    public function actionTest(){
-        $this->checkOauth();
+        return $this->redirect('/');
     }
 
     public function actionMenu(){
