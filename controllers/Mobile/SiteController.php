@@ -40,6 +40,9 @@ class SiteController extends BaseController
     public function actionIndex()
     {
         $this->layout = false;
+        if(YII_DEBUG)
+            return $this->render('index');
+        
         if(Yii::$app->session->get('uid')){
             return $this->render('index');
         }else{
