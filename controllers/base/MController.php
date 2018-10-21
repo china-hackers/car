@@ -6,7 +6,13 @@ use yii;
 
 class MController extends BaseController
 {
-    public $uid = 0;
+
+    protected function checkUser(){
+        if(!$this->uid){
+            $this->json(300);
+            die();
+        }
+    }
 
     public function beforeAction($action){
         $this->layout = false;

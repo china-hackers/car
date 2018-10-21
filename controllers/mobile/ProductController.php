@@ -25,6 +25,7 @@ use app\models\UserStore;
 class ProductController extends MController{
 
     public function actionStore(){
+        $this->checkUser();
         if(empty($this->post['pid'])) return $this->json(404,'商品ID不能为空');
         $store = @$this->post['store'];
         $uid = $this->uid;

@@ -19,18 +19,17 @@ class ApiController extends BaseController
     public function actionOauth(){
         $oauth = (new Application())->driver('mp.oauth');
         $user = $oauth->user();
-        print_r($user);
         $model = User::find()->where(['open_id'=>$user['openid']])->one();
         if($model){
             Yii::$app->session->set('uid',$model->id);
         }else{
             $model = new User();
-            $model->nick = $user['nickname'];
+            $model->attributes = $user;
+            $model->sex = ($user['sex']==1)?'男':'女';
+            $model->save();
+            Yii::$app->session->set('uid',$model->id);
         }
-    }
-
-    public function actionTest(){
-        $this->checkOauth();
+        return $this->redirect('/');
     }
 
     public function actionMenu(){
