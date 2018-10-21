@@ -12,8 +12,15 @@ class ApiController extends BaseController
 
     public function actionWeixin(){
         $this->layout = false;
-        echo $_GET['echostr'];
-        exit;
+        $server = (new Application())->driver("mp.server");
+
+        $server->setMessageHandler(function($message) {
+            file_put_contents('./t.txt',print_r($message,true));
+            return "欢迎你";
+        });
+
+        $response = $server->serve();
+        return $response;
     }
 
     public function actionOauth(){
