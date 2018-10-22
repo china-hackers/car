@@ -8,9 +8,10 @@ class MController extends BaseController
 {
 
     protected function checkUser(){
+        if(YII_DEBUG) return;
         if(!$this->uid){
             $this->json(300);
-            die();
+            Yii::$app->end();
         }
     }
 
