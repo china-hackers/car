@@ -127,13 +127,17 @@ class ProductController extends MController{
         if(empty($model)) return $this->json(404,'没有找到该商品');
         $this->data['data'] = $model->attributes;
         $this->data['data']['business'] = $model->business->name;
+        $this->data['data']['business_phone'] = $model->business->phone;
         $this->data['data']['user'] = $model->user->name;
+        $this->data['data']['user_phone'] = $model->user->phone;
         $car = $model->car;
         $tmp = [$car->letter,$car->brand,$car->id];
         $this->data['data']['car'] = $tmp;
         $city = $model->city;
         $tmp = [$city->parent_id,$city->id];
         $this->data['data']['city'] = $tmp;
+        $count = Product::find()->where('business_id='.$model->business_id)->count();
+        $this->data['data']['cars_count'] = $count;
         return $this->json();
     }
 
