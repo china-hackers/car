@@ -9,22 +9,24 @@ use Yii;
  *
  * @property int $id
  * @property string $nickname 微信昵称
- * @property string $headimgurl
- * @property string $name
- * @property string $sex
- * @property string $phone
- * @property int $city_id
- * @property string $openid
- * @property int $is_checked
+ * @property string $headimgurl 头像地址
+ * @property string $name 姓名
+ * @property string $sex 性别
+ * @property string $phone 电话
+ * @property string $openid openid
+ * @property int $is_checked 是否审核未车商
  * @property int $business_id 所属车商
  * @property int $is_manager 是否管理员
  * @property string $id_card 身份证号
  * @property int $rid 推荐人ID
- * @property string $city
- * @property string $province
- * @property string $country
+ * @property string $city 微信城市
+ * @property string $province 微信省份
+ * @property string $country 微信国家
+ * @property string $itype 爱车类型
+ * @property int $jifen 积分
+ * @property int $car_id 爱车型号
+ * @property int $uid 销售ID
  *
- * @property Business $business
  * @property UserStore[] $userStores
  */
 class User extends \yii\db\ActiveRecord
@@ -43,15 +45,14 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['city_id', 'is_checked', 'business_id', 'is_manager', 'rid'], 'integer'],
+            [['is_checked', 'business_id', 'is_manager', 'rid', 'jifen', 'car_id', 'uid'], 'integer'],
             [['nickname'], 'string', 'max' => 50],
             [['headimgurl', 'openid'], 'string', 'max' => 250],
             [['name'], 'string', 'max' => 30],
             [['sex'], 'string', 'max' => 2],
             [['phone'], 'string', 'max' => 16],
-            [['id_card', 'city', 'province', 'country'], 'string', 'max' => 20],
+            [['id_card', 'city', 'province', 'country', 'itype'], 'string', 'max' => 20],
             [['openid'], 'unique'],
-            [['business_id'], 'exist', 'skipOnError' => true, 'targetClass' => Business::className(), 'targetAttribute' => ['business_id' => 'id']],
         ];
     }
 
@@ -63,21 +64,40 @@ class User extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nickname' => '微信昵称',
-            'headimgurl' => '头像',
-            'name' => 'Name',
-            'sex' => 'Sex',
-            'phone' => 'Phone',
-            'city_id' => 'City ID',
-            'openid' => 'Openid',
-            'is_checked' => 'Is Checked',
+            'headimgurl' => '头像地址',
+            'name' => '姓名',
+            'sex' => '性别',
+            'phone' => '电话',
+            'openid' => 'openid',
+            'is_checked' => '是否审核未车商',
             'business_id' => '所属车商',
             'is_manager' => '是否管理员',
             'id_card' => '身份证号',
             'rid' => '推荐人ID',
-            'city' => 'City',
-            'province' => 'Province',
-            'country' => 'Country',
+            'city' => '微信城市',
+            'province' => '微信省份',
+            'country' => '微信国家',
+            'itype' => '爱车类型',
+            'jifen' => '积分',
+            'car_id' => '爱车型号',
+            'uid' => '销售ID',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'uid']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCar()
+    {
+        return $this->hasOne(Brand::className(), ['id' => 'car_id']);
     }
 
     /**

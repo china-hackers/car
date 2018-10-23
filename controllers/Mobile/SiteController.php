@@ -31,9 +31,6 @@ class SiteController extends BaseController
 
     public function actionLogin(){
         $this->layout = false;
-        $qrcode = (new Application())->driver("mp.qrcode");
-        $r = $qrcode->forever(100);
-        echo 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.$r['ticket'];
         return $this->render('login');
     }
 

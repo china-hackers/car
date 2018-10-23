@@ -15,5 +15,4 @@ use app\models\Business;
 class BusinessController extends MController{
 
 
-
 }
