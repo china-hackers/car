@@ -159,9 +159,9 @@ class Product extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getProductTaxes()
+    public function getProductTax()
     {
-        return $this->hasMany(ProductTax::className(), ['pid' => 'id']);
+        return $this->hasOne(ProductTax::className(), ['pid' => 'id']);
     }
 
     /**

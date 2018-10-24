@@ -165,7 +165,7 @@ class ProductController extends MController{
         $l2 = [];
         foreach($list as $li){
             $tmp = $li->attributes;
-            $tmp['img'] = empty($li->city->name)?'':@$li->productImg->img;
+            $tmp['img'] = empty($li->productImg)?'':@$li->productImg->img;
             $l2[] = $tmp;
         }
         $data['list'] = $l2;
