@@ -22,7 +22,8 @@ class UserController extends MController{
     }
 
     public function actionUser(){
-        $model = User::findOne($this->post['id']);
+        $this->checkUser();
+        $model = User::findOne($this->uid);
         if(!$model) return $this->json(404,'该用户不存在');
         $this->data['data'] = $model->attributes;
         if($model->user){
