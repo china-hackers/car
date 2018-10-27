@@ -26,6 +26,7 @@ use Yii;
  * @property int $jifen 积分
  * @property int $car_id 爱车型号
  * @property int $uid 销售ID
+ * @property int $car_no 车牌号
  *
  * @property UserStore[] $userStores
  */
@@ -50,7 +51,7 @@ class User extends \yii\db\ActiveRecord
             [['headimgurl', 'openid'], 'string', 'max' => 250],
             [['name'], 'string', 'max' => 30],
             [['sex'], 'string', 'max' => 2],
-            [['phone'], 'string', 'max' => 16],
+            [['phone','car_no'], 'string', 'max' => 16],
             [['id_card', 'city', 'province', 'country', 'itype'], 'string', 'max' => 20],
             [['openid'], 'unique'],
         ];
@@ -81,6 +82,7 @@ class User extends \yii\db\ActiveRecord
             'jifen' => '积分',
             'car_id' => '爱车型号',
             'uid' => '销售ID',
+            'car_no' => '车牌号',
         ];
     }
 

@@ -40,6 +40,26 @@ class CarController extends MController{
     }
 
     public function actionBrandlist(){
+        @$letter = $this->post['letter'];
+        if($letter){
+            $list = Brand::find()->where('letter="'.$letter.'"')->groupBy('brand')->all();
+        }else{
+            $list = Brand::find()->groupBy('brand')->orderBy('id asc')->all();
+        }
+        $count = count($list);
+        $data = ['total'=>intval($count)];
+        $l2 = [];
+        foreach($list as $li){
+            $tmp = ($li->attributes);
+            unset($tmp['keywords']);
+            $l2[] = $tmp;
+        }
+        $data['list'] = $l2;
+        $this->data['data'] = $data;
+        return $this->json();
+    }
+
+    public function actionBrands(){
         $data = [];
         $list = Brand::find()->groupBy('letter')->all();
         foreach ($list as $li) {
