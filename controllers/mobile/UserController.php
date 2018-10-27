@@ -14,10 +14,30 @@ use app\models\User;
 
 class UserController extends MController{
 
+    public function actionCarsave(){
+        $this->checkUser();
+        $model = User::findOne($this->uid);
+        $model->car_id = $this->post['car_id'];
+        $model->car_no = $this->post['car_no'];
+        $model->save();
+        if($model->hasErrors())
+            return $this->error($model,402);
+        else
+            return $this->json();
+    }
+
     public function actionQrcode(){
         $qrcode = (new Application())->driver("mp.qrcode");
         $r = $qrcode->forever(@$this->post['id']);
         $this->data['data']['qrcode'] = 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.$r['ticket'];
+        return $this->json();
+    }
+
+    public function actionCar(){
+        $this->checkUser();
+        $model = User::findOne($this->uid);
+        $this->data['data']['car_id'] = $model->car_id;
+        $this->data['data']['car_no'] = $model->car_no;
         return $this->json();
     }
 
