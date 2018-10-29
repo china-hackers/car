@@ -15,16 +15,9 @@
 </head>
 
 <body module=live>
-Hello world !
-<form action="/mobile/site/safeimg" method="post" enctype="multipart/form-data">
-    <input name="id" value="1"/>
-    选择图片：<input type="file" name="UploadModel[images][]"  multiple="multiple"/>
-    <input type="submit" value="OK" />
-</form>
-
     <div id=app></div>
     <?php if(YII_DEBUG):?>
-        <script type="text/javascript" src="http://localhost:8090/app.js"></script>
+        <script type="text/javascript" src="http://localhost:9001/app.js"></script>
     <?php else:?>
         <script type="text/javascript" src="/static/h5/js/manifest.js"> </script>
         <script type="text/javascript" src="/static/h5/js/vendor.js"> </script>
