@@ -84,6 +84,10 @@ class User extends \yii\db\ActiveRecord
             'car_price' => '汽车价格',
         ];
     }
+    public function getSafe()
+    {
+        return $this->hasOne(ISafe::className(), ['uid' => 'id']);
+    }
 
     public function getUser()
     {

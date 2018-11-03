@@ -77,6 +77,10 @@ class ISafe extends \yii\db\ActiveRecord
             'd_price' => 'D Price',
         ];
     }
+    public function getDcar()
+    {
+        return $this->hasOne(Brand::className(), ['id' => 'd_car_id']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery
