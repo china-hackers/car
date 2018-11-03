@@ -162,7 +162,7 @@ class FinanceController extends AController
 
     public function actionSafestate(){
         if(empty($this->post['id'])) return $this->json(402,'ID不能为空');
-        $model = ILoan::findOne($this->post['id']);
+        $model = ISafe::findOne($this->post['id']);
         if(!$model) return $this->json(402,'没有找到该记录');
         if($model->state==4) return $this->json(402,'该车险已成交，无法再变更');
         $log = new IsafeLog();
