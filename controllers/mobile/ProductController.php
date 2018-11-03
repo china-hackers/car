@@ -160,6 +160,7 @@ class ProductController extends MController{
                 $where = 'itype="'.$itype.'"';
             }
         }
+        if(@$this->post['pid']) $where = 'id='.intval($this->post['pid']); //单独返回1条数据
         if(@$this->post['brand']) $where .= ' AND brand="'.$this->post['brand'].'"';
         if(@$this->post['price_from']) $where .= ' AND price>='.$this->post['price_from'];
         if(@$this->post['price_to']) $where .= ' AND price<='.$this->post['price_to'];
