@@ -268,7 +268,9 @@ class ProductController extends AController
         $l2 = [];
         foreach($list as $li){
             $tmp = $li->attributes;
-            $tmp['city'] = empty($li->city->name)?'':$li->city->name;;
+            $tmp['city'] = empty($li->city->name)?'':$li->city->name;
+            $seconds = time()-strtotime($li->reg_date);
+            $tmp['years'] = ceil(($seconds/86400)/365);
             $l2[] = $tmp;
         }
         $data['list'] = $l2;
