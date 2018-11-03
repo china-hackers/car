@@ -6,6 +6,7 @@ use app\controllers\base\AController;
 use app\models\IBuy;
 use app\models\IBuyLog;
 use app\models\ILoan;
+use app\models\ILoanImg;
 use app\models\ISafe;
 use app\models\ILoanLog;
 use app\models\ISafeLog;
@@ -89,9 +90,13 @@ class FinanceController extends AController
         if(empty($this->post['id'])) return $this->json(402,'ID不能为空');
         $model = ILoan::findOne($this->post['id']);
         if($model){
+            if($model->state==4) return $this->json(402,'该贷款已成交，无法再变更');
             $model->attributes = $this->post;
             $model->is_deal = 1;
             $model->save();
+            ILoanImg::addImgs($this->post['id'],$this->post['imgs']);
+            $log = new ILoanLog();
+            $log->addLog($this->post['id'],'贷款成交!');
             return $this->json();
         }else{
             return $this->json(402,'没有找到该贷款记录');

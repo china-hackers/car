@@ -15,6 +15,17 @@ use Yii;
  */
 class ILoanImg extends \yii\db\ActiveRecord
 {
+
+    public static function addImgs($id, $list){
+        if(empty($list)) return false;
+        foreach($list as $li){
+            $model = new ILoanImg();
+            $model->lid = $id;
+            $model->img = $li;
+            $model->save();
+        }
+        return true;
+    }
     /**
      * {@inheritdoc}
      */
