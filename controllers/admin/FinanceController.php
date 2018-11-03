@@ -115,7 +115,7 @@ class FinanceController extends AController
             $model->state = 4;
             $model->save();
             ISafeOption::addOptions($this->post['id'],$this->post['options']);
-            $log = new ILoanLog();
+            $log = new ISafeLog();
             $log->addLog($this->post['id'],'车险成交!');
             return $this->json();
         }else{

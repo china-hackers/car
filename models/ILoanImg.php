@@ -17,6 +17,7 @@ class ILoanImg extends \yii\db\ActiveRecord
 {
 
     public static function addImgs($id, $list){
+        ILoanImg::deleteAll('lid='.$id);
         if(empty($list)) return false;
         foreach($list as $li){
             $model = new ILoanImg();

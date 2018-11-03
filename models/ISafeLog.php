@@ -16,7 +16,7 @@ class ISafeLog extends \yii\db\ActiveRecord
 {
 
     public function addLog($id, $note){
-        $this->lid = $id;
+        $this->sid = $id;
         $this->note = $note;
         $this->created = time();
         return $this->save();
