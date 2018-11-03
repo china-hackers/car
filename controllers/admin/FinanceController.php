@@ -142,6 +142,9 @@ class FinanceController extends AController
         if(empty($this->post['id'])) return $this->json(404,'ID不能为空');
         $model = ISafe::findOne($this->post['id']);
         $this->data['data'] = $model->attributes;
+        $car = $model->car;
+        $tmp = [$car->letter,$car->brand,$car->id];
+        $this->data['data']['car'] = $tmp;
         $list = ISafeOption::find()->where('sid='.$this->post['id'])->all();
         $options = [];
         foreach($list as $li){
