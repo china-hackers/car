@@ -20,6 +20,7 @@ use app\models\ProductInfo;
 use app\models\ProductTax;
 use app\models\ProductTyre;
 use app\models\ProductUnder;
+use app\models\User;
 use app\models\UserStore;
 
 class ProductController extends MController{
@@ -126,8 +127,10 @@ class ProductController extends MController{
         $model = Product::findOne($this->post['id']);
         if(empty($model)) return $this->json(404,'没有找到该商品');
         $this->data['data'] = $model->attributes;
-        $this->data['data']['business'] = $model->business->name;
-        $this->data['data']['business_phone'] = $model->business->phone;
+        $business = $model->business;
+        $this->data['data']['business'] = $business->name;
+        $count = Product::find()->where('business_id='.$business->id)->count();
+        $this->data['data']['business_cars'] = $count;
         $this->data['data']['user'] = $model->user->name;
         $this->data['data']['user_phone'] = $model->user->phone;
         $car = $model->car;
@@ -145,7 +148,19 @@ class ProductController extends MController{
         $p = @intval($this->post['p'])?$this->post['p']:1;
         $order = @$this->post['order']?$this->post['order']:'id DESC';
         if(@$this->post['itype']) $where = 'itype="'.$this->post['itype'].'"';
-        else $where = 'itype="i尊车"';
+        else{
+            $where = 'itype="i尊车"';
+            if(@$this->post['sort']){
+                $this->checkUser();
+                $model = User::findOne($this->uid);
+                if(@$model->itype)
+                    $itype = $model->itype;
+                else
+                    $itype = 'i尊车';
+                $where = 'itype="'.$itype.'"';
+            }
+        }
+        if(@$this->post['pid']) $where = 'id='.intval($this->post['pid']); //单独返回1条数据
         if(@$this->post['brand']) $where .= ' AND brand="'.$this->post['brand'].'"';
         if(@$this->post['price_from']) $where .= ' AND price>='.$this->post['price_from'];
         if(@$this->post['price_to']) $where .= ' AND price<='.$this->post['price_to'];

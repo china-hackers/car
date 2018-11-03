@@ -13,9 +13,13 @@ use Yii;
  * @property string $car_no
  * @property string $driver_card
  * @property string $option
- * @property string $created
+ * @property int $created
  * @property int $is_deal
  * @property int $uid
+ * @property int $car_id
+ *
+ * @property Brand $car
+ * @property ISafeLog[] $iSafeLogs
  */
 class ISafe extends \yii\db\ActiveRecord
 {
@@ -33,9 +37,10 @@ class ISafe extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['is_deal', 'uid', 'created'], 'integer'],
+            [['created', 'is_deal', 'uid', 'car_id'], 'integer'],
             [['name', 'phone', 'car_no', 'option'], 'string', 'max' => 20],
             [['driver_card'], 'string', 'max' => 200],
+            [['car_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::className(), 'targetAttribute' => ['car_id' => 'id']],
         ];
     }
 
@@ -54,6 +59,23 @@ class ISafe extends \yii\db\ActiveRecord
             'created' => 'Created',
             'is_deal' => 'Is Deal',
             'uid' => 'Uid',
+            'car_id' => 'Car ID',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCar()
+    {
+        return $this->hasOne(Brand::className(), ['id' => 'car_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getISafeLogs()
+    {
+        return $this->hasMany(ISafeLog::className(), ['sid' => 'id']);
     }
 }
