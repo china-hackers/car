@@ -20,7 +20,7 @@ use Yii;
  * @property string $d_phone
  * @property string $d_type
  * @property int $d_money
- * @property int $d_months
+ * @property int $d_month
  * @property int $d_pay
  *
  * @property ILoanImg[] $iLoanImgs
@@ -42,7 +42,7 @@ class ILoan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created', 'uid', 'money', 'years', 'state', 'd_money', 'd_months', 'd_pay'], 'integer'],
+            [['created', 'uid', 'money', 'years', 'state', 'd_money', 'd_month', 'd_pay'], 'integer'],
             [['money', 'years'], 'required'],
             [['name', 'phone', 'itype', 'd_type'], 'string', 'max' => 20],
             [['d_name'], 'string', 'max' => 6],
@@ -69,7 +69,7 @@ class ILoan extends \yii\db\ActiveRecord
             'd_phone' => 'D Phone',
             'd_type' => 'D Type',
             'd_money' => 'D Money',
-            'd_months' => 'D Months',
+            'd_month' => 'D Months',
             'd_pay' => 'D Pay',
         ];
     }

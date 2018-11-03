@@ -102,7 +102,8 @@ class UserController extends MController{
             $this->data['data']['user'] = $user;
         }
         if($model->car) $this->data['data']['car'] = $model->car->attributes;
-        if($model->safe){
+        $safe = $model->safe;
+        if($safe){
 
         }
         return $this->json();
