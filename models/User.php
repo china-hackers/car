@@ -24,6 +24,7 @@ use Yii;
  * @property int $car_id 爱车型号
  * @property int $uid 销售ID
  * @property string $car_no 车牌号
+ * @property string $car_price 汽车价格
  *
  * @property UserBusiness[] $userBusinesses
  * @property UserStore[] $userStores
@@ -45,6 +46,7 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['rid', 'jifen', 'car_id', 'uid'], 'integer'],
+            [['car_price'], 'number'],
             [['nickname'], 'string', 'max' => 50],
             [['headimgurl', 'openid'], 'string', 'max' => 250],
             [['name'], 'string', 'max' => 30],
@@ -79,31 +81,29 @@ class User extends \yii\db\ActiveRecord
             'car_id' => '爱车型号',
             'uid' => '销售ID',
             'car_no' => '车牌号',
+            'car_price' => '汽车价格',
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUserBusiness()
-    {
-        return $this->hasOne(UserBusiness::className(), ['uid' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'uid']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * 嘻嘻嘻自己添加的
      */
     public function getCar()
     {
         return $this->hasOne(Brand::className(), ['id' => 'car_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserBusinesses()
+    {
+        return $this->hasMany(UserBusiness::className(), ['uid' => 'id']);
     }
 
     /**

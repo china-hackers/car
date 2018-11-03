@@ -55,6 +55,18 @@ class UserController extends MController{
         $model = User::findOne($this->uid);
         $model->car_id = $this->post['car_id'];
         $model->car_no = $this->post['car_no'];
+        $model->car_price = $this->post['car_price'];
+        if($model->car_price<10){
+            $model->itype = 'i值车';
+        }elseif($model->car_price<20){
+            $model->itype = 'i优车';
+        }elseif ($model->car_price<30){
+            $model->itype = 'i享车';
+        }elseif($model->car_price<70){
+            $model->itype = 'i品车';
+        }else{
+            $model->itype = 'i尊车';
+        }
         $model->save();
         if($model->hasErrors())
             return $this->error($model,402);
