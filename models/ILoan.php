@@ -16,8 +16,8 @@ use Yii;
  * @property int $is_deal
  * @property int $money 贷款金额
  * @property int $years 贷款时间
- * @property string $r_name 推荐人
- * @property string $r_phone 推荐人电话
+ *
+ * @property ILoanLog[] $iLoanLogs
  */
 class ILoan extends \yii\db\ActiveRecord
 {
@@ -36,7 +36,7 @@ class ILoan extends \yii\db\ActiveRecord
     {
         return [
             [['created', 'uid', 'is_deal', 'money', 'years'], 'integer'],
-            [['name', 'phone', 'itype', 'r_name', 'r_phone'], 'string', 'max' => 20],
+            [['name', 'phone', 'itype'], 'string', 'max' => 20],
         ];
     }
 
@@ -55,8 +55,14 @@ class ILoan extends \yii\db\ActiveRecord
             'is_deal' => 'Is Deal',
             'money' => '贷款金额',
             'years' => '贷款时间',
-            'r_name' => '推荐人',
-            'r_phone' => '推荐人电话',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getILoanLogs()
+    {
+        return $this->hasMany(ILoanLog::className(), ['lid' => 'id']);
     }
 }
