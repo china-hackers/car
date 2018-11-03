@@ -11,8 +11,44 @@ namespace app\controllers\mobile;
 use app\controllers\base\MController;
 use abei2017\wx\Application;
 use app\models\User;
+use app\models\UserSms;
 
 class UserController extends MController{
+
+    public function actionBindphone(){
+        $this->checkUser();
+        $phone = trim($this->post['phone']);
+        $code = trim($this->post['code']);
+        $model = UserSms::find()->where(['phone'=>$phone,'code'=>$code])->one();
+        if(strlen($phone) != 11)
+            return $this->json(402,'手机号长度必须是11位');
+        if(!$model)
+            return $this->json(402,'验证码错误');
+        $model->delete();
+        $model = User::findOne($this->uid);
+        $model->phone = $phone;
+        $model->save();
+        return $this->json();
+    }
+
+    public function actionSendcode(){
+        $this->checkUser();
+        $phone = trim($this->post['phone']);
+        if(strlen($phone) != 11)
+            return $this->json(404,'手机号长度必须是11位');
+        //todo
+        $model = UserSms::find()->where('phone="'.$phone.'"')->one();
+        if($model){
+            $code = $model->code;
+        }else{
+            $code = rand(1000,9999);
+            $model = new UserSms();
+            $model->phone = $phone;
+            $model->code = $code;
+            $model->save();
+        }
+        return $this->json();
+    }
 
     public function actionCarsave(){
         $this->checkUser();
