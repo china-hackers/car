@@ -8,6 +8,10 @@ use app\models\Banner;
 class BannerController extends AController
 {
 
+    public function actionRecommandsave(){
+        
+    }
+
     public function actionDelete(){
         if(empty($this->post['id'])) return $this->json(403,'角色ID不能为空');
         $model = Banner::findOne($this->post['id']);
