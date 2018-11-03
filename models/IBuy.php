@@ -14,6 +14,7 @@ use Yii;
  * @property string $phone
  * @property int $is_deal
  * @property int $created
+ * @property int $saler_id
  *
  * @property Product $p
  * @property IBuyLog[] $iBuyLogs
@@ -35,7 +36,7 @@ class IBuy extends \yii\db\ActiveRecord
     {
         return [
             [['pid'], 'required'],
-            [['pid', 'uid', 'is_deal', 'created'], 'integer'],
+            [['pid', 'uid', 'is_deal', 'created', 'saler_id'], 'integer'],
             [['name', 'phone'], 'string', 'max' => 20],
             [['pid'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['pid' => 'id']],
         ];
@@ -54,6 +55,7 @@ class IBuy extends \yii\db\ActiveRecord
             'phone' => 'Phone',
             'is_deal' => 'Is Deal',
             'created' => 'Created',
+            'saler_id' => 'Saler ID',
         ];
     }
 
