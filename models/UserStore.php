@@ -79,7 +79,7 @@ class UserStore extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getP()
+    public function getProduct()
     {
         return $this->hasOne(Product::className(), ['id' => 'pid']);
     }

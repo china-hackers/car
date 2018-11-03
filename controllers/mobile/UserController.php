@@ -12,6 +12,7 @@ use app\controllers\base\MController;
 use abei2017\wx\Application;
 use app\models\User;
 use app\models\UserSms;
+use app\models\UserStore;
 
 class UserController extends MController{
 
@@ -77,7 +78,7 @@ class UserController extends MController{
     public function actionQrcode(){
         $qrcode = (new Application())->driver("mp.qrcode");
         $r = $qrcode->forever(@$this->post['id']);
-        $this->data['data']['qrcode'] = 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.$r['ticket'];
+        $this->data['data']['qrcode'] = 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.@$r['ticket'];
         return $this->json();
     }
 
@@ -101,6 +102,17 @@ class UserController extends MController{
             $this->data['data']['user'] = $user;
         }
         if($model->car) $this->data['data']['car'] = $model->car->attributes;
+        return $this->json();
+    }
+
+    public function actionStorelist(){
+        $this->checkUser();
+        $data = UserStore::find()->where('uid='.$this->uid)->all();
+        $list = [];
+        foreach($data as $li){
+            $list[] = $li->product->attributes;
+        }
+        $this->data['data'] = $list;
         return $this->json();
     }
 }
