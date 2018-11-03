@@ -9,6 +9,7 @@ use app\models\ILoan;
 use app\models\ILoanImg;
 use app\models\ISafe;
 use app\models\ILoanLog;
+use app\models\ISafeImg;
 use app\models\ISafeLog;
 use app\models\ISafeOption;
 use app\models\User;
@@ -67,6 +68,19 @@ class FinanceController extends AController
         return $this->json();
     }
 
+    public function actionLoan(){
+        if(empty($this->post['id'])) return $this->json(404,'ID不能为空');
+        $model = ILoan::findOne($this->post['id']);
+        $this->data['data'] = $model->attributes;
+        $list = ILoanImg::find()->where('lid='.$this->post['id'])->all();
+        $imgs = [];
+        foreach($list as $li){
+            $imgs[] = $li->img;
+        }
+        $this->data['data']['imgs'] = $imgs;
+        return $this->json();
+    }
+
     public function actionLoancheck(){
         if(empty($this->post['id'])) return $this->json(402,'ID不能为空');
         $model = ILoan::findOne($this->post['id']);
@@ -114,6 +128,7 @@ class FinanceController extends AController
             $model->attributes = $this->post;
             $model->state = 4;
             $model->save();
+            ISafeImg::addImgs($this->post['id'],$this->post['imgs']);
             ISafeOption::addOptions($this->post['id'],$this->post['options']);
             $log = new ISafeLog();
             $log->addLog($this->post['id'],'车险成交!');
@@ -121,6 +136,25 @@ class FinanceController extends AController
         }else{
             return $this->json(402,'没有找到该车险记录');
         }
+    }
+
+    public function actionSafe(){
+        if(empty($this->post['id'])) return $this->json(404,'ID不能为空');
+        $model = ISafe::findOne($this->post['id']);
+        $this->data['data'] = $model->attributes;
+        $list = ISafeOption::find()->where('sid='.$this->post['id'])->all();
+        $options = [];
+        foreach($list as $li){
+            $options[] = ['key'=>$li->k , 'val'=>$li->v];
+        }
+        $list = ISafeImg::find()->where('sid='.$this->post['id'])->all();
+        $imgs = [];
+        foreach($list as $li){
+            $imgs[] = $li->img;
+        }
+        $this->data['data']['options'] = $options;
+        $this->data['data']['imgs'] = $imgs;
+        return $this->json();
     }
 
     public function actionSafestate(){

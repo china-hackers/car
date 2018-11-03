@@ -5,26 +5,24 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "i_safe_option".
+ * This is the model class for table "i_safe_img".
  *
  * @property int $id
  * @property int $sid
- * @property string $k
- * @property string $v
+ * @property string $img
  *
  * @property ISafe $s
  */
-class ISafeOption extends \yii\db\ActiveRecord
+class ISafeImg extends \yii\db\ActiveRecord
 {
 
-    public static function addOptions($id, $list){
-        ISafeOption::deleteAll('sid='.$id);
+    public static function addImgs($id, $list){
+        ISafeImg::deleteAll('sid='.$id);
         if(empty($list)) return false;
         foreach($list as $li){
-            $model = new ISafeOption();
+            $model = new ISafeImg();
             $model->sid = $id;
-            $model->k = $li['key'];
-            $model->v = $li['val'];
+            $model->img = $li;
             $model->save();
         }
         return true;
@@ -34,7 +32,7 @@ class ISafeOption extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'i_safe_option';
+        return 'i_safe_img';
     }
 
     /**
@@ -44,8 +42,7 @@ class ISafeOption extends \yii\db\ActiveRecord
     {
         return [
             [['sid'], 'integer'],
-            [['v'], 'number'],
-            [['k'], 'string', 'max' => 100],
+            [['img'], 'string', 'max' => 200],
             [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => ISafe::className(), 'targetAttribute' => ['sid' => 'id']],
         ];
     }
@@ -58,8 +55,7 @@ class ISafeOption extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'sid' => 'Sid',
-            'k' => 'K',
-            'v' => 'V',
+            'img' => 'Img',
         ];
     }
 
