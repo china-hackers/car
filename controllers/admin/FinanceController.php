@@ -9,13 +9,19 @@ use app\models\ILoan;
 use app\models\ISafe;
 use app\models\ILoanLog;
 use app\models\ISafeLog;
+use app\models\UserBusiness;
 
 class FinanceController extends AController
 {
-    public function actionBuy2user(){
+    public function actionSaler2user(){
         if(empty($this->post['id'])) return $this->json(402,'ID不能为空');
         $model = IBuy::findOne($this->post['id']);
-        $model;
+        $saler = UserBusiness::find()->orderBy('users asc')->one();
+        $model->saler_id = $saler->uid;
+        $model->save();
+        $saler->users = $saler->users + 1;
+        $saler->save();
+        return $this->json();
     }
 
     public function actionSafelist(){

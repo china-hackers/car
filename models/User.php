@@ -14,9 +14,6 @@ use Yii;
  * @property string $sex 性别
  * @property string $phone 电话
  * @property string $openid openid
- * @property int $is_checked 是否审核未车商
- * @property int $business_id 所属车商
- * @property int $is_manager 是否管理员
  * @property string $id_card 身份证号
  * @property int $rid 推荐人ID
  * @property string $city 微信城市
@@ -26,8 +23,9 @@ use Yii;
  * @property int $jifen 积分
  * @property int $car_id 爱车型号
  * @property int $uid 销售ID
- * @property int $car_no 车牌号
+ * @property string $car_no 车牌号
  *
+ * @property UserBusiness[] $userBusinesses
  * @property UserStore[] $userStores
  */
 class User extends \yii\db\ActiveRecord
@@ -46,13 +44,14 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['is_checked', 'business_id', 'is_manager', 'rid', 'jifen', 'car_id', 'uid'], 'integer'],
+            [['rid', 'jifen', 'car_id', 'uid'], 'integer'],
             [['nickname'], 'string', 'max' => 50],
             [['headimgurl', 'openid'], 'string', 'max' => 250],
             [['name'], 'string', 'max' => 30],
             [['sex'], 'string', 'max' => 2],
-            [['phone','car_no'], 'string', 'max' => 16],
+            [['phone'], 'string', 'max' => 16],
             [['id_card', 'city', 'province', 'country', 'itype'], 'string', 'max' => 20],
+            [['car_no'], 'string', 'max' => 12],
             [['openid'], 'unique'],
         ];
     }
@@ -70,9 +69,6 @@ class User extends \yii\db\ActiveRecord
             'sex' => '性别',
             'phone' => '电话',
             'openid' => 'openid',
-            'is_checked' => '是否审核未车商',
-            'business_id' => '所属车商',
-            'is_manager' => '是否管理员',
             'id_card' => '身份证号',
             'rid' => '推荐人ID',
             'city' => '微信城市',
@@ -89,25 +85,9 @@ class User extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getUserBusiness()
     {
-        return $this->hasOne(User::className(), ['id' => 'uid']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCar()
-    {
-        return $this->hasOne(Brand::className(), ['id' => 'car_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBusiness()
-    {
-        return $this->hasOne(Business::className(), ['id' => 'business_id']);
+        return $this->hasOne(UserBusiness::className(), ['uid' => 'id']);
     }
 
     /**
