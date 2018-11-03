@@ -89,6 +89,7 @@ class FinanceController extends AController
         if(empty($this->post['id'])) return $this->json(402,'ID不能为空');
         $model = ILoan::findOne($this->post['id']);
         if($model){
+            $model->attributes = $this->post;
             $model->is_deal = 1;
             $model->save();
             return $this->json();
@@ -106,6 +107,19 @@ class FinanceController extends AController
         }else{
             return $this->error($model);
         }
+    }
+
+    public function actionLoanstate(){
+        if(empty($this->post['id'])) return $this->json(402,'ID不能为空');
+        $model = ILoan::findOne($this->post['id']);
+        if(!$model) return $this->json(402,'没有找到该车贷');
+        if($model->state==4) return $this->json(402,'该贷款已成交，无法再变更');
+        $log = new ILoanLog();
+        $log->addLog($this->post['id'],'系统备注：变更状态:'.$model->state.'->'.$this->post['state']);
+
+        $model->state = intval($this->post['state']);
+        $model->save();
+        return $this->json();
     }
 
     public function actionSafecheck(){

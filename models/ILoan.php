@@ -16,7 +16,15 @@ use Yii;
  * @property int $is_deal
  * @property int $money 贷款金额
  * @property int $years 贷款时间
+ * @property int $state
+ * @property string $d_name
+ * @property string $d_phone
+ * @property string $d_type
+ * @property int $d_money
+ * @property int $d_months
+ * @property int $d_pay
  *
+ * @property ILoanImg[] $iLoanImgs
  * @property ILoanLog[] $iLoanLogs
  */
 class ILoan extends \yii\db\ActiveRecord
@@ -35,8 +43,11 @@ class ILoan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created', 'uid', 'is_deal', 'money', 'years'], 'integer'],
-            [['name', 'phone', 'itype'], 'string', 'max' => 20],
+            [['created', 'uid', 'is_deal', 'money', 'years', 'state', 'd_money', 'd_months', 'd_pay'], 'integer'],
+            [['money', 'years'], 'required'],
+            [['name', 'phone', 'itype', 'd_type'], 'string', 'max' => 20],
+            [['d_name'], 'string', 'max' => 6],
+            [['d_phone'], 'string', 'max' => 16],
         ];
     }
 
@@ -55,7 +66,22 @@ class ILoan extends \yii\db\ActiveRecord
             'is_deal' => 'Is Deal',
             'money' => '贷款金额',
             'years' => '贷款时间',
+            'state' => 'State',
+            'd_name' => 'D Name',
+            'd_phone' => 'D Phone',
+            'd_type' => 'D Type',
+            'd_money' => 'D Money',
+            'd_months' => 'D Months',
+            'd_pay' => 'D Pay',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getILoanImgs()
+    {
+        return $this->hasMany(ILoanImg::className(), ['lid' => 'id']);
     }
 
     /**

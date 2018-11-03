@@ -5,6 +5,7 @@ namespace app\controllers\admin;
 
 use app\controllers\base\BaseController;
 use app\models\Admin;
+use app\models\ILoanImg;
 use app\models\ProductImg;
 use app\models\UploadModel;
 use yii\web\UploadedFile;
@@ -12,6 +13,24 @@ use Yii;
 
 class SiteController extends BaseController
 {
+
+
+    public function actionLoanimg(){
+        $this->layout = false;
+        $model = new UploadModel();
+        if (Yii::$app->request->isPost) {
+            $model->image = UploadedFile::getInstance($model, 'image');
+            $path = $model->upload('loan');
+            if ($path) {
+                $this->data['data'][] = $path;
+                return $this->json();
+            }else{
+                return $this->json(401,'上传图片失败');
+            }
+        }else{
+            return $this->json(401,'未提交内容');
+        }
+    }
 
     public function actionRecommandimg(){
         $this->layout = false;
