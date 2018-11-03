@@ -15,6 +15,7 @@ use app\models\ILoanLog;
 use app\models\ISafe;
 use app\controllers\base\MController;
 use app\models\ISafeLog;
+use app\models\User;
 
 class FinanceController extends MController{
 
@@ -125,6 +126,9 @@ class FinanceController extends MController{
         $model->attributes = $this->post;
         $model->created = time();
         $model->uid = $this->uid;
+        $user = User::findOne($this->uid);
+        if($user->uid)
+            $model->saler_id = $user->uid;
         if($model->save()){
             return $this->json();
         }else{

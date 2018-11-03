@@ -9,18 +9,39 @@ use app\models\ILoan;
 use app\models\ISafe;
 use app\models\ILoanLog;
 use app\models\ISafeLog;
+use app\models\User;
 use app\models\UserBusiness;
 
 class FinanceController extends AController
 {
     public function actionSaler2user(){
+        /**
+         * 客户第一次提交需要一键指定销售
+         * 客户第二次一键指定就应该指定上一次的销售
+         * IBuy表中的销售也应该同步更新，第二次提交申请的时候，表中的销售ID就自动设置好
+         */
         if(empty($this->post['id'])) return $this->json(402,'ID不能为空');
         $model = IBuy::findOne($this->post['id']);
-        $saler = UserBusiness::find()->orderBy('users asc')->one();
-        $model->saler_id = $saler->uid;
+        if($model->saler_id)
+            $is_new = false;
+        else
+            $is_new = true;
+        $user = User::findOne($model->uid);
+        if($user->uid){
+            $saler_id = $user->uid;
+        }else{
+            $saler = UserBusiness::find()->where('is_checked=1')->orderBy('users asc')->one();
+            $saler_id = $saler->uid;
+            $user->uid = $saler->uid;
+            $user->save();
+        }
+        $model->saler_id = $saler_id;
         $model->save();
-        $saler->users = $saler->users + 1;
-        $saler->save();
+        if($is_new){//防止重复提交计数累加
+            if(@!$saler) $saler = UserBusiness::find()->where('uid='.$saler_id)->one();
+            $saler->users = $saler->users + 1;
+            $saler->save();
+        }
         return $this->json();
     }
 
