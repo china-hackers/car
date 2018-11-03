@@ -4,12 +4,17 @@ namespace app\controllers\admin;
 
 use app\controllers\base\AController;
 use app\models\Banner;
+use app\models\WebSetting;
 
 class BannerController extends AController
 {
 
     public function actionRecommandsave(){
-        
+        $data = $this->post;
+        $model = WebSetting::find()->where('k="RECOMMAND"')->one();
+        $model->v = json_encode($data);
+        $model->save();
+        return $this->json();
     }
 
     public function actionDelete(){
