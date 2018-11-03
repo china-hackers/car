@@ -158,6 +158,18 @@ class ProductController extends MController{
                 else
                     $itype = 'i尊车';
                 $where = 'itype="'.$itype.'"';
+            }elseif(@$this->post['store']){
+                $this->checkUser();
+                $data = UserStore::find()->where('uid='.$this->uid)->all();
+                if($data){
+                    $pid = [];
+                    foreach($data as $d){
+                        $pid[] = $d->pid;
+                    }
+                    $where = 'id in ('.implode(',',$pid).') ';
+                }else{
+                    $where = 'id=0 ';
+                }
             }
         }
         if(@$this->post['pid']) $where = 'id='.intval($this->post['pid']); //单独返回1条数据
