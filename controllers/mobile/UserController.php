@@ -101,10 +101,21 @@ class UserController extends MController{
             $user['phone'] = $model->user->phone;
             $this->data['data']['user'] = $user;
         }
-        if($model->car) $this->data['data']['car'] = $model->car->attributes;
+        if($model->car){
+            $this->data['data']['car'] = $model->car->attributes;
+            $this->data['data']['car']['price'] = $model->car_price;
+        }
         $safe = $model->safe;
         if($safe){
-
+            $today = time();
+            if($safe->d_j_outdate){
+                $time = strtotime($safe->d_j_outdate)-30*86400;
+                if($time<$today) $this->data['data']['outdate'] = $safe->d_j_outdate;
+            }
+            if($safe->d_s_outdate){
+                $time = strtotime($safe->d_s_outdate)-30*86400;
+                if($time<$today) $this->data['data']['outdate'] = $safe->d_s_outdate;
+            }
         }
         return $this->json();
     }
