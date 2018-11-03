@@ -71,8 +71,8 @@ class FinanceController extends AController
         if(empty($this->post['id'])) return $this->json(402,'ID不能为空');
         $model = ILoan::findOne($this->post['id']);
         if($model){
-            if($model->state==4) return $this->json(402,'该贷款已成交，无法再变更');
             $model->attributes = $this->post;
+            $model->state = 4;
             $model->save();
             ILoanImg::addImgs($this->post['id'],$this->post['imgs']);
             $log = new ILoanLog();
@@ -111,7 +111,6 @@ class FinanceController extends AController
         if(empty($this->post['id'])) return $this->json(402,'ID不能为空');
         $model = ISafe::findOne($this->post['id']);
         if($model){
-            if($model->state==4) return $this->json(402,'该车险已成交，无法再变更');
             $model->attributes = $this->post;
             $model->state = 4;
             $model->save();
