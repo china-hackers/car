@@ -47,8 +47,7 @@ class ISafe extends \yii\db\ActiveRecord
             [['created', 'uid', 'car_id', 'state', 'd_car_id'], 'integer'],
             [['d_s_outdate', 'd_j_outdate'], 'safe'],
             [['d_price'], 'number'],
-            [['name', 'phone', 'car_no', 'd_name', 'd_phone', 'd_type'], 'string', 'max' => 20],
-            [['d_car_no'], 'string', 'max' => 8],
+            [['name', 'phone', 'car_no', 'd_name', 'd_phone', 'd_type', 'd_car_no'], 'string', 'max' => 20],
             [['car_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::className(), 'targetAttribute' => ['car_id' => 'id']],
         ];
     }
