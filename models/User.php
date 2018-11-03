@@ -93,6 +93,22 @@ class User extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'uid']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCar()
+    {
+        return $this->hasOne(Brand::className(), ['id' => 'car_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getUserStores()
     {
         return $this->hasMany(UserStore::className(), ['uid' => 'id']);
