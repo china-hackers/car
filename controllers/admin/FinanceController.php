@@ -12,8 +12,11 @@ use app\models\ISafeLog;
 
 class FinanceController extends AController
 {
-
-
+    public function actionBuy2user(){
+        if(empty($this->post['id'])) return $this->json(402,'ID不能为空');
+        $model = IBuy::findOne($this->post['id']);
+        $model;
+    }
 
     public function actionSafelist(){
         $p = @$this->post['p']?$this->post['p']:1;
