@@ -180,6 +180,9 @@ class ProductController extends MController{
         $l2 = [];
         foreach($list as $li){
             $tmp = $li->attributes;
+            $seconds = time()-strtotime($li->reg_date);
+            $tmp['years'] = ceil(($seconds/86400)/365);
+            if(!$li->reg_date) $tmp['years'] = 0;
             $tmp['img'] = empty($li->productImg)?'':@$li->productImg->img;
             $l2[] = $tmp;
         }
