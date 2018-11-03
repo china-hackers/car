@@ -87,6 +87,7 @@ class UserController extends MController{
         $model = User::findOne($this->uid);
         $this->data['data']['car_id'] = $model->car_id;
         $this->data['data']['car_no'] = $model->car_no;
+        $this->data['data']['price'] = $model->car_price;
         return $this->json();
     }
 
@@ -101,10 +102,20 @@ class UserController extends MController{
             $user['phone'] = $model->user->phone;
             $this->data['data']['user'] = $user;
         }
-        if($model->car) $this->data['data']['car'] = $model->car->attributes;
+        if($model->car){
+            $this->data['data']['car'] = $model->car->attributes;
+        }
         $safe = $model->safe;
         if($safe){
-
+            $today = time();
+            if($safe->d_j_outdate){
+                $time = strtotime($safe->d_j_outdate)-30*86400;
+                if($time<$today) $this->data['data']['outdate'] = $safe->d_j_outdate;
+            }
+            if($safe->d_s_outdate){
+                $time = strtotime($safe->d_s_outdate)-30*86400;
+                if($time<$today) $this->data['data']['outdate'] = $safe->d_s_outdate;
+            }
         }
         return $this->json();
     }
