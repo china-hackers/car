@@ -13,6 +13,23 @@ use Yii;
 class SiteController extends BaseController
 {
 
+    public function actionRecommandimg(){
+        $this->layout = false;
+        $model = new UploadModel();
+        if (Yii::$app->request->isPost) {
+            $model->image = UploadedFile::getInstance($model, 'image');
+            $path = $model->upload('recommand');
+            if ($path) {
+                $this->data['data'][] = $path;
+                return $this->json();
+            }else{
+                return $this->json(401,'上传图片失败');
+            }
+        }else{
+            return $this->json(401,'未提交内容');
+        }
+    }
+
     public function actionBannerimg(){
         $this->layout = false;
         $model = new UploadModel();

@@ -11,7 +11,6 @@ use Yii;
  * @property string $img
  * @property int $outdate 到期时间
  * @property string $url
- * @property int $pid 产品ID
  * @property int $created 创建时间
  */
 class Banner extends \yii\db\ActiveRecord
@@ -30,7 +29,7 @@ class Banner extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['outdate', 'pid', 'created'], 'integer'],
+            [['outdate', 'created'], 'integer'],
             [['img', 'url'], 'string', 'max' => 250],
         ];
     }
@@ -45,7 +44,6 @@ class Banner extends \yii\db\ActiveRecord
             'img' => 'Img',
             'outdate' => '到期时间',
             'url' => 'Url',
-            'pid' => '产品ID',
             'created' => '创建时间',
         ];
     }
