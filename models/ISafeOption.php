@@ -18,6 +18,7 @@ class ISafeOption extends \yii\db\ActiveRecord
 {
 
     public static function addOptions($id, $list){
+        ISafeOption::deleteAll('sid='.$id);
         if(empty($list)) return false;
         foreach($list as $key=>$value){
             $model = new ISafeOption();
