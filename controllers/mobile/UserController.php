@@ -87,7 +87,7 @@ class UserController extends MController{
         $model = User::findOne($this->uid);
         $this->data['data']['car_id'] = $model->car_id;
         $this->data['data']['car_no'] = $model->car_no;
-        $this->data['data']['price'] = $model->car_price;
+        $this->data['data']['car_price'] = $model->car_price;
         return $this->json();
     }
 
