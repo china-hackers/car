@@ -13,7 +13,6 @@ use Yii;
  * @property string $itype 贷款类型
  * @property int $created
  * @property int $uid
- * @property int $is_deal
  * @property int $money 贷款金额
  * @property int $years 贷款时间
  * @property int $state
@@ -43,7 +42,7 @@ class ILoan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created', 'uid', 'is_deal', 'money', 'years', 'state', 'd_money', 'd_months', 'd_pay'], 'integer'],
+            [['created', 'uid', 'money', 'years', 'state', 'd_money', 'd_months', 'd_pay'], 'integer'],
             [['money', 'years'], 'required'],
             [['name', 'phone', 'itype', 'd_type'], 'string', 'max' => 20],
             [['d_name'], 'string', 'max' => 6],
@@ -63,7 +62,6 @@ class ILoan extends \yii\db\ActiveRecord
             'itype' => '贷款类型',
             'created' => 'Created',
             'uid' => 'Uid',
-            'is_deal' => 'Is Deal',
             'money' => '贷款金额',
             'years' => '贷款时间',
             'state' => 'State',
