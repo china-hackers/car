@@ -15,6 +15,7 @@ use app\models\ILoanLog;
 use app\models\ISafe;
 use app\controllers\base\MController;
 use app\models\ISafeLog;
+use app\models\Product;
 use app\models\User;
 
 class FinanceController extends MController{
@@ -123,9 +124,11 @@ class FinanceController extends MController{
     public function actionBuyadd(){
         $this->checkUser();
         $model = new IBuy();
+        $product = Product::findOne($this->post['pid']);
         $model->attributes = $this->post;
         $model->created = time();
         $model->uid = $this->uid;
+        $model->bid = $product->business_id;
         $user = User::findOne($this->uid);
         if($user->uid)
             $model->saler_id = $user->uid;
