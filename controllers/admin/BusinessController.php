@@ -71,25 +71,15 @@ class BusinessController extends AController
         $check = intval($this->post['check'])?1:0;
         $business = Business::findOne($bid);
         if(!$business) return $this->json(404,'未找到该车商');
-        $user = User::find()->where('business_id='.$bid)->one();
-        if(!$user){
-            $business->delete();
-            return $this->json(404,'申请者已经不存在');
-        }
-        if($business->is_checked) return $this->json(402,'请不要重复审核，已经审核通过了');
         if($check){
             $business->is_checked = 1;
-            $user->is_checked = 1;
-            $user->is_manager = 1;
             $business->save();
-            $user->save();
+            return $this->json();
         }else{
+            UserBusiness::deleteAll(['business_id'=>$business->id]);
             $business->delete();
-            $user->is_checked = 0;
-            $user->business_id = 0;
-            $user->save();
+            return $this->json();
         }
-        return $this->json();
     }
 
     public function actionBusiness(){
