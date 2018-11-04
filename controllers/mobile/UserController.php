@@ -200,6 +200,8 @@ class UserController extends MController{
                     $this->data['data']['role'] = '车商';
                 else
                     $this->data['data']['role'] = '销售';
+            }else{
+                $this->data['data']['role'] = '审核中';
             }
         }
         return $this->json();
