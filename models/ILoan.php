@@ -22,6 +22,7 @@ use Yii;
  * @property int $d_money
  * @property int $d_month
  * @property int $d_pay
+ * @property string $d_date
  *
  * @property ILoanImg[] $iLoanImgs
  * @property ILoanLog[] $iLoanLogs
@@ -44,6 +45,7 @@ class ILoan extends \yii\db\ActiveRecord
         return [
             [['created', 'uid', 'money', 'years', 'state', 'd_money', 'd_month', 'd_pay'], 'integer'],
             [['money', 'years'], 'required'],
+            [['d_date'], 'safe'],
             [['name', 'phone', 'itype', 'd_type'], 'string', 'max' => 20],
             [['d_name'], 'string', 'max' => 6],
             [['d_phone'], 'string', 'max' => 16],
@@ -69,8 +71,9 @@ class ILoan extends \yii\db\ActiveRecord
             'd_phone' => 'D Phone',
             'd_type' => 'D Type',
             'd_money' => 'D Money',
-            'd_month' => 'D Months',
+            'd_month' => 'D Month',
             'd_pay' => 'D Pay',
+            'd_date' => 'D Date',
         ];
     }
 
