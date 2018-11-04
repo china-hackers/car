@@ -144,7 +144,7 @@ class ProductController extends MController{
 
     public function actionProductsave()
     {
-        if ($this->post['id']) {
+        if (@$this->post['id']) {
             $code = 402;
             $model = Product::findOne($this->post['id']);
         }else{
@@ -323,6 +323,7 @@ class ProductController extends MController{
         if(@$this->post['air_in']) $where .= ' AND air_in="'.$this->post['air_in'].'"';
         if(@$this->post['gear_box']) $where .= ' AND gear_box="'.$this->post['gear_box'].'"';
         if(@$this->post['title']) $where .= ' AND title like "%'.$this->post['title'].'%"';
+        $where .= ' AND state=0';
         $count = Product::find()->where($where)->count();
         $list = Product::find()->where($where)->orderBy($order)->offset(($p-1)*20)->limit(20)->all();
         $data = ['total'=>intval($count)];

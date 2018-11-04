@@ -16,6 +16,13 @@ use Yii;
  */
 class IBuyLog extends \yii\db\ActiveRecord
 {
+
+    public function addLog($id, $note){
+        $this->bid = $id;
+        $this->note = $note;
+        $this->created = time();
+        return $this->save();
+    }
     /**
      * {@inheritdoc}
      */

@@ -96,6 +96,25 @@ class FinanceController extends MController{
         }
     }
 
+    public function actionBuycheck(){
+        $id = $this->post['id'];
+        $check = $this->post['check'];
+        $buy = IBuy::findOne($id);
+        if($check==1){//成交
+            $buy->is_deal = 1;
+            $buy->save();
+            //下架产品
+            Product::updateAll(['state'=>1],['id'=>$buy->pid]);
+            //增加日志
+            IBuyLog::addLog($id,'成交！');
+        }else{//失效
+            $buy->is_deal = 2;
+            $buy->save();
+            //增加日志
+            IBuyLog::addLog($id,'失效！');
+        }
+    }
+
 
     public function actionBuylogs(){
         if(empty($this->post['id'])) return $this->json(404,'ID不能为空');
