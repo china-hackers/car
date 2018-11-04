@@ -20,8 +20,12 @@ class ApiController extends BaseController
                 return "我们已收到您的留言，谢谢~";
             }elseif($message['MsgType']=='event'){
                 if(@$message['EventKey'] && $message['Event']=='subscribe'){
+                    $key = str_replace('qrscene_','',$message['EventKey']);
+                    if(strpos($key,'B')){//车商二维码
+
+                    }
                     $model = new UserQrcode();
-                    $model->uid = str_replace('qrscene_','',$message['EventKey']);
+                    $model->uid =
                     $model->openid = $message['FromUserName'];
                     $model->created = time();
                     $model->save();
