@@ -26,6 +26,7 @@ use Yii;
  * @property int $displacement 排量
  * @property string $gear_box 变速箱
  * @property string $air_in 进气形式
+ * @property int $state
  *
  * @property IBuy[] $iBuys
  * @property Brand $car
@@ -36,6 +37,7 @@ use Yii;
  * @property ProductTax[] $productTaxes
  * @property ProductTyre[] $productTyres
  * @property ProductUnder[] $productUnders
+ * @property UserStore[] $userStores
  */
 class Product extends \yii\db\ActiveRecord
 {
@@ -53,7 +55,7 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['car_id', 'business_id', 'user_id', 'city_id', 'km', 'shoufu', 'yuegong', 'displacement'], 'integer'],
+            [['car_id', 'business_id', 'user_id', 'city_id', 'km', 'shoufu', 'yuegong', 'displacement', 'state'], 'integer'],
             [['price', 'price_new', 'tax'], 'number'],
             [['business_id', 'user_id'], 'required'],
             [['title'], 'string', 'max' => 250],
@@ -88,9 +90,9 @@ class Product extends \yii\db\ActiveRecord
             'displacement' => '排量',
             'gear_box' => '变速箱',
             'air_in' => '进气形式',
+            'state' => 'State',
         ];
     }
-
 
     /**
      * @return \yii\db\ActiveQuery
@@ -143,11 +145,6 @@ class Product extends \yii\db\ActiveRecord
         return $this->hasMany(ProductImg::className(), ['pid' => 'id']);
     }
 
-    public function getProductImg()
-    {
-        return $this->hasOne(ProductImg::className(), ['pid' => 'id']);
-    }
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -159,9 +156,9 @@ class Product extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getProductTax()
+    public function getProductTaxes()
     {
-        return $this->hasOne(ProductTax::className(), ['pid' => 'id']);
+        return $this->hasMany(ProductTax::className(), ['pid' => 'id']);
     }
 
     /**
@@ -178,5 +175,13 @@ class Product extends \yii\db\ActiveRecord
     public function getProductUnders()
     {
         return $this->hasMany(ProductUnder::className(), ['pid' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserStores()
+    {
+        return $this->hasMany(UserStore::className(), ['pid' => 'id']);
     }
 }
