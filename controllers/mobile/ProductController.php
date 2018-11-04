@@ -26,7 +26,6 @@ use app\models\UserStore;
 
 class ProductController extends MController{
 
-
     public function actionImgdelete(){
         if(empty($this->post['img_id'])) return $this->json(404,'图片ID不能为空');
         $model = ProductImg::findOne($this->post['img_id']);
@@ -145,6 +144,7 @@ class ProductController extends MController{
 
     public function actionProductsave()
     {
+        $this->checkUser();
         if (@$this->post['id']) {
             $code = 402;
             $model = Product::findOne($this->post['id']);
