@@ -35,7 +35,7 @@ class ApiController extends BaseController
                     $model->created = time();
                     $model->save();
                 }
-                return "欢迎关注我们的公众号~".$message['EventKey'];
+                return "欢迎关注我们的公众号~".strpos($key,'B');
             }
         });
 
