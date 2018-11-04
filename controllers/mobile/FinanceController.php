@@ -113,6 +113,7 @@ class FinanceController extends MController{
             //增加日志
             IBuyLog::addLog($id,'失效！');
         }
+        return $this->json();
     }
 
 

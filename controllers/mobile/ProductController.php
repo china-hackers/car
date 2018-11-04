@@ -21,6 +21,7 @@ use app\models\ProductTax;
 use app\models\ProductTyre;
 use app\models\ProductUnder;
 use app\models\User;
+use app\models\UserBusiness;
 use app\models\UserStore;
 
 class ProductController extends MController{
@@ -152,6 +153,9 @@ class ProductController extends MController{
             $model = new Product();
         }
         $model->attributes = $this->post;
+        $model->user_id = $this->uid;
+        $ub = UserBusiness::find()->where('uid='.$this->uid)->one();
+        $model->business_id = $ub->business_id;
         @$car = Brand::findOne($model->car_id);
         @$model->brand = $car->brand;
         if($model->save()){
