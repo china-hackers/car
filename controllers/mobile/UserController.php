@@ -10,11 +10,55 @@ namespace app\controllers\mobile;
 
 use app\controllers\base\MController;
 use abei2017\wx\Application;
+use app\models\ILoan;
+use app\models\ILoanImg;
+use app\models\ILoanLog;
+use app\models\ISafe;
+use app\models\ISafeImg;
+use app\models\ISafeLog;
 use app\models\User;
 use app\models\UserSms;
 use app\models\UserStore;
 
 class UserController extends MController{
+
+    public function actionLoan(){
+        $this->checkUser();
+        $model = ILoan::find()->where('uid='.$this->uid)->one();
+        $this->data['data'] = $model->attributes;
+        $data = ILoanLog::find()->where('lid='.$model->id)->orderBy('id DESC')->all();
+        $list = [];
+        foreach($data as $d){
+            $list[] = ['note'=>$d->note,'time'=>date('Y-m-d H:i:s',$d->created)];
+        }
+        $this->data['data']['logs'] = $list;
+        $data = ILoanImg::find()->where('lid='.$model->id)->all();
+        $list = [];
+        foreach($data as $d){
+            $list[] = $d->img;
+        }
+        $this->data['data']['imgs'] = $list;
+        return $this->json();
+    }
+
+    public function actionSafe(){
+        $this->checkUser();
+        $model = ISafe::find()->where('uid='.$this->uid)->one();
+        $this->data['data'] = $model->attributes;
+        $data = ISafeLog::find()->where('sid='.$model->id)->orderBy('id DESC')->all();
+        $list = [];
+        foreach($data as $d){
+            $list[] = ['note'=>$d->note,'time'=>date('Y-m-d H:i:s',$d->created)];
+        }
+        $this->data['data']['logs'] = $list;
+        $data = ISafeImg::find()->where('sid='.$model->id)->all();
+        $list = [];
+        foreach($data as $d){
+            $list[] = $d->img;
+        }
+        $this->data['data']['imgs'] = $list;
+        return $this->json();
+    }
 
     public function actionBindphone(){
         $this->checkUser();
