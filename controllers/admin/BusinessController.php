@@ -9,6 +9,19 @@ use app\models\UserBusiness;
 
 class BusinessController extends AController
 {
+    public function actionSalers(){
+        $bid = $this->post['bid'];
+        $data = UserBusiness::find()->where(['business_id'=>$bid,'is_checked'=>1])->all();
+        $list = [];
+        foreach($data as $d){
+            $user = $d->user;
+            $tmp = $user->attributes;
+            $tmp['is_manager'] = $d->is_manager;
+            $list[] = $tmp;
+        }
+        $this->data['data'] = $list;
+        return $this->json();
+    }
 
     public function actionSalerdelete(){
         $uid = $this->post['uid'];
