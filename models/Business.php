@@ -36,7 +36,7 @@ class Business extends \yii\db\ActiveRecord
             [['note'], 'string'],
             [['is_checked'], 'integer'],
             [['name'], 'string', 'max' => 100],
-            [['phone'], 'string', 'max' => 11],
+            [['phone'], 'string', 'max' => 20],
             [['logo', 'address'], 'string', 'max' => 200],
             [['lat', 'lng'], 'string', 'max' => 30],
         ];
