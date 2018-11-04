@@ -5,6 +5,7 @@ namespace app\controllers\admin;
 use app\controllers\base\AController;
 use app\models\Business;
 use app\models\User;
+use app\models\UserBusiness;
 
 class BusinessController extends AController
 {
@@ -92,15 +93,35 @@ class BusinessController extends AController
         }
     }
 
-    public function actionUserlist(){
-        $bid = $this->post['bid'];
-        $list = User::find()->where('business_id='.$bid)->all();
-        $count = count($list);
+    public function actionSalerlist(){
+        @$p = intval($this->post['p'])?$this->post['p']:1;
+        $count = UserBusiness::find()->count();
+        $list = UserBusiness::find()->orderBy('is_checked ASC')->offset(($p-1)*20)->limit(20)->all();
         $data = ['total'=>intval($count)];
         $l2 = [];
         foreach($list as $li){
-            $tmp = $li->attributes;
-            //$tmp['role_name'] = $li->role->role;
+            $tmp = [];
+            $user = $li->user;
+            if($user) {
+                $tmp['name'] = $user->name;
+                $tmp['phone'] = $user->phone;
+                $tmp['city'] = $user->city;
+                $tmp['sex'] = $user->sex;
+                $tmp['id_card'] = $user->id_card;
+            }else{
+                $tmp['name'] = '';
+                $tmp['phone'] = '';
+                $tmp['city'] = '';
+                $tmp['sex'] = '';
+                $tmp['id_card'] = '';
+            }
+            $business = $li->business;
+            if($business) {
+                $tmp['business'] = $business->name;
+            }else{
+                $tmp['business'] = '';
+            }
+            $tmp['is_checked'] = $li->is_checked;
             $l2[] = $tmp;
         }
         $data['list'] = $l2;

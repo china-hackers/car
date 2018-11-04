@@ -16,6 +16,7 @@ use Yii;
  * @property int $created 申请时间
  *
  * @property User $user
+ * @property User $business
  */
 class UserBusiness extends \yii\db\ActiveRecord
 {
@@ -54,9 +55,13 @@ class UserBusiness extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+
+    public function getBusiness()
+    {
+        return $this->hasOne(Business::className(), ['id' => 'business_id']);
+    }
+
+
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'uid']);
