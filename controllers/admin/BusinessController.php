@@ -58,6 +58,13 @@ class BusinessController extends AController
         $l2 = [];
         foreach($list as $li){
             $tmp = $li->attributes;
+            $ub = UserBusiness::find()->where('business_id='.$li->id)->one();
+            $user = User::findOne($ub->uid);
+            $tmp['uname'] = $user->name;
+            $tmp['uphone'] = $user->phone;
+            $tmp['ucity'] = $user->city;
+            $tmp['usex'] = $user->sex;
+            $tmp['ucard'] = $user->id_card;
             $l2[] = $tmp;
         }
         $data = ['total'=>intval($count)];
