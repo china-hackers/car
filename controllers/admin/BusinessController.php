@@ -9,6 +9,15 @@ use app\models\UserBusiness;
 
 class BusinessController extends AController
 {
+    public function actionBind(){
+        $bid = $this->post['bid'];
+        $uid = $this->post['uid'];
+        $model = UserBusiness::find()->where('uid='.$uid)->one();
+        if(!$model) return $this->json(402,'没有找到该记录');
+        $model->business_id = $bid;
+        $model->save();
+        return $this->json();
+    }
 
     public function actionList(){
         @$p = intval($this->post['p'])?$this->post['p']:1;
@@ -102,6 +111,7 @@ class BusinessController extends AController
         foreach($list as $li){
             $tmp = [];
             $user = $li->user;
+            $tmp['uid'] = $li->uid;
             if($user) {
                 $tmp['name'] = $user->name;
                 $tmp['phone'] = $user->phone;
@@ -109,11 +119,7 @@ class BusinessController extends AController
                 $tmp['sex'] = $user->sex;
                 $tmp['id_card'] = $user->id_card;
             }else{
-                $tmp['name'] = '';
-                $tmp['phone'] = '';
-                $tmp['city'] = '';
-                $tmp['sex'] = '';
-                $tmp['id_card'] = '';
+                $li->delete();
             }
             $business = $li->business;
             if($business) {
