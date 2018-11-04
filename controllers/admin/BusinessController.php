@@ -10,6 +10,14 @@ use app\models\UserBusiness;
 class BusinessController extends AController
 {
 
+    public function actionSalerdelete(){
+        $uid = $this->post['uid'];
+        $model = UserBusiness::find()->where('uid='.$uid)->one();
+        if(!$model) return $this->json(402,'没有找到该记录');
+        $model->delete();
+        return $this->json();
+    }
+
     public function actionSalercheck(){
         $uid = $this->post['uid'];
         $model = UserBusiness::find()->where('uid='.$uid)->one();
