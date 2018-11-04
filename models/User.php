@@ -26,7 +26,7 @@ use Yii;
  * @property string $car_no 车牌号
  * @property string $car_price 汽车价格
  *
- * @property UserBusiness[] $userBusinesses
+ * @property UserBusiness[] $userBusiness
  * @property UserStore[] $userStores
  */
 class User extends \yii\db\ActiveRecord
@@ -84,6 +84,12 @@ class User extends \yii\db\ActiveRecord
             'car_price' => '汽车价格',
         ];
     }
+
+    public function getUserBusiness()
+    {
+        return $this->hasOne(UserBusiness::className(), ['uid' => 'id']);
+    }
+
     public function getSafe()
     {
         return $this->hasOne(ISafe::className(), ['uid' => 'id']);
@@ -100,14 +106,6 @@ class User extends \yii\db\ActiveRecord
     public function getCar()
     {
         return $this->hasOne(Brand::className(), ['id' => 'car_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUserBusinesses()
-    {
-        return $this->hasMany(UserBusiness::className(), ['uid' => 'id']);
     }
 
     /**

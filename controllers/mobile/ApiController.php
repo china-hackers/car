@@ -27,7 +27,7 @@ class ApiController extends BaseController
                 if(@$message['EventKey']){
                     $key = str_replace('qrscene_','',$message['EventKey']);
                     if(strpos($key,'B')){//车商二维码
-                        return '欢迎关注我们的公众号~<br/>请点击该链接进行车商注册'.$this->url.'api/join/key/'.intval($key);
+                        return "欢迎关注我们的公众号~\n请点击该链接进行车商注册".$this->url.'mobile/api/join/key/'.intval($key);
                     }
                     $model = UserQrcode::find()->where('uid='.$this->uid)->one();
                     if(!$model){
