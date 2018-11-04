@@ -10,6 +10,11 @@ use yii;
 
 class ApiController extends BaseController
 {
+    private $url = 'http://test.iamlk.cn/';
+
+    public function actionJoin($key){
+        return $this->redirect($this->url.'#/my/join');
+    }
 
     public function actionWeixin(){
         $this->layout = false;
@@ -22,7 +27,7 @@ class ApiController extends BaseController
                 if(@$message['EventKey'] && $message['Event']=='subscribe'){
                     $key = str_replace('qrscene_','',$message['EventKey']);
                     if(strpos($key,'B')){//车商二维码
-
+                        return '欢迎关注我们的公众号~<br/>请点击该链接进行车商注册'.$this->url.'api/join/key/'.intval($key);
                     }
                     $model = new UserQrcode();
                     $model->uid =
