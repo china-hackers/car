@@ -26,7 +26,8 @@ class BusinessController extends AController
     public function actionSalerdelete(){
         $uid = $this->post['uid'];
         $model = UserBusiness::find()->where('uid='.$uid)->one();
-        if(!$model) return $this->json(402,'没有找到该记录');
+        if(!$model) return $this->json(403,'没有找到该记录');
+        if($model->is_manager) return $this->json(403,'管理员不允许被删除');
         $model->delete();
         return $this->json();
     }
