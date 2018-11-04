@@ -41,6 +41,7 @@ class UserController extends MController{
     public function actionLoan(){
         $this->checkUser();
         $model = ILoan::find()->where('uid='.$this->uid)->one();
+        if(!$model) return $this->json(404,'您还没有贷款信息');
         $this->data['data'] = $model->attributes;
         $data = ILoanLog::find()->where('lid='.$model->id)->orderBy('id DESC')->all();
         $list = [];
@@ -53,6 +54,11 @@ class UserController extends MController{
         foreach($data as $d){
             $list[] = $d->img;
         }
+        if($model->d_date)
+            $d_left = $model->d_money - $model->d_pay*($model->getMonths($model->d_date,date('Y-m-d')));
+        else
+            $d_left = 0;
+        $this->data['data']['d_left'] = $d_left;
         $this->data['data']['imgs'] = $list;
         return $this->json();
     }
@@ -60,6 +66,7 @@ class UserController extends MController{
     public function actionSafe(){
         $this->checkUser();
         $model = ISafe::find()->where('uid='.$this->uid)->one();
+        if(!$model) return $this->json(404,'您还没有车险信息');
         $this->data['data'] = $model->attributes;
         $data = ISafeLog::find()->where('sid='.$model->id)->orderBy('id DESC')->all();
         $list = [];
