@@ -155,6 +155,11 @@ class ProductController extends MController{
         $model->attributes = $this->post;
         $model->user_id = $this->uid;
         $ub = UserBusiness::find()->where('uid='.$this->uid)->one();
+        if(!$ub){
+            return $this->json(404,'您还没有申请成为车商');
+        }elseif($ub->is_checked==0){
+            return $this->json(404,'您申请成为车商还未通过审核');
+        }
         $model->business_id = $ub->business_id;
         @$car = Brand::findOne($model->car_id);
         @$model->brand = $car->brand;
