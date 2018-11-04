@@ -14,6 +14,9 @@ use app\models\Business;
 use abei2017\wx\Application;
 use app\models\User;
 use app\models\UserBusiness;
+use app\models\UserSms;
+use app\models\UserStore;
+use yii;
 
 class BusinessController extends MController{
 
@@ -38,9 +41,63 @@ class BusinessController extends MController{
         return $this->json();
     }
 
+    public function actionInfo(){
+        $user = User::findOne($this->uid);
+        if($user->phone){
+            $this->data['data']['phone'] = $user->phone;
+        }
+        $session = Yii::$app->session;
+        $bid = $session->get('bid');
+        if($bid){
+            $business = Business::findOne($bid);
+            if($business){
+                $this->data['data']['business'] = $business->name;
+            }
+        }
+        return $this->json();
+    }
+
     public function actionRegister(){
-
-
+        $model = UserBusiness::find()->where('uid='.$this->uid)->one();
+        if($model) return $this->json(401,'您已经提交过了');
+        $user = User::findOne($this->uid);
+        if(@$this->post['phone']){
+            $sms = UserSms::find()->where('phone="'.$this->post['phone'].'"')->one();
+            if(!$sms)   return $this->json(401,'未发送短信验证码');
+            if($sms->code == $this->post['code']){
+                $user->phone = $this->post['phone'];
+                $sms->delete();
+            }else{
+                return $this->json(401,'短信验证码错误');
+            }
+        }
+        $user->name = $this->post['name'];
+        $user->sex = $this->post['sex'];
+        $user->city = $this->post['city'];
+        $user->id_card = $this->post['id_card'];
+        $user->save();
+        $model = new UserBusiness();
+        $model->uid = $this->uid;
+        $model->is_checked = 0;
+        if($this->post['business']){
+            $business = new Business();
+            $business->name = $this->post['business'];
+            $business->save();
+            $model->business_id = $business->id;
+            $model->is_manager = 1;
+        }else{
+            $session = Yii::$app->session;
+            $bid = $session->get('bid');
+            if($bid)
+                $model->business_id = $bid;
+            $model->is_manager = 0;
+        }
+        $model->created = time();
+        if($model->save()){
+            return $this->json();
+        }else{
+            return $this->error($model);
+        }
     }
 
 }
