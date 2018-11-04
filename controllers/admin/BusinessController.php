@@ -76,6 +76,7 @@ class BusinessController extends AController
             $business->save();
             return $this->json();
         }else{
+            if($business->is_checked) return $this->json(402,'该车商已经审核通过了，不能删除');
             UserBusiness::deleteAll(['business_id'=>$business->id]);
             $business->delete();
             return $this->json();
