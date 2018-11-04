@@ -164,6 +164,26 @@ class ProductController extends MController{
         @$car = Brand::findOne($model->car_id);
         @$model->brand = $car->brand;
         if($model->save()){
+            if($code==401){
+                $model = new ProductBase();
+                $model->pid = $model->id;
+                $model->save();
+                $model = new ProductEngine();
+                $model->pid = $model->id;
+                $model->save();
+                $model = new ProductInfo();
+                $model->pid = $model->id;
+                $model->save();
+                $model = new ProductTax();
+                $model->pid = $model->id;
+                $model->save();
+                $model = new ProductTyre();
+                $model->pid = $model->id;
+                $model->save();
+                $model = new ProductUnder();
+                $model->pid = $model->id;
+                $model->save();
+            }
             $this->data['data']['id'] = $model->id;
             return $this->json();
         }else{
