@@ -22,6 +22,22 @@ use app\models\UserStore;
 
 class UserController extends MController{
 
+    public function actionInvite(){
+        $this->checkUser();
+        $data = User::find()->where('rid='.$this->uid)->all();
+        $list = [];
+        foreach($data as $d){
+            $tmp = $d->attributes;
+            unset($tmp['openid']);
+            unset($tmp['id_card']);
+            unset($tmp['rid']);
+            unset($tmp['uid']);
+            $list[] = $tmp;
+        }
+        $this->data['data'] = $list;
+        return $this->json();
+    }
+
     public function actionLoan(){
         $this->checkUser();
         $model = ILoan::find()->where('uid='.$this->uid)->one();
