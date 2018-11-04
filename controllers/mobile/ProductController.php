@@ -25,6 +25,143 @@ use app\models\UserStore;
 
 class ProductController extends MController{
 
+
+    public function actionImgdelete(){
+        if(empty($this->post['img_id'])) return $this->json(404,'图片ID不能为空');
+        $model = ProductImg::findOne($this->post['img_id']);
+        if($model) $model->delete();
+        return $this->json();
+    }
+
+    public function actionTaxsave(){
+        $model = ProductTax::find()->where('pid='.$this->post['id'])->one();
+        if ($model) {
+        }else{
+            $model = new ProductTax();
+        }
+        @$this->post['pid'] = $this->post['id'];
+        unset($this->post['id']);
+        $model->attributes = $this->post;
+        $product = Product::findOne($this->post['pid']);
+        $product->shoufu = $model->shoufu;
+        $product->yuegong = $model->yuegong;
+        $product->save();
+        if($model->save()){
+            return $this->json();
+        }else{
+            return $this->error($model,402);
+        }
+    }
+
+    public function actionTyresave(){
+        $model = ProductTyre::find()->where('pid='.$this->post['id'])->one();
+        if ($model) {
+        }else{
+            $model = new ProductTyre();
+        }
+        @$this->post['pid'] = $this->post['id'];
+        unset($this->post['id']);
+        $model->attributes = $this->post;
+        if($model->save()){
+            return $this->json();
+        }else{
+            return $this->error($model,402);
+        }
+    }
+
+    public function actionUndersave(){
+        $model = ProductUnder::find()->where('pid='.$this->post['id'])->one();
+        if ($model) {
+        }else{
+            $model = new ProductUnder();
+        }
+        @$this->post['pid'] = $this->post['id'];
+        unset($this->post['id']);
+        $model->attributes = $this->post;
+        if($model->save()){
+            return $this->json();
+        }else{
+            return $this->error($model,402);
+        }
+    }
+
+    public function actionEnginesave(){
+        $model = ProductEngine::find()->where('pid='.$this->post['id'])->one();
+        if ($model) {
+        }else{
+            $model = new ProductEngine();
+        }
+        @$this->post['pid'] = $this->post['id'];
+        unset($this->post['id']);
+        $model->attributes = $this->post;
+        $product = Product::findOne($this->post['pid']);
+        $product->displacement = $model->displacement;
+        $product->air_in = $model->air_in;
+        $product->save();
+        if($model->save()){
+            return $this->json();
+        }else{
+            return $this->error($model,402);
+        }
+    }
+
+    public function actionInfosave(){
+        $model = ProductInfo::find()->where('pid='.$this->post['id'])->one();
+        if ($model) {
+
+        }else{
+            $model = new ProductInfo();
+        }
+        @$this->post['pid'] = $this->post['id'];
+        unset($this->post['id']);
+        $model->attributes = $this->post;
+        if($model->save()){
+            return $this->json();
+        }else{
+            return $this->error($model,402);
+        }
+    }
+
+    public function actionBasesave()
+    {
+        $model = ProductBase::find()->where('pid='.$this->post['id'])->one();
+        if ($model) {
+        }else{
+            $model = new ProductBase();
+        }
+        @$this->post['pid'] = $this->post['id'];
+        unset($this->post['id']);
+        $model->attributes = $this->post;
+        $product = Product::findOne($this->post['pid']);
+        $product->gear_box = $model->gear_box;
+        $product->save();
+        if($model->save()){
+            return $this->json();
+        }else{
+            return $this->error($model,402);
+        }
+    }
+
+    public function actionProductsave()
+    {
+        if ($this->post['id']) {
+            $code = 402;
+            $model = Product::findOne($this->post['id']);
+        }else{
+            $code = 401;
+            $model = new Product();
+        }
+        $model->attributes = $this->post;
+        @$car = Brand::findOne($model->car_id);
+        @$model->brand = $car->brand;
+        if($model->save()){
+            $this->data['data']['id'] = $model->id;
+            return $this->json();
+        }else{
+            return $this->error($model,$code);
+        }
+    }
+
     public function actionStore(){
         $this->checkUser();
         if(empty($this->post['pid'])) return $this->json(404,'商品ID不能为空');
