@@ -16,6 +16,7 @@ use app\models\ILoanLog;
 use app\models\ISafe;
 use app\models\ISafeImg;
 use app\models\ISafeLog;
+use app\models\ISafeOption;
 use app\models\User;
 use app\models\UserSms;
 use app\models\UserStore;
@@ -58,6 +59,7 @@ class UserController extends MController{
             $d_left = $model->d_money - $model->d_pay*($model->getMonths($model->d_date,date('Y-m-d')));
         else
             $d_left = 0;
+        if($d_left<0) $d_left = 0;
         $this->data['data']['d_left'] = $d_left;
         $this->data['data']['imgs'] = $list;
         return $this->json();
@@ -80,6 +82,12 @@ class UserController extends MController{
             $list[] = $d->img;
         }
         $this->data['data']['imgs'] = $list;
+        $data = ISafeOption::find()->where('sid='.$model->id)->orderBy('id DESC')->all();
+        $list = [];
+        foreach($data as $d){
+            $list[] = ['key'=>$d->k,'val'=>$d->v];
+        }
+        $this->data['data']['options'] = $list;
         return $this->json();
     }
 
