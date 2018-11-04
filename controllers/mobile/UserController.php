@@ -193,13 +193,13 @@ class UserController extends MController{
             }
         }
         $business = $model->userBusiness;
-        $this->data['data']['role'] = 0;
+        $this->data['data']['role'] = '普通';
         if($business){
             if($business->is_checked){
                 if($business->is_manager)
-                    $this->data['data']['role'] = 2;
+                    $this->data['data']['role'] = '车商';
                 else
-                    $this->data['data']['role'] = 1;
+                    $this->data['data']['role'] = '销售';
             }
         }
         return $this->json();
