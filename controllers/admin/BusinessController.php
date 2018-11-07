@@ -9,6 +9,17 @@ use app\models\UserBusiness;
 
 class BusinessController extends AController
 {
+    public function actionSave(){
+        $id = $this->post['id'];
+        $model = Business::findOne($id);
+        unset($this->post['id']);
+        $model->attributes = $this->post;
+        if($model->save())
+            return $this->json();
+        else
+            return $this->error($model,402);
+    }
+
     public function actionSalers(){
         $bid = $this->post['bid'];
         $data = UserBusiness::find()->where(['business_id'=>$bid,'is_checked'=>1])->all();
