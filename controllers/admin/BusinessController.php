@@ -14,6 +14,8 @@ class BusinessController extends AController
         $model = Business::findOne($id);
         unset($this->post['id']);
         $model->attributes = $this->post;
+        $ub = UserBusiness::find()->where('business_id='.$id)->one();
+        $user = User::findOne($ub->uid);
         if($model->save())
             return $this->json();
         else
