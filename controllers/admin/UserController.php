@@ -8,6 +8,17 @@ use app\models\User;
 class UserController extends AController
 {
 
+    public function actionSave(){
+        $id = $this->post['id'];
+        $model = User::findOne($id);
+        unset($this->post['id']);
+        $model->attributes = $this->post;
+        if($model->save())
+            return $this->json();
+        else
+            return $this->error($model,402);
+    }
+
     public function actionList(){
         @$p = intval($this->post['p'])?$this->post['p']:1;
         @$name = $this->post['name'];
