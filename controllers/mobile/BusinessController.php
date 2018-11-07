@@ -29,7 +29,15 @@ class BusinessController extends MController{
     }
 
     public function actionProductdelete(){
-
+        $model = Product::findOne($this->post['id']);
+        $ub = UserBusiness::find()->where('uid='.$this->uid)->one();
+        if($model->business_id != $ub->business_id) return $this->json(402,'该车辆不属于您所在的车商');
+        $count = Ibuy::find()->where('pid='.$model->id)->count();
+        if($count){
+            return $this->json(404,'已经有人咨询价格了，不允许删除');
+        }else{
+            return $this->json();
+        }
     }
 
     public function actionProductclose(){
