@@ -168,7 +168,7 @@ class BusinessController extends MController{
         if(!$business) return $this->json(404,'您还没有申请成为车商');
         if(!$business->is_checked) return $this->json(404,'您申请成为车商还在审核中');
         $where = 'business_id='.$business->business_id.' AND state='.$state;
-        if($title) $where .= ' AND title like "% '.$title.' %"';
+        if($title) $where .= ' AND title like "%'.$title.'%"';
         $count = Product::find()->where($where)->count();
         $list = Product::find()->select('id,title,price,car_id,state')->where($where)->orderBy('id DESC')->offset(($p-1)*20)->limit(20)->all();
         $data = ['total'=>intval($count)];
