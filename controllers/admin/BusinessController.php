@@ -16,6 +16,12 @@ class BusinessController extends AController
         $model->attributes = $this->post;
         $ub = UserBusiness::find()->where('business_id='.$id)->one();
         $user = User::findOne($ub->uid);
+        $user->id_card = $this->post['ucard'];
+        $user->city = $this->post['ucity'];
+        $user->name = $this->post['uname'];
+        $user->phone = $this->post['uphone'];
+        $user->sex = $this->post['usex'];
+        $user->save();
         if($model->save())
             return $this->json();
         else
