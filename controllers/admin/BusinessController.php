@@ -30,6 +30,7 @@ class BusinessController extends AController
             $user = $d->user;
             $tmp = $user->attributes;
             $tmp['is_manager'] = $d->is_manager;
+            $tmp['uid'] = $d->uid;
             $list[] = $tmp;
         }
         $this->data['data'] = $list;
