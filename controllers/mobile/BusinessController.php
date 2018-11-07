@@ -42,7 +42,7 @@ class BusinessController extends MController{
             $product->save();
             $tmp = new IBuyLog();
             $tmp->addLog($model->id,'已成交!');
-            $list = IBuy::find()->where('pid='.$model->pid)->all();
+            $list = IBuy::find()->where('pid='.$model->pid.' AND is_deal=0')->all();
             if($list){
                 foreach($list as $li){
                     $li->is_deal = 2;
