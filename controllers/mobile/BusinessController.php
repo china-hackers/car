@@ -36,7 +36,7 @@ class BusinessController extends MController{
         if($count){
             return $this->json(404,'已经有人咨询价格了，不允许删除');
         }else{
-            $model->detete();
+            $model->delete();
             return $this->json();
         }
     }
@@ -107,6 +107,13 @@ class BusinessController extends MController{
         if(!$userBusiness->is_checked) return $this->json(404,'您申请成为车商还在审核中');
         $business = Business::findOne($userBusiness->business_id);
         $this->data['data'] = $business->attributes;
+        $ub = UserBusiness::find()->where('business_id='.$userBusiness->business_id.' AND is_manager=1')->one();
+        $user = User::findOne($ub->uid);
+        $this->data['data']['uname'] = $user->name;
+        $this->data['data']['uphone'] = $user->phone;
+        $this->data['data']['usex'] = $user->sex;
+        $this->data['data']['ucard'] = $user->id_card;
+        $this->data['data']['ucity'] = $user->city;
         return $this->json();
     }
 
