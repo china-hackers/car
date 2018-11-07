@@ -36,6 +36,7 @@ class BusinessController extends MController{
         if($count){
             return $this->json(404,'已经有人咨询价格了，不允许删除');
         }else{
+            $model->detete();
             return $this->json();
         }
     }
