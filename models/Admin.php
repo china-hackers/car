@@ -67,6 +67,7 @@ class Admin extends \yii\db\ActiveRecord
             $permission[] = $li->route;
         }
         Yii::$app->session->set('permission',$permission);
+        Yii::$app->session->set('aid',$model->id);
         return $model;
     }
 

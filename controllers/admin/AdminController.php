@@ -59,8 +59,8 @@ class AdminController extends AController
     }
 
     public function actionPassword(){
-        if(empty($this->post['id'])) return $this->json(402,'管理员ID不能为空');
-        $model = Admin::findOne($this->post['id']);
+        $aid = \Yii::$app->session->get('aid');
+        $model = Admin::findOne($aid);
         if(empty($model)) return $this->json(402,'该管理员不存在');
         $model->pswd = $this->post['pswd'];
         if($model->save()) {
