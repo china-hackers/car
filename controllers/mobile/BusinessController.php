@@ -88,7 +88,7 @@ class BusinessController extends MController{
         return $this->json();
     }
 
-    public function actionOrderlose(){
+    public function actionOrderclose(){
         $id = $this->post['id'];
         $model = IBuy::findOne($id);
         $model->is_deal = 2;
