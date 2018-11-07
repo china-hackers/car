@@ -163,11 +163,14 @@ class BusinessController extends MController{
     public function actionProductlist(){
         $p = @intval($this->post['p'])?$this->post['p']:1;
         $state = @intval($this->post['state']);
+        $title = @$this->post['title'];
         $business = UserBusiness::find()->where('uid='.$this->uid)->one();
         if(!$business) return $this->json(404,'您还没有申请成为车商');
         if(!$business->is_checked) return $this->json(404,'您申请成为车商还在审核中');
-        $count = Product::find()->where('business_id='.$business->business_id.' AND state='.$state)->count();
-        $list = Product::find()->select('id,title,price,car_id,state')->where('business_id='.$business->business_id.' AND state='.$state)->orderBy('id DESC')->offset(($p-1)*20)->limit(20)->all();
+        $where = 'business_id='.$business->business_id.' AND state='.$state;
+        if($title) $where .= ' AND title like "% '.$title.' %"';
+        $count = Product::find()->where($where)->count();
+        $list = Product::find()->select('id,title,price,car_id,state')->where($where)->orderBy('id DESC')->offset(($p-1)*20)->limit(20)->all();
         $data = ['total'=>intval($count)];
         $l2 = [];
         foreach($list as $li){
