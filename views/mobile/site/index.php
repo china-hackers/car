@@ -5,8 +5,8 @@
 
 <head>
     <meta charset=utf-8>
-    <meta name=viewport content="width=device-width,initial-scale=1">
-    <title>ayk-admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>I品车</title>
     <?php if(YII_DEBUG):?>
     <?php else:?>
         <link href="/static/h5/css/app.css" rel="stylesheet">
