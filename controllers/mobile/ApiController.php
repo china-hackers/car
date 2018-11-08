@@ -18,7 +18,7 @@ class ApiController extends BaseController
         return $this->redirect($this->url.'#/my/join');
     }
 
-    public function actionWeixin(){echo $_GET['echostr'];exit;
+    public function actionWeixin(){
         $this->layout = false;
         $server = (new Application())->driver("mp.server");
 
