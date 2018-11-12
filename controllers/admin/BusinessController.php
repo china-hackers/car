@@ -119,6 +119,7 @@ class BusinessController extends AController
         if($check){
             $business->is_checked = 1;
             $business->save();
+            UserBusiness::updateAll(['is_checked'=>1],['business_id'=>$bid]);
             return $this->json();
         }else{
             if($business->is_checked) return $this->json(402,'该车商已经审核通过了，不能删除');
