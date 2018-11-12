@@ -93,6 +93,10 @@ class BusinessController extends AController
         foreach($list as $li){
             $tmp = $li->attributes;
             $ub = UserBusiness::find()->where('business_id='.$li->id)->one();
+            if(empty($ub)){
+                $li->delete();
+                continue;
+            }
             $user = User::findOne($ub->uid);
             $tmp['uname'] = $user->name;
             $tmp['uphone'] = $user->phone;

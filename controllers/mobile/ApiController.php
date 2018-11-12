@@ -73,19 +73,19 @@ class ApiController extends BaseController
                 {
                     "type": "view", 
                     "name": "首页", 
-                    "url": "http://test.iamlk.cn/#0", 
+                    "url": "http://test.iamlk.cn/", 
                     "sub_button": [ ]
                 }, 
                 {
                     "type": "view", 
                     "name": "i拼车", 
-                    "url": "http://test.iamlk.cn/#1", 
+                    "url": "http://test.iamlk.cn/", 
                     "sub_button": [ ]
                 }, 
                 {
                     "type": "view", 
                     "name": "个人中心", 
-                    "url": "http://test.iamlk.cn/#2", 
+                    "url": "http://test.iamlk.cn/", 
                     "sub_button": [ ]
                 }
             ]
