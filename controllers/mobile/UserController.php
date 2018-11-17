@@ -151,6 +151,7 @@ class UserController extends MController{
     }
 
     public function actionQrcode(){
+        $this->checkUser();
         $qrcode = (new Application())->driver("mp.qrcode");
         $r = $qrcode->forever($this->uid);
         $this->data['data']['qrcode'] = 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.@$r['ticket'];
