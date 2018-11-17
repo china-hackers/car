@@ -45,6 +45,12 @@ class SiteController extends BaseController
             $Js = (new Application())->driver('mp.js');
             $signature = $Js->signature();
             $user = User::findOne($this->uid);
+            if(!$user){
+                Yii::$app->session->set('uid',false);
+                $oauth = (new Application())->driver('mp.oauth');
+                $oauth->send();
+                die();
+            }
             $signature['headimgurl'] = $user->headimgurl;
             return $this->render('index',['signature'=>$signature]);
         }else{
