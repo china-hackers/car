@@ -81,6 +81,9 @@ class FinanceController extends AController
         if(empty($this->post['id'])) return $this->json(404,'ID不能为空');
         $model = ILoan::findOne($this->post['id']);
         if(!$model->d_name) $model->d_name = $model->name;
+        if(!$model->d_phone) $model->d_phone = $model->phone;
+        if(!$model->d_type) $model->d_type = $model->itype;
+        if(!$model->d_money) $model->d_money = $model->money;
         $this->data['data'] = $model->attributes;
         $list = ILoanImg::find()->where('lid='.$this->post['id'])->all();
         $imgs = [];
@@ -151,6 +154,9 @@ class FinanceController extends AController
     public function actionSafe(){
         if(empty($this->post['id'])) return $this->json(404,'ID不能为空');
         $model = ISafe::findOne($this->post['id']);
+        if(!$model->d_name) $model->d_name = $model->name;
+        if(!$model->d_phone) $model->d_phone = $model->phone;
+        if(!$model->d_car_no) $model->d_car_no = $model->car_no;
         $this->data['data'] = $model->attributes;
         $car = $model->dcar;
         $tmp = [$car->letter,$car->brand,$car->id];
