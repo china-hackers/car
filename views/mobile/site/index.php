@@ -20,7 +20,6 @@
             nonceStr: '<?php echo @$signature['nonceStr'];?>', // 必填，生成签名的随机串
             signature: '<?php echo @$signature['signature'];?>',// 必填，签名
             headimgurl: '<?php echo @$signature['headimgurl']; ?>',
-            jsApiList: [] // 必填，需要使用的JS接口列表
         }
     </script>
 </head>
