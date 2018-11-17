@@ -158,7 +158,7 @@ class FinanceController extends AController
         if(!$model->d_phone) $model->d_phone = $model->phone;
         if(!$model->d_car_no) $model->d_car_no = $model->car_no;
         $this->data['data'] = $model->attributes;
-        $car = $model->dcar;
+        $car = $model->car;
         $tmp = [$car->letter,$car->brand,$car->id];
         $this->data['data']['car'] = $tmp;
         $list = ISafeOption::find()->where('sid='.$this->post['id'])->all();
