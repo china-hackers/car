@@ -55,14 +55,14 @@ class FinanceController extends AController
             if($state)
                 $where = 'name like "%' . $this->post['name'] . '%" AND state='.$state;
             else
-                $where = 'name like "%' . $this->post['name'] . '%"';
+                $where = 'name like "%' . $this->post['name'] . '%" AND state<>4';
             $count = ILoan::find()->where($where)->count();
             $list = ILoan::find()->where($where)->offset(($p - 1) * 20)->limit(20)->all();
         }else{
             if($state)
                 $where = 'state='.$state;
             else
-                $where = '';
+                $where = 'state<>4';
             $count = ILoan::find()->where($where)->count();
             $list = ILoan::find()->where($where)->offset(($p-1)*20)->limit(20)->all();
         }
@@ -80,6 +80,7 @@ class FinanceController extends AController
     public function actionLoan(){
         if(empty($this->post['id'])) return $this->json(404,'ID不能为空');
         $model = ILoan::findOne($this->post['id']);
+        if(!$model->d_name) $model->d_name = $model->name;
         $this->data['data'] = $model->attributes;
         $list = ILoanImg::find()->where('lid='.$this->post['id'])->all();
         $imgs = [];
@@ -200,14 +201,14 @@ class FinanceController extends AController
             if($state)
                 $where = 'name like "%' . $this->post['name'] . '%" AND state='.$state;
             else
-                $where = 'name like "%' . $this->post['name'] . '%"';
+                $where = 'name like "%' . $this->post['name'] . '%" AND state<>4';
             $count = ISafe::find()->where($where)->count();
             $list = ISafe::find()->where($where)->offset(($p - 1) * 20)->limit(20)->all();
         }else{
             if($state)
                 $where = 'state='.$state;
             else
-                $where = '';
+                $where = 'state<>4';
             $count = ISafe::find()->where($where)->count();
             $list = ISafe::find()->where($where)->offset(($p-1)*20)->limit(20)->all();
         }
