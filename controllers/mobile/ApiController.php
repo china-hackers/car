@@ -45,7 +45,6 @@ class ApiController extends BaseController
                         $model->save();
                     }
                 }
-                file_put_contents('./t.txt',print_r($message,true),FILE_APPEND);
                 return "欢迎关注我们的公众号~";
             }
         });
