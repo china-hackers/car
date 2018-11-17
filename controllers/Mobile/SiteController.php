@@ -38,7 +38,7 @@ class SiteController extends BaseController
     public function actionIndex()
     {
         $this->layout = false;
-        if(YII_DEBUG)
+        if(!YII_DEBUG)
             return $this->render('index',['signature'=>['timestamp'=>0]]);
         
         if(Yii::$app->session->get('uid')){
