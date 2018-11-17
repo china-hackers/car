@@ -50,12 +50,21 @@ class FinanceController extends AController
 
     public function actionLoanlist(){
         $p = @$this->post['p']?$this->post['p']:1;
+        $state = @$this->post['state']?$this->post['state']:0;
         if(@$this->post['name']) {
-            $count = ILoan::find()->where('name like "%' . $this->post['name'] . '%"')->count();
-            $list = ILoan::find()->where('name like "%' . $this->post['name'] . '%"')->offset(($p - 1) * 20)->limit(20)->all();
+            if($state)
+                $where = 'name like "%' . $this->post['name'] . '%" AND state='.$state;
+            else
+                $where = 'name like "%' . $this->post['name'] . '%"';
+            $count = ILoan::find()->where($where)->count();
+            $list = ILoan::find()->where($where)->offset(($p - 1) * 20)->limit(20)->all();
         }else{
-            $count = ILoan::find()->count();
-            $list = ILoan::find()->offset(($p-1)*20)->limit(20)->all();
+            if($state)
+                $where = 'state='.$state;
+            else
+                $where = '';
+            $count = ILoan::find()->where($where)->count();
+            $list = ILoan::find()->where($where)->offset(($p-1)*20)->limit(20)->all();
         }
         $data = ['total'=>intval($count)];
         $l2 = [];
@@ -186,12 +195,21 @@ class FinanceController extends AController
 
     public function actionSafelist(){
         $p = @$this->post['p']?$this->post['p']:1;
+        $state = @$this->post['state']?$this->post['state']:0;
         if(@$this->post['name']) {
-            $count = ISafe::find()->where('name like "%' . $this->post['name'] . '%"')->count();
-            $list = ISafe::find()->where('name like "%' . $this->post['name'] . '%"')->offset(($p - 1) * 20)->limit(20)->all();
+            if($state)
+                $where = 'name like "%' . $this->post['name'] . '%" AND state='.$state;
+            else
+                $where = 'name like "%' . $this->post['name'] . '%"';
+            $count = ISafe::find()->where($where)->count();
+            $list = ISafe::find()->where($where)->offset(($p - 1) * 20)->limit(20)->all();
         }else{
-            $count = ISafe::find()->count();
-            $list = ISafe::find()->offset(($p-1)*20)->limit(20)->all();
+            if($state)
+                $where = 'state='.$state;
+            else
+                $where = '';
+            $count = ISafe::find()->where($where)->count();
+            $list = ISafe::find()->where($where)->offset(($p-1)*20)->limit(20)->all();
         }
         $data = ['total'=>intval($count)];
         $l2 = [];
