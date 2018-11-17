@@ -11,7 +11,12 @@
     <?php else:?>
         <link href="/static/h5/css/app.css" rel="stylesheet">
     <?php endif;?>
-    
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <script>
+        window.wxConfog = {
+
+        }
+    </script>
 </head>
 
 <body module=live>
