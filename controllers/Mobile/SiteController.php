@@ -39,7 +39,7 @@ class SiteController extends BaseController
     {
         $this->layout = false;
         if(YII_DEBUG)
-            return $this->render('index',['signature'=>[]]);
+            return $this->render('index',['signature'=>['timestamp'=>0]]);
         
         if(Yii::$app->session->get('uid')){
             $Js = (new Application())->driver('mp.js');
