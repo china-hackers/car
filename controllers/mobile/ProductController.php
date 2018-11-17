@@ -163,6 +163,19 @@ class ProductController extends MController{
         $model->business_id = $ub->business_id;
         @$car = Brand::findOne($model->car_id);
         @$model->brand = $car->brand;
+
+        if($model->price<10){
+            $model->itype = 'i值车';
+        }elseif($model->price<20){
+            $model->itype = 'i优车';
+        }elseif ($model->price<30){
+            $model->itype = 'i享车';
+        }elseif($model->price<70){
+            $model->itype = 'i品车';
+        }else{
+            $model->itype = 'i尊车';
+        }
+
         if($model->save()){
             if($code==401){
                 $tmp = new ProductBase();

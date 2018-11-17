@@ -4,6 +4,7 @@ namespace app\controllers\mobile;
 
 use app\controllers\base\BaseController;
 use app\models\UploadModel;
+use app\models\User;
 use yii\web\UploadedFile;
 use yii;
 use abei2017\wx\Application;
@@ -38,10 +39,14 @@ class SiteController extends BaseController
     {
         $this->layout = false;
         if(YII_DEBUG)
-            return $this->render('index');
+            return $this->render('index',['signature'=>[]]);
         
         if(Yii::$app->session->get('uid')){
-            return $this->render('index');
+            $Js = (new Application())->driver('mp.js');
+            $signature = $Js->signature();
+            $user = User::findOne($this->uid);
+            $signature['headimgurl'] = $user->headimgurl;
+            return $this->render('index',['signature'=>$signature]);
         }else{
             $oauth = (new Application())->driver('mp.oauth');
             $oauth->send();
