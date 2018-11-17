@@ -10,7 +10,6 @@ use yii;
 
 class ApiController extends BaseController
 {
-    private $url = 'http://test.iamlk.cn/';
 
     public function beforeAction($action){
         $this->layout = false;
@@ -21,7 +20,7 @@ class ApiController extends BaseController
     public function actionJoin($key){
         $session = Yii::$app->session;
         $session->set('bid',$key);
-        return $this->redirect($this->url.'#/my/join');
+        return $this->redirect(Yii::$app->params['host'].'#/my/join');
     }
 
     public function actionWeixin(){
@@ -34,7 +33,7 @@ class ApiController extends BaseController
                 if(@$message['EventKey']){
                     $key = str_replace('qrscene_','',$message['EventKey']);
                     if(strpos($key,'B')){//车商二维码
-                        return "欢迎关注我们的公众号~\n请点击该链接进行车商注册".$this->url.'mobile/api/join?key='.intval($key);
+                        return "欢迎关注我们的公众号~\n请点击该链接进行车商注册".Yii::$app->params['host'].'mobile/api/join?key='.intval($key);
                     }
                     $model = UserQrcode::find()->where('uid='.intval($key).' AND openid="'.$message['FromUserName'].'"')->one();
                     if(!$model){

@@ -2,6 +2,7 @@
 
 return [
     'adminEmail' => 'admin@example.com',
+    'host' => 'http://test.iamlk.cn/',
     'wx'=>[
         //  公众号信息
         'mp'=>[

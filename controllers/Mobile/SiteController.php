@@ -56,6 +56,7 @@ class SiteController extends BaseController
                 die();
             }
             $signature['headimgurl'] = $user->headimgurl;
+            $signature['host'] = Yii::$app->params['host'];
             return $this->render('index',['signature'=>$signature]);
         }else{
             $oauth = (new Application())->driver('mp.oauth');
