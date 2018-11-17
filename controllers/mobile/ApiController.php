@@ -42,7 +42,7 @@ class ApiController extends BaseController
                         $model->uid = intval($key);
                         $model->openid = $message['FromUserName'];
                         $model->created = time();
-                        $model->save();
+                        //$model->save();
                     }
                 }
                 return "欢迎关注我们的公众号~";
