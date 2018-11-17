@@ -30,20 +30,19 @@ class ApiController extends BaseController
         $server->setMessageHandler(function($message) {
             if($message['MsgType']=='text'){
                 return "我们已收到您的留言，谢谢~";
-            }elseif($message['MsgType']=='event'){
+            }elseif(@$message['Event']=='subscribe' || @$message['Event']=='SCAN'){
                 if(@$message['EventKey']){
                     $key = str_replace('qrscene_','',$message['EventKey']);
                     if(strpos($key,'B')){//车商二维码
                         return "欢迎关注我们的公众号~\n请点击该链接进行车商注册".$this->url.'mobile/api/join?key='.intval($key);
                     }
-                    file_put_contents('./t.txt',@$message['EventKey'].'...'.@$message['Event']."\r\n",FILE_APPEND);
                     $model = UserQrcode::find()->where('uid='.intval($key).' AND openid="'.$message['FromUserName'].'"')->one();
                     if(!$model){
                         $model = new UserQrcode();
                         $model->uid = intval($key);
                         $model->openid = $message['FromUserName'];
                         $model->created = time();
-                        //$model->save();
+                        $model->save();
                     }
                 }
                 return "欢迎关注我们的公众号~";
