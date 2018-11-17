@@ -243,7 +243,7 @@ class ProductController extends AController
         if(@$this->post['letter']) $where .= ' AND letter="'.$this->post['letter'].'"';
         if(@$this->post['brand']) $where .= ' AND brand="'.$this->post['brand'].'"';
         if(@$this->post['car_id']) $where .= ' AND id="'.$this->post['car_id'].'"';
-        $list = Brand::findAll($where);
+        $list = Brand::find()->where($where)->all();
         if(count($list)==0){
             $list = [];
             $count = 0;
