@@ -73,13 +73,13 @@ class ApiController extends BaseController
             $url = $session->get('url');
             $session->set('url',null);
         }
-        if($user['subscribe']==1){//已关注，就跳转到URL
+        if(@$user['subscribe']==1){//已关注，就跳转到URL
             if($url)
                 return $this->redirect($url);
             else
                 return $this->redirect('/');
         }else{//未关注就跳转到个人中心
-            return $this->redirect('/mobile/site/subscribe');
+            return $this->redirect('/');//'/mobile/site/subscribe');
         }
     }
 
