@@ -50,7 +50,7 @@ class AliSMS {
 	        array_merge($params, array(
 	            "RegionId" => "cn-chengdu",
 	            "Action" => "SendBatchSms",
-	            "Version" => "2018-12-25",
+	            "Version" => "2017-05-25",
 	        )),
 	        false
 	    );
