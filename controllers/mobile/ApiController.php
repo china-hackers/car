@@ -53,7 +53,7 @@ class ApiController extends BaseController
     }
 
     public function actionOauth(){
-        $oauth = (new Application())->driver('mp.oauth');
+        $oauth = (new Application())->driver('mp.user');
         $user = $oauth->user();
         $model = User::find()->where(['openid'=>$user['openid']])->one();
         if($model){

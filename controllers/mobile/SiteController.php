@@ -34,7 +34,6 @@ class SiteController extends BaseController
     }
 
     public function actionSafeimg(){
-        $this->layout = false;
         $model = new UploadModel();
         if (Yii::$app->request->isPost) {
             $model->image = UploadedFile::getInstances($model, 'image');
@@ -51,13 +50,14 @@ class SiteController extends BaseController
     }
 
     public function actionLogin(){
-        $this->layout = false;
         return $this->render('login');
     }
 
-    public function actionIndex()
-    {
-        $this->layout = false;
+    public function actionSubscribe(){
+        return $this->render('subscribe');
+    }
+
+    public function actionIndex(){
         if(YII_DEBUG)
             return $this->render('index',['signature'=>['timestamp'=>0]]);
         
