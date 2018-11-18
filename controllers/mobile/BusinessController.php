@@ -38,7 +38,7 @@ class BusinessController extends MController{
         $model->is_deal = 1;
         if($model->save()){
             $product = Product::findOne($model->pid);
-            $product->state = 1;
+            $product->state = 2;
             $product->save();
             $tmp = new IBuyLog();
             $tmp->addLog($model->id,'已成交!');
