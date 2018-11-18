@@ -115,7 +115,7 @@ class Product extends \yii\db\ActiveRecord
 
     public function getProductImg()
     {
-        return $this->hasOne(ProductImg::className(), ['id' => 'pid']);
+        return $this->hasOne(ProductImg::className(), ['pid' => 'id']);
     }
 
     /**
