@@ -30,9 +30,9 @@
     <?php if(YII_DEBUG):?>
         <script type="text/javascript" src="http://localhost:9001/app.js"></script>
     <?php else:?>
-        <script type="text/javascript" src="/static/h5/js/manifest.js"> </script>
-        <script type="text/javascript" src="/static/h5/js/vendor.js"> </script>
-        <script type="text/javascript" src="/static/h5/js/app.js"> </script>
+        <script type="text/javascript" src="/static/h5/js/manifest.js?<?php echo time();?>"> </script>
+        <script type="text/javascript" src="/static/h5/js/vendor.js?<?php echo time();?>"> </script>
+        <script type="text/javascript" src="/static/h5/js/app.js?<?php echo time();?>"> </script>
     <?php endif;?>
 </body>
 

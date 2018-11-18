@@ -9,7 +9,7 @@
     <title>ayk-admin</title>
     <?php if(YII_DEBUG):?>
     <?php else:?>
-        <link href="/static/admin/css/login.css" rel="stylesheet">
+        <link href="/static/admin/css/login.css?<?php echo time();?>" rel="stylesheet">
     <?php endif;?>
     
 </head>
@@ -19,9 +19,9 @@
     <?php if(YII_DEBUG):?>
         <script type="text/javascript" src="http://localhost:8090/login.js"></script>
     <?php else:?>
-        <script type="text/javascript" src="/static/admin/js/manifest.js"> </script>
-        <script type="text/javascript" src="/static/admin/js/vendor.js"> </script>
-        <script type="text/javascript" src="/static/admin/js/login.js"> </script>
+        <script type="text/javascript" src="/static/admin/js/manifest.js?<?php echo time();?>"> </script>
+        <script type="text/javascript" src="/static/admin/js/vendor.js?<?php echo time();?>"> </script>
+        <script type="text/javascript" src="/static/admin/js/login.js?<?php echo time();?>"> </script>
     <?php endif;?>
 </body>
 
