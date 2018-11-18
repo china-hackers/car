@@ -20,6 +20,8 @@ use app\models\ISafeOption;
 use app\models\User;
 use app\models\UserSms;
 use app\models\UserStore;
+use ali\AliSMS;
+use yii\db\Exception;
 
 class UserController extends MController{
 
@@ -122,6 +124,13 @@ class UserController extends MController{
             $model->phone = $phone;
             $model->code = $code;
             $model->save();
+        }
+        $sms = new AliSMS();
+        try{
+            $content = $sms->sendMessage($phone,$code);
+            $this->data['message'] = $content;
+        }catch (Exception $exception){
+            $this->data['message'] = $exception->getMessage();
         }
         return $this->json();
     }
