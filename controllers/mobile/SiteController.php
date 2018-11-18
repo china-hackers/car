@@ -67,7 +67,7 @@ class SiteController extends BaseController
         return $currentUrl; //传回当前url
     }
 
-    public function actionIndex(){echo $this->getCurrentUrl();exit;
+    public function actionIndex(){
         if(YII_DEBUG)
             return $this->render('index',['signature'=>['timestamp'=>0]]);
 
