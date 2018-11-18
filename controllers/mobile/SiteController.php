@@ -23,11 +23,10 @@ class SiteController extends BaseController
     public function actionTest(){
         $phone = '18681225257';
         $code = '1234';
-        return;
         $sms = new AliSMS();
         try{
             $content = $sms->sendMessage($phone,$code);
-            $this->data['message'] = $content;
+            $this->data['message'] = $content->Message;
         }catch (\Exception $exception){
             $this->data['message'] = $exception->getMessage();
         }
