@@ -29,13 +29,14 @@ class ProductController extends AController
     public function actionImg(){
         if(empty($this->post['id'])) return $this->json(404,'商品ID不能为空');
         $list = ProductImg::find()->where('pid='.$this->post['id'])->all();
-        if(empty($list)) return $this->json(404,'没有找到该商品');
+        //if(empty($list)) return $this->json(404,'没有找到该商品');
         $data = ['total'=>intval(count($list))];
         $l2 = [];
-        foreach($list as $li){
-            $tmp = $li->attributes;
-            $l2[] = $tmp;
-        }
+        if($list)
+            foreach($list as $li){
+                $tmp = $li->attributes;
+                $l2[] = $tmp;
+            }
         $data['list'] = $l2;
         $this->data['data'] = $data;
         return $this->json();
