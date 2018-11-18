@@ -329,7 +329,7 @@ class ProductController extends MController{
         $order = @$this->post['order']?$this->post['order']:'id DESC';
         if(@$this->post['itype']) $where = 'itype="'.$this->post['itype'].'"';
         else{
-            $where = 'itype="i尊车"';
+            $where = '1=1';//'itype="i尊车"';
             if(@$this->post['sort']){
                 $this->checkUser();
                 $model = User::findOne($this->uid);
