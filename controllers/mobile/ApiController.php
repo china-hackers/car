@@ -54,8 +54,8 @@ class ApiController extends BaseController
 
     public function actionOauth(){
         $session = Yii::$app->session;
-        $oauth = (new Application())->driver('mp.user');
-        $user = $oauth->info();
+        $oauth = (new Application())->driver('mp.oauth');
+        $user = $oauth->user();
         $model = User::find()->where(['openid'=>$user['openid']])->one();
         if($model){
             $session->set('uid',$model->id);
