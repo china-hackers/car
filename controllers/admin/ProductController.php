@@ -4,6 +4,7 @@ namespace app\controllers\admin;
 
 use app\controllers\base\AController;
 use app\models\Brand;
+use app\models\Business;
 use app\models\Product;
 use app\models\ProductInfo;
 use app\models\ProductBase;
@@ -258,7 +259,21 @@ class ProductController extends AController
                 $ids = implode(',',$id);
                 $ids = ' and car_id in ('.$ids.')';
             }
-            $where = '1=1';
+            if(@$this->post['business_name']){
+                $list = Business::find()->where('name like "%'.$this->post['business_name'].'%"')->all();
+                if($list){
+                    $bid = [];
+                    foreach($list as $li){
+                        $bid[] = $li->id;
+                    }
+                    $bid = implode(',',$bid);
+                    $where = 'business_id in ('.$bid.')';
+                }else{
+                    $where = '1=0';
+                }
+            }else{
+                $where = '1=1';
+            }
             if(@$this->post['price_from']) $where .= ' AND price>='.$this->post['price_from'];
             if(@$this->post['price_to']) $where .= ' AND price<='.$this->post['price_to'];
             $count = Product::find()->where($where.$ids)->count();

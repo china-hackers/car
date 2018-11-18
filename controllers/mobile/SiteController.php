@@ -57,26 +57,53 @@ class SiteController extends BaseController
         return $this->render('subscribe');
     }
 
-    public function actionIndex(){
+    private function getCurrentUrl(){
+        //获取当前完整url,为了清晰，多定义几个变量,分几行写
+        $scheme = 'http'; //协议
+        $domain = $_SERVER['HTTP_HOST']; //域名/主机
+        $requestUri = $_SERVER['REQUEST_URI']; //请求参数
+        //将得到的各项拼接起来
+        $currentUrl = $scheme . "://" . $domain . $requestUri;
+        return $currentUrl; //传回当前url
+    }
+
+    public function actionIndex(){echo $this->getCurrentUrl();exit;
         if(YII_DEBUG)
             return $this->render('index',['signature'=>['timestamp'=>0]]);
-        
-        if($this->uid){
-            $Js = (new Application())->driver('mp.js');
-            $signature = $Js->signature();
-            $user = User::findOne($this->uid);
-            if(!$user){
+
+        $session = Yii::$app->session;
+        if(@$_GET['path']){//分享链接方式进来
+            $url = urldecode($_GET['path']);
+            $url = $this->getCurrentUrl().'#'.$url;
+            $session->set('url',$url);
+            if($this->uid){//已经获取了信息，直接跳转
+                $session->set('url',null);
+                return $this->redirect($url);
+            }else{//准备跳转腾讯
                 $oauth = (new Application())->driver('mp.oauth');
                 $oauth->send();
                 die();
             }
-            $signature['headimgurl'] = $user->headimgurl;
-            $signature['host'] = Yii::$app->params['host'];
-            return $this->render('index',['signature'=>$signature]);
-        }else{
-            $oauth = (new Application())->driver('mp.oauth');
-            $oauth->send();
-            die();
+        }else{//打开链接方式
+            if($this->uid){//已经获取到了信息
+                $Js = (new Application())->driver('mp.js');
+                $signature = $Js->signature();
+                $user = User::findOne($this->uid);
+                if(!$user){
+                    $oauth = (new Application())->driver('mp.oauth');
+                    $oauth->send();
+                    die();
+                }
+                $signature['headimgurl'] = $user->headimgurl;
+                $signature['host'] = Yii::$app->params['host'];
+                return $this->render('index',['signature'=>$signature]);
+            }else{
+                $oauth = (new Application())->driver('mp.oauth');
+                $oauth->send();
+                die();
+            }
         }
+
+
     }
 }

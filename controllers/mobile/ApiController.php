@@ -53,11 +53,12 @@ class ApiController extends BaseController
     }
 
     public function actionOauth(){
+        $session = Yii::$app->session;
         $oauth = (new Application())->driver('mp.user');
         $user = $oauth->user();
         $model = User::find()->where(['openid'=>$user['openid']])->one();
         if($model){
-            Yii::$app->session->set('uid',$model->id);
+            $session->set('uid',$model->id);
         }else{
             $qrcode = UserQrcode::find()->where(['openid'=>$user['openid']])->one();
             $model = new User();
@@ -65,9 +66,21 @@ class ApiController extends BaseController
             $model->sex = ($user['sex']==1)?'男':'女';
             if($qrcode) $model->rid = $qrcode->uid;
             $model->save();
-            Yii::$app->session->set('uid',$model->id);
+            $session->set('uid',$model->id);
         }
-        return $this->redirect('/');
+        $url = false;
+        if($session->get('url')){//是从其他地方跳转的
+            $url = $session->get('url');
+            $session->set('url',null);
+        }
+        if($user['subscribe']==1){//已关注，就跳转到URL
+            if($url)
+                return $this->redirect($url);
+            else
+                return $this->redirect('/');
+        }else{//未关注就跳转到个人中心
+            return $this->redirect('/mobile/site/subscribe');
+        }
     }
 
     public function actionMenu(){
