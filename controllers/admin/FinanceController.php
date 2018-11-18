@@ -222,7 +222,7 @@ class FinanceController extends AController
         $l2 = [];
         foreach($list as $li){
             $tmp = $li->attributes;
-            $tmp['car_name'] = $li->car->name;
+            $tmp['car_name'] = $li->car->model;
             $l2[] = $tmp;
         }
         $data['list'] = $l2;
