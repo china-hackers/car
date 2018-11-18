@@ -5,6 +5,8 @@ namespace app\controllers\admin;
 use app\controllers\base\AController;
 use app\models\Brand;
 use app\models\Business;
+use app\models\IBuy;
+use app\models\IBuyLog;
 use app\models\Product;
 use app\models\ProductInfo;
 use app\models\ProductBase;
@@ -236,6 +238,40 @@ class ProductController extends AController
         $tmp = [$city->parent_id,$city->id];
         $this->data['data']['city'] = $tmp;
         return $this->json();
+    }
+
+    public function actionClose(){
+        $model = Product::findOne($this->post['id']);
+        $model->state = 1;
+        $model->save();
+        $list = IBuy::find()->where('pid='.$model->id.' AND is_deal=0')->all();
+        if($list){
+            foreach($list as $b){
+                $b->is_deal = 2;
+                $b->save();
+                $tmp = new IBuyLog();
+                $tmp->addLog($b->id,'该商品已被车商设置为已售');
+            }
+        }
+        return $this->json();
+    }
+
+    public function actionCheck(){
+        $model = Product::findOne($this->post['id']);
+        $model->state = 0;
+        $model->save();
+        return $this->json();
+    }
+
+    public function actionDelete(){
+        $model = Product::findOne($this->post['id']);
+        $count = Ibuy::find()->where('pid='.$model->id)->count();
+        if($count){
+            return $this->json(404,'已经有人咨询价格了，不允许删除');
+        }else{
+            $model->delete();
+            return $this->json();
+        }
     }
 
     public function actionList(){
