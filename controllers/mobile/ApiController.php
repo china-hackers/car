@@ -57,6 +57,7 @@ class ApiController extends BaseController
         $oauth = (new Application())->driver('mp.oauth');
         $user = $oauth->user();
         $model = User::find()->where(['openid'=>$user['openid']])->one();
+        //注册用户
         if($model){
             $session->set('uid',$model->id);
         }else{
@@ -68,18 +69,18 @@ class ApiController extends BaseController
             $model->save();
             $session->set('uid',$model->id);
         }
-        $url = false;
-        if($session->get('url')){//是从其他地方跳转的
-            $url = $session->get('url');
-            $session->set('url',null);
-        }
-        if(@$user['subscribe']==1){//已关注，就跳转到URL
+        //是否已关注公众号
+        $user = (new Application())->driver('mp.user');
+        $info = $user->info();
+        $url = $session->get('url');
+        $session->set('url',null);
+        if($info['subscribe']==1){//已关注
             if($url)
                 return $this->redirect($url);
             else
                 return $this->redirect('/');
-        }else{//未关注就跳转到个人中心
-            return $this->redirect('/');//'/mobile/site/subscribe');
+        }else{
+            return $this->redirect('/mobile/site/subscribe');
         }
     }
 

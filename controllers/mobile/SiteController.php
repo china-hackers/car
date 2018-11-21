@@ -57,16 +57,6 @@ class SiteController extends BaseController
         return $this->render('subscribe');
     }
 
-    private function getCurrentUrl(){
-        //获取当前完整url,为了清晰，多定义几个变量,分几行写
-        $scheme = 'http'; //协议
-        $domain = $_SERVER['HTTP_HOST']; //域名/主机
-        $requestUri = $_SERVER['REQUEST_URI']; //请求参数
-        //将得到的各项拼接起来
-        $currentUrl = $scheme . "://" . $domain . $requestUri;
-        return $currentUrl; //传回当前url
-    }
-
     public function actionIndex(){
         if(YII_DEBUG)
             return $this->render('index',['signature'=>['timestamp'=>0]]);
@@ -74,7 +64,7 @@ class SiteController extends BaseController
         $session = Yii::$app->session;
         if(@$_GET['path']){//分享链接方式进来
             $url = urldecode($_GET['path']);
-            $url = $this->getCurrentUrl().'#'.$url;
+            $url = '/mobile/site/index#'.$url;
             $session->set('url',$url);
             if($this->uid){//已经获取了信息，直接跳转
                 $session->set('url',null);
