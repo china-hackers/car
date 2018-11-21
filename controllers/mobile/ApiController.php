@@ -53,7 +53,6 @@ class ApiController extends BaseController
     }
 
     public function actionOauth(){
-        exit;
         $session = Yii::$app->session;
         $oauth = (new Application())->driver('mp.oauth');
         $user = $oauth->user();
@@ -72,7 +71,7 @@ class ApiController extends BaseController
         }
         //是否已关注公众号
         $user = (new Application())->driver('mp.user');
-        $info = $user->info();
+        $info = $user->info($model->openid);
         $url = $session->get('url');
         $session->set('url',null);
         if($info['subscribe']==1){//已关注

@@ -334,10 +334,9 @@ class ProductController extends MController{
                 $this->checkUser();
                 $model = User::findOne($this->uid);
                 if(@$model->itype)
-                    $itype = $model->itype;
+                    $where = 'itype="'.$model->itype.'"';
                 else
-                    $itype = 'i尊车';
-                $where = 'itype="'.$itype.'"';
+                    $where = '1=1';
             }elseif(@$this->post['store']){
                 $this->checkUser();
                 $data = UserStore::find()->where('uid='.$this->uid)->all();
