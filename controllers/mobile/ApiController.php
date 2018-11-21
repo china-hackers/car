@@ -53,6 +53,7 @@ class ApiController extends BaseController
     }
 
     public function actionOauth(){
+        exit;
         $session = Yii::$app->session;
         $oauth = (new Application())->driver('mp.oauth');
         $user = $oauth->user();
