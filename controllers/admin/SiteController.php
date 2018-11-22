@@ -107,6 +107,8 @@ class SiteController extends BaseController
 
     public function actionIndex(){
         $this->layout = false;
+        if(!Yii::$app->session->get('admin'))
+            return $this->redirect('/admin/site/login');
         return $this->render('index');
     }
 
@@ -117,6 +119,7 @@ class SiteController extends BaseController
         $this->post = json_decode($json_str,true);
         $model = Admin::login($this->post);
         if($model){
+            Yii::$app->session->set('admin',$model->admin);
             return $this->json();
         }else{
             return $this->json(301);

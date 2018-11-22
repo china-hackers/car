@@ -314,7 +314,7 @@ class ProductController extends AController
             if(@$this->post['price_from']) $where .= ' AND price>='.$this->post['price_from'];
             if(@$this->post['price_to']) $where .= ' AND price<='.$this->post['price_to'];
             $count = Product::find()->where($where.$ids)->count();
-            $list = Product::find()->where($where.$ids)->offset(($p-1)*20)->limit(20)->all();
+            $list = Product::find()->where($where.$ids)->orderBy('id desc')->offset(($p-1)*20)->limit(20)->all();
         }
         $data = ['total'=>intval($count)];
         $l2 = [];

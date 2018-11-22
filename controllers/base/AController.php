@@ -8,9 +8,11 @@ class AController extends BaseController
 {
 
     public function beforeAction($action){
+        /**
         $route = Yii::$app->controller->id.'/'.Yii::$app->controller->action->id;
         $permission = Yii::$app->session->get('permission');
-        //if(empty($permission) || in_array($route,$permission)) return $this->json(300);
+        if(empty($permission) || in_array($route,$permission)) return $this->json(300);*/
+        if(!Yii::$app->session['admin']) return $this->json(300);
         $post = file_get_contents('php://input');
         if(empty($post)) return $this->json(400);
         $this->post = json_decode($post,true);

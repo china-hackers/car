@@ -17,6 +17,15 @@ use app\models\UserBusiness;
 
 class FinanceController extends AController
 {
+
+    public function actionCount(){
+        $data = [];
+        $data['loan'] = (int)ILoan::find()->count();
+        $data['safe'] = (int)ISafe::find()->count();
+        $data['buy'] = (int)IBuy::find()->count();
+        $this->data['data'] = $data;
+        return $this->json();
+    }
     public function actionSaler2user(){
         /**
          * 客户第一次提交需要一键指定销售
