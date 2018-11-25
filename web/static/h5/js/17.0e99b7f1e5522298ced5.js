@@ -1,2 +1,0 @@
-webpackJsonp([17],{OfFU:function(t,a){},w9CM:function(t,a,e){"use strict";Object.defineProperty(a,"__esModule",{value:!0});var s={components:{CarList:e("nJyc").a}},r={render:function(){var t=this.$createElement,a=this._self._c||t;return a("div",{staticClass:"page-car-insurance"},[a("my-nav-bar",{attrs:{title:"我的收藏"}}),a("div",{staticClass:"list"},[a("car-list",{attrs:{type:"row",params:{store:1}}})],1)],1)},staticRenderFns:[]};var n=e("7jd7")(s,r,!1,function(t){e("OfFU")},"data-v-46ba8dc2",null);a.default=n.exports}});
-//# sourceMappingURL=17.0e99b7f1e5522298ced5.js.map
