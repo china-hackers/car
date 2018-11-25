@@ -57,10 +57,20 @@ class UserController extends MController{
         foreach($data as $d){
             $list[] = $d->img;
         }
+        if($model->d_date){
+            if(strtotime($model->d_date)>time())
+                $d_left = $model->d_month;
+            else
+                $d_left = $model->d_month - $model->getMonths($model->d_date,date('Y-m-d'));
+        }else{
+            $d_left = 0;
+        }
+        /**
         if($model->d_date)
             $d_left = $model->d_money - $model->d_pay*($model->getMonths($model->d_date,date('Y-m-d')));
         else
             $d_left = 0;
+         */
         if($d_left<0) $d_left = 0;
         $this->data['data']['d_left'] = $d_left;
         $this->data['data']['imgs'] = $list;
