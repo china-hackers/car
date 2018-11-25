@@ -47,7 +47,7 @@ class ILoan extends \yii\db\ActiveRecord
             [['created', 'uid', 'money', 'years', 'state', 'd_money', 'd_month', 'd_money_return'], 'integer'],
             [['money', 'years'], 'required'],
             [['d_date'], 'safe'],
-            [['name', 'phone', 'itype', 'd_type', 'd_pay'], 'string', 'max' => 20],
+            [['name', 'phone', 'itype', 'd_type'], 'string', 'max' => 20],
             [['d_name'], 'string', 'max' => 6],
             [['d_phone'], 'string', 'max' => 16],
         ];
