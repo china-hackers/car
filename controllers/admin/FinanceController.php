@@ -66,14 +66,14 @@ class FinanceController extends AController
             else
                 $where = 'name like "%' . $this->post['name'] . '%" AND state<>4';
             $count = ILoan::find()->where($where)->count();
-            $list = ILoan::find()->where($where)->offset(($p - 1) * 20)->limit(20)->all();
+            $list = ILoan::find()->where($where)->offset(($p - 1) * 20)->orderBy('id DESC')->limit(20)->all();
         }else{
             if($state)
                 $where = 'state='.$state;
             else
                 $where = 'state<>4';
             $count = ILoan::find()->where($where)->count();
-            $list = ILoan::find()->where($where)->offset(($p-1)*20)->limit(20)->all();
+            $list = ILoan::find()->where($where)->offset(($p-1)*20)->orderBy('id DESC')->limit(20)->all();
         }
         $data = ['total'=>intval($count)];
         $l2 = [];
@@ -218,14 +218,14 @@ class FinanceController extends AController
             else
                 $where = 'name like "%' . $this->post['name'] . '%" AND state<>4';
             $count = ISafe::find()->where($where)->count();
-            $list = ISafe::find()->where($where)->offset(($p - 1) * 20)->limit(20)->all();
+            $list = ISafe::find()->where($where)->offset(($p - 1) * 20)->orderBy('id DESC')->limit(20)->all();
         }else{
             if($state)
                 $where = 'state='.$state;
             else
                 $where = 'state<>4';
             $count = ISafe::find()->where($where)->count();
-            $list = ISafe::find()->where($where)->offset(($p-1)*20)->limit(20)->all();
+            $list = ISafe::find()->where($where)->offset(($p-1)*20)->orderBy('id DESC')->limit(20)->all();
         }
         $data = ['total'=>intval($count)];
         $l2 = [];
@@ -266,7 +266,7 @@ class FinanceController extends AController
         $p = @$this->post['p']?$this->post['p']:1;
         if(@$this->post['name']) {
             $count = IBuy::find()->where('name like "%' . $this->post['name'] . '%"')->count();
-            $list = IBuy::find()->where('name like "%' . $this->post['name'] . '%"')->offset(($p - 1) * 20)->limit(20)->all();
+            $list = IBuy::find()->where('name like "%' . $this->post['name'] . '%"')->orderBy('id DESC')->offset(($p - 1) * 20)->limit(20)->all();
         }else{
             $count = IBuy::find()->count();
             $list = IBuy::find()->offset(($p-1)*20)->limit(20)->all();

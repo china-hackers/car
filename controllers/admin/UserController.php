@@ -24,10 +24,10 @@ class UserController extends AController
         @$name = $this->post['name'];
         if($name){
             $count = User::find()->where('name like "%'.$name.'%"')->count();
-            $list = User::find()->where('name like "%'.$name.'%"')->offset(($p-1)*20)->limit(20)->all();
+            $list = User::find()->where('name like "%'.$name.'%"')->orderBy('id DESC')->offset(($p-1)*20)->limit(20)->all();
         }else{
             $count = User::find()->count();
-            $list = User::find()->offset(($p-1)*20)->limit(20)->all();
+            $list = User::find()->offset(($p-1)*20)->orderBy('id DESC')->limit(20)->all();
         }
         $l2 = [];
         foreach($list as $li){
