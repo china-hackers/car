@@ -275,6 +275,15 @@ class FinanceController extends AController
         $l2 = [];
         foreach($list as $li){
             $tmp = $li->attributes;
+            $tmp['product_name'] = $li->p->title;
+            if($li->saler)
+                $tmp['saler_name'] = $li->saler->name;
+            else
+                $tmp['saler_name'] = '未指定';
+            if($li->p2)
+                $tmp['product2_name'] = $li->p2->title;
+            else
+                $tmp['product2_name'] = '未成交';
             $l2[] = $tmp;
         }
         $data['list'] = $l2;

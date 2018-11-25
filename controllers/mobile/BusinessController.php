@@ -33,7 +33,7 @@ class BusinessController extends MController{
         $ub = UserBusiness::find()->where('uid='.$this->uid)->one();
         $model = IBuy::findOne($id);
         if($ub->business_id != $model->bid) return $this->json(402,'该车辆不属于您所在的车商');
-        $model->pid = $this->post['pid'];
+        $model->pid2 = $this->post['pid'];
         $model->price = $this->post['price'];
         $model->is_deal = 1;
         if($model->save()){
