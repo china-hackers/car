@@ -42,7 +42,7 @@ class SiteController extends BaseController
                 $this->data['data'][] = $path;
                 return $this->json();
             }else{
-                return $this->json(401,'上传图片失败');
+                return $this->json(401,'文件过大，不能超过10MB');
             }
         }else{
             return $this->json(401,'未提交内容');
