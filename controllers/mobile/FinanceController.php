@@ -103,7 +103,7 @@ class FinanceController extends MController{
         if($check==1){//成交
             $buy->price = @$this->post['price'];
             $buy->pid2 = @$this->post['pid'];
-            $buy->is_deal = 2;
+            $buy->is_deal = 1;
             $buy->save();
             //下架产品
             //if(@$this->post['pid'])Product::updateAll(['state'=>1],['id'=>$buy->pid2]);
