@@ -49,7 +49,7 @@ export default {
                     img: res.data[0][1]
                 });
             } else {
-                this.error(res.msg);
+                this.error('图片过大，限制10M以内');
             }
         },
         beforeAvatarUpload (file) {

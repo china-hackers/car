@@ -17,29 +17,27 @@ let store = new Vuex.Store({
         }
     },
     actions: {
-        async getBrands ({
-            commit
-        }) {
+        async getBrands ({ commit }) {
             try {
-                let {
-                    data
-                } = await Vue.prototype.$http.post('/mobile/car/brands', {
-                    p: 1
-                });
+                let { data } = await Vue.prototype.$http.post(
+                    '/mobile/car/brands',
+                    {
+                        p: 1
+                    }
+                );
                 commit('setBrands', data);
             } catch (error) {
                 console.log(error);
             }
         },
-        async getCarModels ({
-            commit
-        }) {
+        async getCarModels ({ commit }) {
             try {
-                let {
-                    data
-                } = await Vue.prototype.$http.post('/admin/car/cars', {
-                    p: 1
-                });
+                let { data } = await Vue.prototype.$http.post(
+                    '/mobile/car/cars',
+                    {
+                        p: 1
+                    }
+                );
                 commit('setCarModels', data);
             } catch (error) {
                 console.log(error);

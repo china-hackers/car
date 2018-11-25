@@ -40,7 +40,7 @@ export default {
             if (res.code === 200) {
                 this.form.img = res.data[0];
             } else {
-                this.error(res.msg);
+                this.error('图片过大，限制10M以内');
             }
         },
         clear () {

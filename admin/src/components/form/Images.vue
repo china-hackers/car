@@ -9,6 +9,7 @@
             accept="image/*"
             :multiple="false"
             :show-file-list="false"
+            :on-error="handleUploadError"
             :on-success="onUploadSuccess")
             i(class="el-icon-plus uploader-icon")
 </template>
@@ -54,18 +55,23 @@ export default {
     methods: {
         onUploadSuccess (data) {
             console.log(data);
-            if (this.size === 1) {
-                this.list = data.data;
-                this.$emit('input', this.list[0]);
+            if (data.code === 401) {
+                this.error('文件过大，限制10M以内');
             } else {
-                this.list.push(data.data[0]);
-                this.$emit('input', this.list);
+                if (this.size === 1) {
+                    this.list = data.data;
+                    this.$emit('input', this.list[0]);
+                } else {
+                    this.list.push(data.data[0]);
+                    this.$emit('input', this.list);
+                }
             }
         },
         deleteImage (item, index) {
             this.list.splice(index, 1);
             this.$emit('input', this.list);
-        }
+        },
+        handleUploadError () {}
     }
 };
 </script>

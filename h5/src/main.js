@@ -11,7 +11,7 @@ import {
 import Vant from 'vant';
 import router from './router';
 import store from './store';
-import 'vant/lib/vant-css/index.css';
+import 'vant/lib/index.css';
 
 Uploader.methods.readFile = function () {
     return new Promise(resolve => {

@@ -3,9 +3,9 @@ if  [ ! -n "$word" ] ;then
     echo "您没有输入commit信息!"
     exit 0
 else
-    GIT_PATH=/Users/xiongxiaotao/work/car
-    FILE_PATH=/Users/xiongxiaotao/work/car/web/static/admin
-    CUR_PATH=/Users/xiongxiaotao/work/ipinche/admin
+    GIT_PATH=/E/private/ipinche/car
+    FILE_PATH=/E/private/ipinche/car/web/static/admin
+    CUR_PATH=/E/private/ipinche/car/admin
     cd $GIT_PATH
     git config --global core.autocrlf false
     git pull origin master
