@@ -61,7 +61,7 @@ class UserController extends MController{
             if(strtotime($model->d_date)>time())
                 $d_left = $model->d_month;
             else
-                $d_left = $model->d_month - $model->getMonths($model->d_date,date('Y-m-d'));
+                $d_left = $model->d_month - $model->getMonths($model->d_date,date('Y-m-d'))-1;
         }else{
             $d_left = 0;
         }
