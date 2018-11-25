@@ -283,7 +283,7 @@ class FinanceController extends AController
             if($li->p2)
                 $tmp['product2_name'] = $li->p2->title;
             else
-                $tmp['product2_name'] = '未成交';
+                $tmp['product2_name'] = '';
             $l2[] = $tmp;
         }
         $data['list'] = $l2;

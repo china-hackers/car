@@ -101,10 +101,12 @@ class FinanceController extends MController{
         $check = $this->post['check'];
         $buy = IBuy::findOne($id);
         if($check==1){//成交
-            $buy->is_deal = 1;
+            $buy->price = @$this->post['price'];
+            $buy->pid2 = @$this->post['pid'];
+            $buy->is_deal = 2;
             $buy->save();
             //下架产品
-            Product::updateAll(['state'=>1],['id'=>$buy->pid]);
+            Product::updateAll(['state'=>1],['id'=>$buy->pid2]);
             //增加日志
             IBuyLog::addLog($id,'成交！');
         }else{//失效
