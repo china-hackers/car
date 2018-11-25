@@ -15,7 +15,7 @@
             i.iconfont &#xe608;
             .info
                 .title 剩余期数(月)
-                .val {{data.d_month}}
+                .val {{data.d_left}}
     //- van-cell-group
         van-cell(title="贷款总额" :value="`${data.d_money}元`")
         //- van-cell(title="剩余贷款金额" :value="`${data.d_left}元`")

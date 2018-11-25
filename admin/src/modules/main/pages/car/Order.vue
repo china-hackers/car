@@ -84,6 +84,7 @@ export default {
                 });
                 this.list = data.data.list;
                 this.pagination.pageTotal = data.data.total;
+                this.$store.commit('UPDATE_ORIGIN_BUY');
             } catch (error) {
                 console.log(error);
             }

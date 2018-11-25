@@ -1,6 +1,6 @@
 <template lang="pug">
     el-container(id="container")
-        el-aside(d="aside" width="200px")
+        el-aside(id="aside" width="200px")
             my-aside
         el-container
             el-header(id="header")
@@ -20,6 +20,12 @@ export default {
     computed: {
     },
     methods: {
+    },
+    created () {
+        this.$store.dispatch('getFirstUnread');
+        setInterval(() => {
+            this.$store.dispatch('getUnread');
+        }, 5000);
     }
 };
 </script>
@@ -39,4 +45,7 @@ body {
 </style>
 
 <style lang="scss" scoped>
+#aside {
+    overflow: hidden;
+}
 </style>

@@ -19,37 +19,30 @@
                 el-menu-item(index="/user/dealer-list") 车商
                 el-menu-item(index="/user/saler-list") I品车销售
 
-        el-submenu(index="car")
+        el-submenu(index="car" :class="{dot:curUnread.buy>originUnread.buy}")
             template(slot="title")
                 i(class="el-icon-menu")
                 span 汽车管理
             el-menu-item-group
                 el-menu-item(index="/car/lib") 车库
                 el-menu-item(index="/car/types") 车型管理
-                el-menu-item(index="/car/order") I品车订单
+                el-menu-item(index="/car/order" :class="{dot:curUnread.buy>originUnread.buy}") I品车订单
 
-        el-submenu(index="loan")
+        el-submenu(index="loan" :class="{dot:curUnread.loan>originUnread.loan}")
             template(slot="title")
                 i(class="el-icon-menu")
                 span I品金融
             el-menu-item-group
-                el-menu-item(index="/finance") 未成交
+                el-menu-item(index="/finance" :class="{dot:curUnread.loan>originUnread.loan}") 未成交
                 el-menu-item(index="/finance/deal") 已成交
 
-        el-submenu(index="insurance")
+        el-submenu(index="insurance" :class="{dot:curUnread.safe>originUnread.safe}")
             template(slot="title")
                 i(class="el-icon-menu")
                 span I品车险
             el-menu-item-group
-                el-menu-item(index="/insurance") 未成交
+                el-menu-item(index="/insurance" :class="{dot:curUnread.safe>originUnread.safe}") 未成交
                 el-menu-item(index="/insurance/deal") 已成交
-
-        //- el-menu-item(index="/finance")
-        //-     i(class="el-icon-menu")
-        //-     span(slot="title") I品金融
-        //- el-menu-item(index="/insurance")
-        //-     i(class="el-icon-menu")
-        //-     span(slot="title") I品车险
 
         el-submenu(index="content")
             template(slot="title")
@@ -57,12 +50,12 @@
                 span 内容管理
             el-menu-item-group
                 el-menu-item(index="/content/banner") 首页幻灯
-            el-menu-item-group
                 el-menu-item(index="/content/tuijian") 首页推荐位
 
 </template>
 
 <script>
+import {mapState} from 'vuex';
 export default {
     data () {
         return {
@@ -73,17 +66,54 @@ export default {
         // let index = window.location.hash.replace('#', '').split('/')[1];
         // this.activeIndex = '/' + index;
     },
+    computed: mapState({
+        originUnread: state => state.originUnread,
+        curUnread: state => state.curUnread
+    }),
     beforeRouteUpdate () {
         console.log(arguments);
     }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .comp-aside {
     height: 100%;
     .aside-menu {
         height: 100%;
+    }
+    .el-menu-item-group {
+        overflow: hidden;
+    }
+    .el-submenu {
+        &.dot {
+            position: relative;
+            &:after {
+                content: ' ';
+                width: 6px;
+                height: 6px;
+                background: red;
+                position: absolute;
+                top: 18px;
+                left: 20px;
+                border-radius: 50%;
+            }
+        }
+    }
+    .el-menu-item {
+        &.dot {
+            position: relative;
+            &:after {
+                content: ' ';
+                width: 6px;
+                height: 6px;
+                background: red;
+                position: absolute;
+                top: 15px;
+                left: 35px;
+                border-radius: 50%;
+            }
+        }
     }
 }
 </style>
