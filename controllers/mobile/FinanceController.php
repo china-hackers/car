@@ -106,7 +106,7 @@ class FinanceController extends MController{
             $buy->is_deal = 2;
             $buy->save();
             //下架产品
-            Product::updateAll(['state'=>1],['id'=>$buy->pid2]);
+            //if(@$this->post['pid'])Product::updateAll(['state'=>1],['id'=>$buy->pid2]);
             //增加日志
             IBuyLog::addLog($id,'成交！');
         }else{//失效
