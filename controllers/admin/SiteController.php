@@ -17,11 +17,12 @@ class SiteController extends BaseController
     public function actionSafeimg(){
         $this->layout = false;
         $model = new UploadModel();
+
         if (Yii::$app->request->isPost) {
-            $model->image = UploadedFile::getInstance($model, 'image');
-            $path = $model->upload('safe');
-            if ($path) {
-                $this->data['data'][] = $path;
+            $model->images = UploadedFile::getInstances($model, 'images');
+            $list = $model->uploads('safe');
+            if (count($list)) {
+                $this->data['data'] = $list;
                 return $this->json();
             }else{
                 return $this->json(401,'文件过大，不能超过10MB');
@@ -34,11 +35,12 @@ class SiteController extends BaseController
     public function actionLoanimg(){
         $this->layout = false;
         $model = new UploadModel();
+
         if (Yii::$app->request->isPost) {
-            $model->image = UploadedFile::getInstance($model, 'image');
-            $path = $model->upload('loan');
-            if ($path) {
-                $this->data['data'][] = $path;
+            $model->images = UploadedFile::getInstances($model, 'images');
+            $list = $model->uploads('loan');
+            if (count($list)) {
+                $this->data['data'] = $list;
                 return $this->json();
             }else{
                 return $this->json(401,'文件过大，不能超过10MB');
