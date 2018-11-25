@@ -42,6 +42,7 @@ class BusinessController extends MController{
             $product->save();
             $tmp = new IBuyLog();
             $tmp->addLog($model->id,'已成交!');
+            /**
             $list = IBuy::find()->where('pid='.$model->pid.' AND is_deal=0')->all();
             if($list){
                 foreach($list as $li){
@@ -50,7 +51,7 @@ class BusinessController extends MController{
                     $tmp = new IBuyLog();
                     $tmp->addLog($li->id,'该车已被其他客户成交');
                 }
-            }
+            }*/
             return $this->json();
         }else{
             return $this->error($model, 402);
