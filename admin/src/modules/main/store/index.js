@@ -23,13 +23,19 @@ export default new Vuex.Store({
             Object.assign(state.curUnread, data);
         },
         UPDATE_ORIGIN_BUY (state) {
-            state.originUnread.buy = state.curUnread.buy;
+            if (state.curUnread.buy !== 0) {
+                state.originUnread.buy = state.curUnread.buy;
+            }
         },
         UPDATE_ORIGIN_LOAN (state) {
-            state.originUnread.loan = state.curUnread.loan;
+            if (state.curUnread.loan !== 0) {
+                state.originUnread.loan = state.curUnread.loan;
+            }
         },
         UPDATE_ORIGIN_SAFE (state) {
-            state.originUnread.safe = state.curUnread.safe;
+            if (state.curUnread.safe !== 0) {
+                state.originUnread.safe = state.curUnread.safe;
+            }
         }
     },
     actions: {
