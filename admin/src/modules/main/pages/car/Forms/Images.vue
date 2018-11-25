@@ -7,7 +7,7 @@
             name="UploadModel[images][]"
             accept="image/*"
             :data="uploadData"
-            :multiple="false"
+            :multiple="true"
             :show-file-list="false"
             :on-success="onUploadSuccess"
             :before-upload="beforeAvatarUpload")
@@ -44,9 +44,15 @@ export default {
         },
         onUploadSuccess (res, file) {
             if (res.code === 200) {
-                this.list.push({
-                    id: res.data[0][0],
-                    img: res.data[0][1]
+                // this.list.push({
+                //     id: res.data[0][0],
+                //     img: res.data[0][1]
+                // });
+                res.data.forEach(item => {
+                    this.list.push({
+                        id: item[0],
+                        img: item[1]
+                    });
                 });
             } else {
                 this.error('图片过大，限制10M以内');

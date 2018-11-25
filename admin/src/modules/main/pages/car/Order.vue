@@ -10,15 +10,15 @@
     .content(v-loading="loading")
         el-table(:data="list" border style="width: 100%")
             el-table-column(align="center" type="index")
-            el-table-column(align="center" label="意向车辆" prop="pid")
+            el-table-column(align="center" label="意向车辆" prop="product_name")
             el-table-column(align="center" label="姓名" prop="name")
             el-table-column(align="center" label="电话" prop="phone")
             el-table-column(align="center" label="填表时间" prop="created")
                 template(slot-scope="scope") {{formatDate(new Date(scope.row.created*1000))}}
-            el-table-column(align="center" label="指定销售" prop="saler_id")
+            el-table-column(align="center" label="指定销售" prop="saler_name")
             el-table-column(align="center" label="是否成交" prop="")
                 template(slot-scope="scope") {{scope.row.is_deal===1?'已成交':'未成交'}}
-            el-table-column(align="center" label="成交车辆" prop="")
+            el-table-column(align="center" label="成交车辆" prop="product2_name")
             el-table-column(align="center" label="成交金额" prop="price")
             el-table-column(align="center" label="操作" prop="")
                 template(slot-scope="scope")

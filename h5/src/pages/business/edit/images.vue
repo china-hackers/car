@@ -4,7 +4,7 @@
     .wrap
         .item.bg(v-for="(item, index) in list" @click="preview(index)" v-lazy:background-image="item.img")
             van-icon.icon(name="close" @click.stop.prevent="delItem(item, index)")
-        van-uploader(:after-read="onRead")
+        van-uploader(:after-read="onRead" multiple)
             .item.upload
                 van-icon(name="photograph" size="2rem")
     .guide(v-if="guide" @click="hideGuide")
@@ -23,21 +23,28 @@ export default {
         };
     },
     methods: {
-        async onRead (file) {
-            console.log(file);
+        async onRead (files) {
             try {
                 this.loading.show('上传中...');
                 let param = new FormData(); // 创建form对象
-                param.append('UploadModel[images][]', file.file);// 通过append向form对象添加数据
+                if (files.length) {
+                    files.forEach(file => {
+                        param.append('UploadModel[images][]', file.file);
+                    });
+                } else {
+                    param.append('UploadModel[images][]', files.file);
+                }
+                // 通过append向form对象添加数据
                 param.append('id', this.$route.query.id);
                 let config = {
                     headers: {'Content-Type': 'multipart/form-data'}
                 }; // 添加请求头
                 let { data } = await this.$http.post('/admin/site/productimg', param, config);
-                console.log(data);
-                this.list.push({
-                    id: data[0][0],
-                    img: data[0][1]
+                data.forEach(item => {
+                    this.list.push({
+                        id: item[0],
+                        img: item[1]
+                    });
                 });
             } catch (error) {
                 console.log(error);
