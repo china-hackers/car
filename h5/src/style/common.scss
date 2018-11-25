@@ -1,0 +1,67 @@
+@import './iconfont.scss';
+
+html {
+    touch-action: manipulation;
+}
+
+html,
+body {
+    overflow: auto;
+    min-height: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+        'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 100%;
+    color: #333;
+    -webkit-overflow-scrolling: touch;
+    background-color: #fff;
+}
+
+.frame,
+.fullheight {
+    height: 100%;
+}
+
+.pager {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.bg {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #eee;
+}
+
+.box {
+    border-top: 0.4rem solid #f2f2f2;
+}
+
+.onerow {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.g-bottom-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+}

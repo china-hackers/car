@@ -1,0 +1,38 @@
+@mixin contain($url) {
+    background-image: url($url);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@mixin cover($url) {
+    background-image: url($url);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@mixin flex() {
+    display: flex;
+    align-items: center;
+}
+
+@mixin font($size, $color) {
+    font-size: $size;
+    color: $color;
+}
+
+@mixin avatar($w) {
+    width: $w;
+    height: $w;
+    border-radius: 50%;
+}
+
+@mixin icon($url, $width, $height: 0) {
+    background-image: url($url);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: $width;
+    height: if($height == 0, $width, $height);
+}
