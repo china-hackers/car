@@ -43,7 +43,7 @@ class UserController extends MController{
 
     public function actionLoan(){
         $this->checkUser();
-        $model = ILoan::find()->where('uid='.$this->uid)->one();
+        $model = ILoan::find()->where('uid='.$this->uid)->orderBy('id DESC')->one();
         if(!$model) return $this->json(404,'您还没有贷款信息');
         $this->data['data'] = $model->attributes;
         $data = ILoanLog::find()->where('lid='.$model->id)->orderBy('id DESC')->all();
