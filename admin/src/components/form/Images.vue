@@ -7,7 +7,7 @@
             :action="action"
             :name="name"
             accept="image/*"
-            :multiple="false"
+            :multiple="true"
             :show-file-list="false"
             :on-error="handleUploadError"
             :on-success="onUploadSuccess")
@@ -27,7 +27,7 @@ export default {
         },
         name: {
             type: String,
-            default: 'UploadModel[image]'
+            default: 'UploadModel[images][]'
         },
         action: {
             type: String,
@@ -55,14 +55,16 @@ export default {
     methods: {
         onUploadSuccess (data) {
             console.log(data);
-            if (data.code === 401) {
+            if (data.code !== 200) {
                 this.error('文件过大，限制10M以内');
             } else {
                 if (this.size === 1) {
                     this.list = data.data;
                     this.$emit('input', this.list[0]);
                 } else {
-                    this.list.push(data.data[0]);
+                    data.data.forEach(item => {
+                        this.list.push(item);
+                    });
                     this.$emit('input', this.list);
                 }
             }
