@@ -24,7 +24,6 @@ class ApiController extends BaseController
     }
 
     public function actionWeixin(){
-        echo $_GET['echostr'];exit;
         $server = (new Application())->driver("mp.server");
 
         $server->setMessageHandler(function($message) {
