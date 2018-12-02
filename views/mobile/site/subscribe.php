@@ -12,15 +12,15 @@
 
         <div class="cont">
             <div class="comp-avatar avatar">
-                <div class="img bg" data-src="http://thirdwx.qlogo.cn/mmopen/vi_32/PiajxSqBRaEJrJIgiaCl14jkALPhBSVqSfxLHplNowqicHMRIjhq0dbYKENpacibdFBBVOia79g8bmQn8IWusgCbiaZg/132"
-                    lazy="loaded" style="background-image: url(&quot;http://thirdwx.qlogo.cn/mmopen/vi_32/PiajxSqBRaEJrJIgiaCl14jkALPhBSVqSfxLHplNowqicHMRIjhq0dbYKENpacibdFBBVOia79g8bmQn8IWusgCbiaZg/132&quot;);"></div>
+                <div class="img bg" data-src="/logo.png"
+                    lazy="loaded" style="background-image: url(&quot;/logo.png&quot;);"></div>
             </div>
-            <div class="name">唐东</div>
+            <div class="name">i品车微信公众号</div>
             <div class="usertype">i品车尊享客户</div>
             <div class="desc">
                 <p>加入I品车，更多车源更多客户</p>
             </div>
-            <div class="qr"><img data-src="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            <div class="qr"><img data-src="/qrcode.jpg" src="/qrcode.jpg"
                     lazy="error"></div>
             <div class="tips">识别二维码，加入I品车</div>
         </div>
