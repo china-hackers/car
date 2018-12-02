@@ -1,6 +1,6 @@
 <template lang="pug">
 .comp-aside
-    el-menu(class="aside-menu" :default-active="activeIndex" background-color="#304156" text-color="#bfcbd9" active-text-color="#409EFF" :router="true")
+    el-menu(class="aside-menu" unique-opened :default-active="activeIndex" background-color="#304156" text-color="#bfcbd9" active-text-color="#409EFF" :router="true")
         el-submenu(index="permission")
             template(slot="title")
                 i(class="el-icon-menu")
