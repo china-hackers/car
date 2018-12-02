@@ -24,7 +24,7 @@
             el-date-picker(type="date" v-model="form.reg_date" value-format="yyyy-MM-dd")
         el-form-item(label="行驶里程")
             el-input-number(controls-position="right" :min="0" :precision="2" v-model="form.km")
-            span.unit 万公里
+            span.unit 万
         el-form-item(label="归属地")
             el-cascader(:options="cityData" v-model="form.city")
         el-form-item(label="排放标准")

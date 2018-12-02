@@ -6,12 +6,14 @@ export default new Vuex.Store({
         originUnread: {
             buy: 0,
             loan: 0,
-            safe: 0
+            safe: 0,
+            product: 0
         },
         curUnread: {
             buy: 0,
             loan: 0,
-            safe: 0
+            safe: 0,
+            product: 0
         }
     },
 
@@ -35,6 +37,11 @@ export default new Vuex.Store({
         UPDATE_ORIGIN_SAFE(state) {
             if (state.curUnread.safe !== 0) {
                 state.originUnread.safe = state.curUnread.safe;
+            }
+        },
+        UPDATE_ORIGIN_PRODUCT(state) {
+            if (state.curUnread.product !== 0) {
+                state.originUnread.product = state.curUnread.product;
             }
         }
     },

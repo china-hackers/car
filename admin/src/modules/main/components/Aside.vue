@@ -19,12 +19,12 @@
                 el-menu-item(index="/user/dealer-list") 车商
                 el-menu-item(index="/user/saler-list") I品车销售
 
-        el-submenu(index="car" :class="{dot:curUnread.buy>originUnread.buy}")
+        el-submenu(index="car" :class="{dot:curUnread.buy>originUnread.buy||curUnread.product>originUnread.product}")
             template(slot="title")
                 i(class="el-icon-menu")
                 span 汽车管理
             el-menu-item-group
-                el-menu-item(index="/car/lib") 车库
+                el-menu-item(index="/car/lib" :class="{dot:curUnread.product>originUnread.product}") 车库
                 el-menu-item(index="/car/types") 车型管理
                 el-menu-item(index="/car/order" :class="{dot:curUnread.buy>originUnread.buy}") I品车订单
 

@@ -20,6 +20,7 @@
                 template(slot-scope="scope") {{scope.row.is_deal===1?'已成交':'未成交'}}
             el-table-column(align="center" label="成交车辆" prop="product2_name")
             el-table-column(align="center" label="成交金额" prop="price")
+                template(slot-scope="scope") {{scope.row.price?`${parseFloat(scope.row.price)}万元`:''}}
             el-table-column(align="center" label="操作" prop="")
                 template(slot-scope="scope")
                     el-button(type="text" @click="viewNotes(scope.row)") 备注
