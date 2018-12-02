@@ -50,7 +50,7 @@ import DealerEditor from './components/DealerEditor';
 import pageMixin from '@/mixins/page';
 export default {
     mixins: [pageMixin],
-    data () {
+    data() {
         return {
             filter: {
                 name: '',
@@ -65,7 +65,7 @@ export default {
         DealerEditor
     },
     methods: {
-        async verify (item) {
+        async verify(item) {
             try {
                 // let comp = this.$refs['dealer-verify'];
                 // comp.setDealerInfo(item);
@@ -81,12 +81,12 @@ export default {
                 console.log(error);
             }
         },
-        async edit (data) {
+        async edit(data) {
             let comp = this.$refs['dealer-editor'];
             comp.setData(data);
             comp.open();
         },
-        async reject (item) {
+        async reject(item) {
             try {
                 await this.$confirm('确认删除吗？');
                 await this.$http.post('/admin/business/check', {
@@ -99,7 +99,7 @@ export default {
                 console.log(error);
             }
         },
-        viewDetail (item) {
+        viewDetail(item) {
             this.$router.push({
                 path: '/user/dealer-detail',
                 query: {
@@ -107,20 +107,23 @@ export default {
                 }
             });
         },
-        async req () {
+        async req() {
             try {
                 let params = {
                     p: this.pagination.curPage,
                     ...this.filter
                 };
-                let { data } = await this.$http.post('/admin/business/list', params);
+                let { data } = await this.$http.post(
+                    '/admin/business/list',
+                    params
+                );
                 this.dealData(data.data);
             } catch (error) {
                 console.log(error);
             }
         }
     },
-    created () {
+    created() {
         this.req();
     }
 };

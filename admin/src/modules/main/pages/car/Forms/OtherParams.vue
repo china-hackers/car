@@ -22,7 +22,7 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             form: {
                 nian_date: '',
@@ -35,7 +35,7 @@ export default {
         };
     },
     methods: {
-        async getInfo () {
+        async getInfo() {
             try {
                 let { data } = await this.$http.post('/admin/product/tax', {
                     id: this.$route.query.id
@@ -46,7 +46,7 @@ export default {
                 console.log(error);
             }
         },
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/admin/product/taxsave', {
                     id: this.$route.query.id,
@@ -58,7 +58,7 @@ export default {
             }
         }
     },
-    mounted () {
+    mounted() {
         this.getInfo();
     }
 };

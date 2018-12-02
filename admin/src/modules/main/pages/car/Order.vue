@@ -43,7 +43,7 @@ import pageMixin from '@/mixins/page';
 import { formatDate } from '@/lib/util';
 export default {
     mixins: [pageMixin],
-    data () {
+    data() {
         return {
             list: [],
             name: '',
@@ -51,14 +51,14 @@ export default {
         };
     },
     methods: {
-        getState (state) {
+        getState(state) {
             return {
                 0: '已上架',
                 1: '已下架',
                 2: '已售'
             };
         },
-        jumpToCarDetail (data) {
+        jumpToCarDetail(data) {
             this.$router.push({
                 path: '/car/edit',
                 query: {
@@ -66,17 +66,17 @@ export default {
                 }
             });
         },
-        viewNotes (item) {
+        viewNotes(item) {
             let comp = this.$refs['my-note-editor'];
             comp.setId(item.id);
             comp.open();
         },
-        research () {
+        research() {
             this.pagination.curPage = 1;
             this.list = [];
             this.getList();
         },
-        async getList () {
+        async getList() {
             try {
                 let { data } = await this.$http.post('/admin/finance/buylist', {
                     p: this.pagination.curPage,
@@ -89,10 +89,10 @@ export default {
                 console.log(error);
             }
         },
-        formatDate (date) {
+        formatDate(date) {
             return formatDate(date);
         },
-        async deal (item) {
+        async deal(item) {
             try {
                 await this.$confirm('确认提交');
                 await this.$http.post('/admin/finance/buycheck', {
@@ -105,7 +105,7 @@ export default {
             }
         },
         // 分配销售
-        async appoint (data) {
+        async appoint(data) {
             try {
                 await this.$http.post('/admin/finance/saler2user', {
                     id: data.id
@@ -117,7 +117,7 @@ export default {
             }
         }
     },
-    created () {
+    created() {
         this.getList();
     }
 };

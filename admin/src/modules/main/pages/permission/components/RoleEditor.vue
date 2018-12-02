@@ -20,7 +20,7 @@ export default {
     components: {
         'my-button': MyButton
     },
-    data () {
+    data() {
         return {
             form: {
                 id: '',
@@ -32,10 +32,10 @@ export default {
         };
     },
     methods: {
-        handleCheckChange () {
+        handleCheckChange() {
             this.form.permission = this.$refs.tree.getCheckedKeys();
         },
-        clear () {
+        clear() {
             this.form = {
                 id: '',
                 role: '',
@@ -43,7 +43,7 @@ export default {
                 permission: []
             };
         },
-        async setDefaultValues () {
+        async setDefaultValues() {
             if (this.type === 'edit') {
                 try {
                     let { data } = await this.$http.post('/admin/role/role', {
@@ -63,17 +63,20 @@ export default {
                 });
             }
         },
-        async getAllPermissions () {
+        async getAllPermissions() {
             try {
-                let { data } = await this.$http.post('/admin/permission/checklist', {
-                    p: 1
-                });
+                let { data } = await this.$http.post(
+                    '/admin/permission/checklist',
+                    {
+                        p: 1
+                    }
+                );
                 this.checkList = data.data;
             } catch (error) {
                 console.log(error);
             }
         },
-        async save () {
+        async save() {
             try {
                 if (this.type === 'new') {
                     await this.$http.post('/admin/role/add', {
@@ -93,7 +96,7 @@ export default {
             }
         }
     },
-    mounted () {
+    mounted() {
         this.getAllPermissions();
     }
 };

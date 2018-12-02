@@ -37,7 +37,7 @@
 <script>
 import { gas } from '../../../lib/carConfig';
 export default {
-    data () {
+    data() {
         return {
             gas: gas,
             carModelData: [],
@@ -61,13 +61,17 @@ export default {
         };
     },
     methods: {
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/admin/product/productsave', {
                     id: this.form.id,
                     business_id: this.form.business_id,
-                    car_id: this.form.car.length ? this.form.car[this.form.car.length - 1] : '',
-                    city_id: this.form.city.length ? this.form.city[this.form.city.length - 1] : '',
+                    car_id: this.form.car.length
+                        ? this.form.car[this.form.car.length - 1]
+                        : '',
+                    city_id: this.form.city.length
+                        ? this.form.city[this.form.city.length - 1]
+                        : '',
                     emission_std: this.form.emission_std,
                     itype: this.form.itype,
                     km: this.form.km + '',
@@ -82,7 +86,7 @@ export default {
                 console.log(error);
             }
         },
-        async getInfo () {
+        async getInfo() {
             try {
                 let { data } = await this.$http.post('/admin/product/product', {
                     id: this.$route.query.id
@@ -92,25 +96,29 @@ export default {
                 console.log(error);
             }
         },
-        async getCarModel () {
+        async getCarModel() {
             try {
-                let { data } = await this.$http.post('/admin/car/cars', {p: 1});
+                let { data } = await this.$http.post('/admin/car/cars', {
+                    p: 1
+                });
                 console.log(data);
                 this.carModelData = data.data;
             } catch (error) {
                 console.log(error);
             }
         },
-        async getCitys () {
+        async getCitys() {
             try {
-                let { data } = await this.$http.post('/mobile/city/cities', {p: 1});
+                let { data } = await this.$http.post('/mobile/city/cities', {
+                    p: 1
+                });
                 this.cityData = data.data;
             } catch (error) {
                 console.log(error);
             }
         }
     },
-    mounted () {
+    mounted() {
         this.getCarModel();
         this.getCitys();
         this.getInfo();

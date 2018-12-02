@@ -1,5 +1,5 @@
 export default {
-    data () {
+    data() {
         return {
             pagination: {
                 curPage: 1,
@@ -9,20 +9,20 @@ export default {
         };
     },
     methods: {
-        pageSizeChange (size) {
+        pageSizeChange(size) {
             this.pagination.pageSize = size;
             this.req();
         },
-        pageCurPageChange (cur) {
+        pageCurPageChange(cur) {
             this.pagination.curPage = cur;
             this.req();
         },
-        req () {},
-        dealData (data) {
+        req() {},
+        dealData(data) {
             this.list = data.list;
             this.pagination.pageTotal = data.total;
         },
-        async research () {
+        async research() {
             this.pagination.curPage = 1;
             await this.req();
         }

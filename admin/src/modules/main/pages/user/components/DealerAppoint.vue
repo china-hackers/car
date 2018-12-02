@@ -30,7 +30,7 @@ import dialogMixin from '@/mixins/dialog';
 import pageMixin from '@/mixins/page';
 export default {
     mixins: [pageMixin, dialogMixin],
-    data () {
+    data() {
         return {
             filter: {
                 name: '',
@@ -41,22 +41,25 @@ export default {
         };
     },
     methods: {
-        async req () {
+        async req() {
             try {
                 let params = {
                     p: this.pagination.curPage,
                     ...this.filter
                 };
-                let { data } = await this.$http.post('/admin/business/list', params);
+                let { data } = await this.$http.post(
+                    '/admin/business/list',
+                    params
+                );
                 this.dealData(data.data);
             } catch (error) {
                 console.log(error);
             }
         },
-        setUId (id) {
+        setUId(id) {
             this.uid = id;
         },
-        async appoint (data) {
+        async appoint(data) {
             try {
                 await this.$http.post('/admin/business/bind', {
                     uid: this.uid,
@@ -70,7 +73,7 @@ export default {
             }
         }
     },
-    created () {
+    created() {
         this.req();
     }
 };

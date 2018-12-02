@@ -1,5 +1,5 @@
 export default {
-    install (Vue) {
+    install(Vue) {
         let loading = {};
         Vue.prototype.loading = () => {
             loading = Vue.prototype.$loading({

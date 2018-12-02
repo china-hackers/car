@@ -35,7 +35,7 @@ import { formatDate } from '@/lib/util';
 import BannerItemEditor from './components/BannerItemEditor';
 export default {
     mixins: [pageMixin],
-    data () {
+    data() {
         return {
             list: [],
             name: '',
@@ -46,16 +46,16 @@ export default {
         'banner-item-editor': BannerItemEditor
     },
     methods: {
-        editItem (item) {
+        editItem(item) {
             let comp = this.$refs['banner-item-editor'];
             comp.setData(item);
             comp.open();
         },
-        newItem () {
+        newItem() {
             let comp = this.$refs['banner-item-editor'];
             comp.open();
         },
-        async deleteItem (data) {
+        async deleteItem(data) {
             try {
                 await this.$confirm('确认删除吗？');
                 await this.$http.post('/admin/banner/delete', {
@@ -67,12 +67,12 @@ export default {
                 console.log(error);
             }
         },
-        research () {
+        research() {
             this.pagination.curPage = 1;
             this.list = [];
             this.getList();
         },
-        async getList () {
+        async getList() {
             try {
                 let { data } = await this.$http.post('/admin/banner/list', {
                     p: this.pagination.curPage,
@@ -84,10 +84,10 @@ export default {
                 console.log(error);
             }
         },
-        formatDate (date) {
+        formatDate(date) {
             return formatDate(date);
         },
-        async deal (item) {
+        async deal(item) {
             try {
                 await this.$confirm('确认提交');
                 await this.$http.post('/admin/finance/loancheck', {
@@ -100,7 +100,7 @@ export default {
             }
         }
     },
-    created () {
+    created() {
         this.getList();
     }
 };

@@ -22,7 +22,7 @@ import dialogMixin from '@/mixins/dialog';
 import pageMixin from '@/mixins/page';
 export default {
     mixins: [pageMixin, dialogMixin],
-    data () {
+    data() {
         return {
             form: {
                 city: '',
@@ -35,7 +35,7 @@ export default {
         };
     },
     methods: {
-        setData (data) {
+        setData(data) {
             this.form = {
                 name: data.name,
                 phone: data.phone,
@@ -46,7 +46,7 @@ export default {
             };
             console.log(data);
         },
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/admin/user/save', this.form);
                 this.success('修改成功');
@@ -57,6 +57,5 @@ export default {
             }
         }
     }
-
 };
 </script>

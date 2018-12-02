@@ -31,7 +31,7 @@ el-dialog(title="贷款成交" :visible.sync="visible" width="800px")
 import dialogMixin from '@/mixins/dialog';
 export default {
     mixins: [dialogMixin],
-    data () {
+    data() {
         return {
             form: {
                 id: '',
@@ -48,42 +48,42 @@ export default {
         };
     },
     methods: {
-        setId (id) {
+        setId(id) {
             this.form.id = id;
             this.getInfo();
         },
-        async getInfo () {
+        async getInfo() {
             try {
-                let {data} = await this.$http.post('/admin/finance/loan', {
+                let { data } = await this.$http.post('/admin/finance/loan', {
                     id: this.form.id
                 });
                 console.log(data);
                 Object.assign(this.form, {
-                    'd_name': data.data['d_name'],
-                    'd_phone': data.data['d_phone'],
-                    'd_type': data.data['d_type'],
-                    'd_money': data.data['d_money'],
-                    'd_money_return': data.data['d_money_return'],
-                    'd_month': data.data['d_month'],
-                    'd_pay': data.data['d_pay'],
-                    'd_price': data.data['d_price'],
-                    'd_date': data.data['d_date'],
-                    'imgs': data.data['imgs']
+                    d_name: data.data['d_name'],
+                    d_phone: data.data['d_phone'],
+                    d_type: data.data['d_type'],
+                    d_money: data.data['d_money'],
+                    d_money_return: data.data['d_money_return'],
+                    d_month: data.data['d_month'],
+                    d_pay: data.data['d_pay'],
+                    d_price: data.data['d_price'],
+                    d_date: data.data['d_date'],
+                    imgs: data.data['imgs']
                 });
             } catch (error) {
                 console.log(error);
             }
         },
-        setDefaultData (data) {
+        setDefaultData(data) {
             Object.assign(this.form, {
-                'd_name': data.name,
-                'd_phone': data.phone,
-                'd_type': data.itype,
-                'd_money': data.money,
-                'd_month': data.years * 12
+                d_name: data.name,
+                d_phone: data.phone,
+                d_type: data.itype,
+                d_money: data.money,
+                d_month: data.years * 12
             });
         },
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/admin/finance/loancheck', this.form);
                 this.success('保存成功');

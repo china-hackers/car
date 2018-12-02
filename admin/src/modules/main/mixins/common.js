@@ -2,7 +2,7 @@ import StatusEditor from '../components/StatusEditor';
 import FinanceDealer from '../components/FinanceDealer';
 import InsuranceDealer from '../components/InsuranceDealer';
 export default {
-    data () {
+    data() {
         return {
             orderStatus: {
                 '0': '已提交',
@@ -19,17 +19,17 @@ export default {
         InsuranceDealer
     },
     methods: {
-        getStatusText (code) {
+        getStatusText(code) {
             return this.orderStatus[`${code}`];
         },
-        changeStatus (scope) {
+        changeStatus(scope) {
             let comp = this.$refs['status-editor'];
             comp.setValue(scope.row.state);
             comp.setId(scope.row.id);
             comp.open();
         },
         // 成交
-        async deal (item) {
+        async deal(item) {
             try {
                 let comp = this.$refs['dealer-editor'];
                 // console.log(item);

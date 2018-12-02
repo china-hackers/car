@@ -34,7 +34,7 @@ export default {
             default: 'lid'
         }
     },
-    data () {
+    data() {
         return {
             id: '',
             list: [],
@@ -42,7 +42,7 @@ export default {
         };
     },
     methods: {
-        async setDefaultValues () {
+        async setDefaultValues() {
             try {
                 let { data } = await this.$http.post(this.listUrl, {
                     p: this.pagination.curPage,
@@ -54,13 +54,13 @@ export default {
                 console.log(error);
             }
         },
-        setId (id) {
+        setId(id) {
             this.id = id;
         },
-        formatDate (date) {
+        formatDate(date) {
             return formatDate(date);
         },
-        async save () {
+        async save() {
             try {
                 if (this.note === '') {
                     this.error('备注内容不能为空');
@@ -78,7 +78,7 @@ export default {
                 console.log(error);
             }
         },
-        clear () {
+        clear() {
             this.id = '';
             this.note = '';
             this.list = [];

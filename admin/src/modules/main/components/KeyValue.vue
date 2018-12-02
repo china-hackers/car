@@ -20,37 +20,37 @@ export default {
         },
         value: {
             type: Array,
-            default () {
+            default() {
                 return [];
             }
         }
     },
     watch: {
         value: {
-            handler (v) {
+            handler(v) {
                 if (v.length) {
                     this.list = v;
                 } else {
-                    this.list = [{key: '', val: ''}];
+                    this.list = [{ key: '', val: '' }];
                 }
             },
             immediate: true
         }
     },
-    data () {
+    data() {
         return {
             list: []
         };
     },
     methods: {
-        add () {
+        add() {
             this.list.push({
                 key: '',
                 val: ''
             });
             this.$emit('input', this.list);
         },
-        del (index) {
+        del(index) {
             this.list.splice(index, 1);
             this.$emit('input', this.list);
         }

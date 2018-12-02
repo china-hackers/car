@@ -26,7 +26,7 @@ el-dialog(title="新增权限" :visible.sync="visible" width="800px")
 import dialogMixin from '@/mixins/dialog';
 export default {
     mixins: [dialogMixin],
-    data () {
+    data() {
         return {
             form: {
                 id: '',
@@ -42,12 +42,15 @@ export default {
         };
     },
     methods: {
-        async setDefaultValues () {
+        async setDefaultValues() {
             if (this.type === 'edit') {
                 try {
-                    let { data } = await this.$http.post('/admin/permission/permission', {
-                        id: this.form.id
-                    });
+                    let { data } = await this.$http.post(
+                        '/admin/permission/permission',
+                        {
+                            id: this.form.id
+                        }
+                    );
                     Object.assign(this.form, data.data);
                 } catch (error) {
                     console.log(error);
@@ -64,17 +67,20 @@ export default {
                 });
             }
         },
-        async getParentList () {
+        async getParentList() {
             try {
-                let { data } = await this.$http.post('/admin/permission/parentlist', {
-                    p: 1
-                });
+                let { data } = await this.$http.post(
+                    '/admin/permission/parentlist',
+                    {
+                        p: 1
+                    }
+                );
                 this.parentList = data.data.list;
             } catch (error) {
                 console.log(error);
             }
         },
-        async save () {
+        async save() {
             try {
                 if (this.type === 'new') {
                     await this.$http.post('/admin/permission/add', {
@@ -94,7 +100,7 @@ export default {
             }
         }
     },
-    mounted () {
+    mounted() {
         this.getParentList();
     }
 };

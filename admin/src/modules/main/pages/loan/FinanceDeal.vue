@@ -42,7 +42,7 @@ import commonMixin from '../../mixins/common';
 import { formatDate } from '@/lib/util';
 export default {
     mixins: [pageMixin, commonMixin],
-    data () {
+    data() {
         return {
             list: [],
             name: '',
@@ -50,35 +50,37 @@ export default {
         };
     },
     methods: {
-        viewNotes (item) {
+        viewNotes(item) {
             let comp = this.$refs['my-note-editor'];
             comp.setId(item.id);
             comp.open();
         },
-        research () {
+        research() {
             this.pagination.curPage = 1;
             this.list = [];
             this.getList();
         },
-        async getList () {
+        async getList() {
             try {
-                let { data } = await this.$http.post('/admin/finance/loanlist', {
-                    p: this.pagination.curPage,
-                    name: this.name,
-                    state: 4
-                });
+                let { data } = await this.$http.post(
+                    '/admin/finance/loanlist',
+                    {
+                        p: this.pagination.curPage,
+                        name: this.name,
+                        state: 4
+                    }
+                );
                 this.list = data.data.list;
                 this.pagination.pageTotal = data.data.total;
             } catch (error) {
                 console.log(error);
             }
         },
-        formatDate (date) {
+        formatDate(date) {
             return formatDate(date);
         }
-
     },
-    created () {
+    created() {
         this.getList();
     }
 };

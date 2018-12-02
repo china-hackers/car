@@ -14,14 +14,14 @@
 <script>
 export default {
     methods: {
-        async logout () {
+        async logout() {
             try {
                 window.location.href = '/admin/site/logout';
             } catch (error) {
                 console.log(error);
             }
         },
-        jump (path) {
+        jump(path) {
             this.$router.push({
                 path
             });

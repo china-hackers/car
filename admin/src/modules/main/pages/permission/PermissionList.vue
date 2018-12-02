@@ -33,7 +33,7 @@ import PermissionEditor from './components/PermissionEditor';
 import pageMixin from '@/mixins/page';
 export default {
     mixins: [pageMixin],
-    data () {
+    data() {
         return {
             list: [{}],
             loading: false
@@ -43,12 +43,12 @@ export default {
         'my-permission-editor': PermissionEditor
     },
     methods: {
-        addPermission () {
+        addPermission() {
             let comp = this.$refs['my-permission-editor'];
             comp.setEditorType('new');
             comp.open();
         },
-        async req () {
+        async req() {
             try {
                 let { data } = await this.$http.post('/admin/permission/list', {
                     p: this.pagination.curPage
@@ -59,12 +59,12 @@ export default {
                 console.log(error);
             }
         },
-        edit (permission) {
+        edit(permission) {
             let comp = this.$refs['my-permission-editor'];
             comp.setId(permission.id);
             comp.open();
         },
-        async deletePermission (permission) {
+        async deletePermission(permission) {
             try {
                 await this.$http.post('/admin/permission/delete', {
                     id: permission.id
@@ -76,7 +76,7 @@ export default {
             }
         }
     },
-    mounted () {
+    mounted() {
         this.req();
     }
 };

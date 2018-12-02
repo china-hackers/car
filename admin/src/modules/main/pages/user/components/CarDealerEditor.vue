@@ -20,9 +20,8 @@ el-dialog(title="新增车商" :visible.sync="visible" width="800px")
 import dialogMixin from '@/mixins/dialog';
 export default {
     mixins: [dialogMixin],
-    components: {
-    },
-    data () {
+    components: {},
+    data() {
         return {
             form: {},
             saveing: false

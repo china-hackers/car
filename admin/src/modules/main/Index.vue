@@ -17,11 +17,9 @@ export default {
         'my-header': Header,
         'my-aside': Aside
     },
-    computed: {
-    },
-    methods: {
-    },
-    created () {
+    computed: {},
+    methods: {},
+    created() {
         this.$store.dispatch('getFirstUnread');
         setInterval(() => {
             this.$store.dispatch('getUnread');

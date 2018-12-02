@@ -38,7 +38,7 @@ export default {
         'my-car-filter': CarFilter,
         'my-car-type-editor': CarTypeEditor
     },
-    data () {
+    data() {
         return {
             choosedLetter: '',
             letterList: [],
@@ -48,20 +48,22 @@ export default {
         };
     },
     methods: {
-        async getLetterList () {
+        async getLetterList() {
             try {
-                let { data } = await this.$http.post('/admin/car/letterlist', {p: 1});
+                let { data } = await this.$http.post('/admin/car/letterlist', {
+                    p: 1
+                });
                 this.letterList = data.data.list;
                 this.chooseLetter('A');
             } catch (error) {
                 console.log(error);
             }
         },
-        chooseLetter (letter) {
+        chooseLetter(letter) {
             this.choosedLetter = letter;
             this.getBrandList();
         },
-        async getBrandList () {
+        async getBrandList() {
             try {
                 let { data } = await this.$http.post('/admin/car/brandlist', {
                     letter: this.choosedLetter,
@@ -73,11 +75,11 @@ export default {
                 console.log(error);
             }
         },
-        chooseBrand (brand) {
+        chooseBrand(brand) {
             this.choosedBrand = brand;
             this.getTypeList();
         },
-        async getTypeList () {
+        async getTypeList() {
             try {
                 let { data } = await this.$http.post('/admin/car/modellist', {
                     brand: this.choosedBrand
@@ -88,7 +90,7 @@ export default {
                 console.log(error);
             }
         },
-        async addType () {
+        async addType() {
             try {
                 let comp = this.$refs['my-car-type-editor'];
                 comp.setLetter(this.choosedLetter);
@@ -98,7 +100,7 @@ export default {
                 console.log(error);
             }
         },
-        async editType (type) {
+        async editType(type) {
             try {
                 let comp = this.$refs['my-car-type-editor'];
                 comp.setEditData(this._.cloneDeep(type));
@@ -107,7 +109,7 @@ export default {
                 console.log(error);
             }
         },
-        async delType (type) {
+        async delType(type) {
             try {
                 await this.$confirm('确认删除该车型吗？');
                 await this.$http.post('/admin/car/delete', {
@@ -120,7 +122,7 @@ export default {
             }
         }
     },
-    created () {
+    created() {
         this.getLetterList();
     }
 };

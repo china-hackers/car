@@ -1,45 +1,44 @@
 <template>
-    <div class="login-container">
-        <el-form ref="loginForm"
-                 class="login-form"
-                 auto-complete="on"
-                 label-position="left">
-            <h3 class="title">爱品车管理后台</h3>
-            <el-form-item prop="username">
-                <span class="svg-container svg-container_login">
-                </span>
-                <el-input v-model="loginForm.username"
-                          name="username"
-                          type="text"
-                          auto-complete="off"
-                          placeholder="请输入用户名" />
-            </el-form-item>
-            <el-form-item prop="password">
-                <span class="svg-container">
-                </span>
-                <el-input type="password"
-                          v-model="loginForm.password"
-                          name="password"
-                          auto-complete="off"
-                          placeholder="请输入密码"
-                          @keyup.enter.native="handleLogin" />
-            </el-form-item>
-            <el-form-item>
-                <el-button :loading="loading"
-                           type="primary"
-                           style="width:100%;"
-                           @click.native.prevent="handleLogin">
-                    开始登录
-                </el-button>
-            </el-form-item>
-        </el-form>
-    </div>
+  <div class="login-container">
+    <el-form ref="loginForm" class="login-form" auto-complete="on" label-position="left">
+      <h3 class="title">爱品车管理后台</h3>
+      <el-form-item prop="username">
+        <span class="svg-container svg-container_login"></span>
+        <el-input
+          v-model="loginForm.username"
+          name="username"
+          type="text"
+          auto-complete="off"
+          placeholder="请输入用户名"
+        />
+      </el-form-item>
+      <el-form-item prop="password">
+        <span class="svg-container"></span>
+        <el-input
+          type="password"
+          v-model="loginForm.password"
+          name="password"
+          auto-complete="off"
+          placeholder="请输入密码"
+          @keyup.enter.native="handleLogin"
+        />
+      </el-form-item>
+      <el-form-item>
+        <el-button
+          :loading="loading"
+          type="primary"
+          style="width:100%;"
+          @click.native.prevent="handleLogin"
+        >开始登录</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
 </template>
 
 <script>
 export default {
     name: 'Login',
-    data () {
+    data() {
         return {
             loginForm: {
                 username: '',
@@ -48,10 +47,9 @@ export default {
             loading: false
         };
     },
-    components: {
-    },
+    components: {},
     methods: {
-        async handleLogin () {
+        async handleLogin() {
             if (!this.loading) {
                 this.loading = true;
                 try {

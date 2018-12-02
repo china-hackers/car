@@ -37,7 +37,7 @@ import AdminEditor from './components/AdminEditor';
 import pageMixin from '@/mixins/page';
 export default {
     mixins: [pageMixin],
-    data () {
+    data() {
         return {
             list: [],
             loading: false
@@ -47,12 +47,12 @@ export default {
         'my-admin-editor': AdminEditor
     },
     methods: {
-        addEmployee () {
+        addEmployee() {
             let comp = this.$refs['my-admin-editor'];
             comp.setEditorType('new');
             comp.open();
         },
-        async req () {
+        async req() {
             try {
                 let { data } = await this.$http.post(`/admin/admin/list`, {
                     p: this.pagination.curPage
@@ -64,7 +64,7 @@ export default {
                 console.log(error);
             }
         },
-        async deleteAdmin (admin) {
+        async deleteAdmin(admin) {
             try {
                 await this.$http.post('/admin/admin/delete', {
                     id: admin.id
@@ -75,7 +75,7 @@ export default {
                 console.log(error);
             }
         },
-        async resetPswd (admin) {
+        async resetPswd(admin) {
             try {
                 await this.$http.post('/admin/admin/reset', {
                     id: admin.id
@@ -86,13 +86,13 @@ export default {
                 console.log(error);
             }
         },
-        editAdmin (admin) {
+        editAdmin(admin) {
             let comp = this.$refs['my-admin-editor'];
             comp.setId(admin.id);
             comp.open();
         }
     },
-    mounted () {
+    mounted() {
         this.req();
     }
 };

@@ -16,30 +16,30 @@ export default new Vuex.Store({
     },
 
     mutations: {
-        SET_ORIGIN_UNREAD (state, data) {
+        SET_ORIGIN_UNREAD(state, data) {
             Object.assign(state.originUnread, data);
         },
-        SET_CUR_UNREAD (state, data) {
+        SET_CUR_UNREAD(state, data) {
             Object.assign(state.curUnread, data);
         },
-        UPDATE_ORIGIN_BUY (state) {
+        UPDATE_ORIGIN_BUY(state) {
             if (state.curUnread.buy !== 0) {
                 state.originUnread.buy = state.curUnread.buy;
             }
         },
-        UPDATE_ORIGIN_LOAN (state) {
+        UPDATE_ORIGIN_LOAN(state) {
             if (state.curUnread.loan !== 0) {
                 state.originUnread.loan = state.curUnread.loan;
             }
         },
-        UPDATE_ORIGIN_SAFE (state) {
+        UPDATE_ORIGIN_SAFE(state) {
             if (state.curUnread.safe !== 0) {
                 state.originUnread.safe = state.curUnread.safe;
             }
         }
     },
     actions: {
-        async getFirstUnread (store) {
+        async getFirstUnread(store) {
             try {
                 let { data } = await Vue.prototype.$http.post(
                     '/admin/finance/count',
@@ -52,7 +52,7 @@ export default new Vuex.Store({
                 console.log(error);
             }
         },
-        async getUnread (store) {
+        async getUnread(store) {
             try {
                 let { data } = await Vue.prototype.$http.post(
                     '/admin/finance/count',

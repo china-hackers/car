@@ -40,7 +40,7 @@
 <script>
 import { model, color, gearBox, hubMaterial } from '../../../lib/carConfig';
 export default {
-    data () {
+    data() {
         return {
             test: '',
             model,
@@ -66,7 +66,7 @@ export default {
         };
     },
     methods: {
-        async getInfo () {
+        async getInfo() {
             try {
                 let { data } = await this.$http.post('/admin/product/base', {
                     id: this.$route.query.id
@@ -77,7 +77,7 @@ export default {
                 console.log(error);
             }
         },
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/admin/product/basesave', {
                     id: this.$route.query.id,
@@ -89,7 +89,7 @@ export default {
             }
         }
     },
-    mounted () {
+    mounted() {
         this.getInfo();
     }
 };

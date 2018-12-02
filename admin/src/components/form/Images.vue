@@ -37,8 +37,8 @@ export default {
     },
     watch: {
         value: {
-            handler (v) {
-                if (typeof (v) === 'string') {
+            handler(v) {
+                if (typeof v === 'string') {
                     this.list = [v];
                 } else {
                     this.list = v;
@@ -47,13 +47,13 @@ export default {
             immediate: true
         }
     },
-    data () {
+    data() {
         return {
             list: []
         };
     },
     methods: {
-        onUploadSuccess (data) {
+        onUploadSuccess(data) {
             console.log(data);
             if (data.code !== 200) {
                 this.error('文件过大，限制10M以内');
@@ -69,11 +69,11 @@ export default {
                 }
             }
         },
-        deleteImage (item, index) {
+        deleteImage(item, index) {
             this.list.splice(index, 1);
             this.$emit('input', this.list);
         },
-        handleUploadError () {}
+        handleUploadError() {}
     }
 };
 </script>

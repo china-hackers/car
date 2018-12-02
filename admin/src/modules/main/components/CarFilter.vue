@@ -35,7 +35,7 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             choosedLetter: '',
             letterList: [],
@@ -49,21 +49,23 @@ export default {
         };
     },
     methods: {
-        async getLetterList () {
+        async getLetterList() {
             try {
-                let { data } = await this.$http.post('/admin/car/letterlist', {p: 1});
+                let { data } = await this.$http.post('/admin/car/letterlist', {
+                    p: 1
+                });
                 this.letterList = data.data.list;
                 await this.chooseLetter('');
             } catch (error) {
                 console.log(error);
             }
         },
-        async chooseLetter (letter) {
+        async chooseLetter(letter) {
             this.choosedLetter = letter;
             this.choosedTypeId = '';
             await this.getBrandList();
         },
-        async getBrandList () {
+        async getBrandList() {
             try {
                 let { data } = await this.$http.post('/admin/car/brandlist', {
                     letter: this.choosedLetter,
@@ -75,14 +77,14 @@ export default {
                 console.log(error);
             }
         },
-        async chooseBrand (brand) {
+        async chooseBrand(brand) {
             this.choosedBrand = brand;
             if (brand !== '') {
                 await this.getTypeList();
             }
             this.choosedTypeId = '';
         },
-        async getTypeList () {
+        async getTypeList() {
             try {
                 let { data } = await this.$http.post('/admin/car/modellist', {
                     brand: this.choosedBrand
@@ -93,13 +95,13 @@ export default {
                 console.log(error);
             }
         },
-        chooseType (typeId) {
+        chooseType(typeId) {
             this.choosedTypeId = typeId;
         },
-        newCar () {
+        newCar() {
             this.$emit('new-car');
         },
-        startSearch () {
+        startSearch() {
             this.$emit('start-search', {
                 letter: this.choosedLetter,
                 brand: this.choosedBrand,
@@ -110,7 +112,7 @@ export default {
             });
         }
     },
-    async created () {
+    async created() {
         await this.getLetterList();
         this.startSearch();
     }

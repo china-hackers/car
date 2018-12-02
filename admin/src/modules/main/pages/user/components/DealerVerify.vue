@@ -53,18 +53,18 @@ el-dialog(title="审核车商" :visible.sync="visible" width="800px")
 import dialogMixin from '@/mixins/dialog';
 export default {
     mixins: [dialogMixin],
-    data () {
+    data() {
         return {
             dealerInfo: {},
             userInfo: {}
         };
     },
     methods: {
-        setDealerInfo (data) {
+        setDealerInfo(data) {
             this.dealerInfo = data;
             this.getUserInfo();
         },
-        async getUserInfo () {
+        async getUserInfo() {
             try {
                 let { data } = await this.$http.post('/admin/business/user', {
                     bid: this.dealerInfo.id
@@ -75,7 +75,7 @@ export default {
                 console.log(error);
             }
         },
-        async pass () {
+        async pass() {
             try {
                 await this.$confirm('确认审核通过吗？');
                 await this.$http.post('/admin/business/check', {
@@ -88,7 +88,7 @@ export default {
                 console.log(error);
             }
         },
-        async reject (item) {
+        async reject(item) {
             try {
                 await this.$confirm('确认审核删除吗？');
                 await this.$http.post('/admin/business/check', {

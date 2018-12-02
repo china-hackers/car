@@ -30,7 +30,7 @@ import BrakeParams from './Forms/BrakeParams.vue';
 import OtherParams from './Forms/OtherParams.vue';
 import Images from './Forms/Images';
 export default {
-    data () {
+    data() {
         return {
             active: '0',
             carId: ''
@@ -47,14 +47,13 @@ export default {
         'my-images': Images
     },
     methods: {
-        startEdit () {
-        },
-        back () {
+        startEdit() {},
+        back() {
             history.back();
         }
     },
     computed: {
-        type () {
+        type() {
             let path = this.$route.path;
             if (path.indexOf('add') !== -1) {
                 return 'add';

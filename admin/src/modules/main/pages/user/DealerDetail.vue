@@ -38,8 +38,8 @@ import pageMixin from '@/mixins/page';
 import SalerEditor from './components/SalerEditor.vue';
 export default {
     mixins: [pageMixin],
-    components: {SalerEditor},
-    data () {
+    components: { SalerEditor },
+    data() {
         return {
             filter: {
                 name: '',
@@ -49,15 +49,15 @@ export default {
         };
     },
     methods: {
-        back () {
+        back() {
             history.back();
         },
-        edit (data) {
+        edit(data) {
             let comp = this.$refs['saler-editor'];
             comp.setData(data);
             comp.open();
         },
-        async deleteItem (data) {
+        async deleteItem(data) {
             try {
                 await this.$confirm('确认删除吗？');
                 await this.$http.post('/admin/business/salerdelete', {
@@ -69,13 +69,16 @@ export default {
                 console.log(error);
             }
         },
-        async req () {
+        async req() {
             try {
                 let params = {
                     p: 1,
                     bid: this.$route.query.id
                 };
-                let { data } = await this.$http.post('/admin/business/salers', params);
+                let { data } = await this.$http.post(
+                    '/admin/business/salers',
+                    params
+                );
                 console.log(data);
                 this.list = data.data;
             } catch (error) {
@@ -83,7 +86,7 @@ export default {
             }
         }
     },
-    created () {
+    created() {
         this.req();
     }
 };

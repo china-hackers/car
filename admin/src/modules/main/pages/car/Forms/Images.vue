@@ -15,22 +15,21 @@
 </template>
 
 <script>
-
 export default {
-    data () {
+    data() {
         return {
             list: []
         };
     },
     computed: {
-        uploadData () {
+        uploadData() {
             return {
                 id: this.$route.query.id
             };
         }
     },
     methods: {
-        async deleteImage (item, index) {
+        async deleteImage(item, index) {
             try {
                 await this.$confirm('确认删除？');
                 await this.$http.post('/admin/product/imgdelete', {
@@ -42,7 +41,7 @@ export default {
                 console.log(error);
             }
         },
-        onUploadSuccess (res, file) {
+        onUploadSuccess(res, file) {
             if (res.code === 200) {
                 // this.list.push({
                 //     id: res.data[0][0],
@@ -58,10 +57,9 @@ export default {
                 this.error('图片过大，限制10M以内');
             }
         },
-        beforeAvatarUpload (file) {
+        beforeAvatarUpload(file) {
             // const isJPG = file.type === 'image/jpeg';
             // const isLt2M = file.size / 1024 / 1024 < 2;
-
             // if (!isJPG) {
             //     this.$message.error('上传头像图片只能是 JPG 格式!');
             // }
@@ -70,7 +68,7 @@ export default {
             // }
             // return isJPG && isLt2M;
         },
-        async getInfo () {
+        async getInfo() {
             try {
                 let { data } = await this.$http.post('/admin/product/img', {
                     id: this.$route.query.id
@@ -81,7 +79,7 @@ export default {
             }
         }
     },
-    mounted () {
+    mounted() {
         this.getInfo();
     }
 };

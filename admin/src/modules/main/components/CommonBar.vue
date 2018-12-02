@@ -22,7 +22,7 @@ export default {
         }
     },
     methods: {
-        handleNew () {
+        handleNew() {
             this.$emit('new');
         }
     }

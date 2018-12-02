@@ -26,7 +26,7 @@ import RoleEditor from './components/RoleEditor';
 import pageMixin from '@/mixins/page';
 export default {
     mixins: [pageMixin],
-    data () {
+    data() {
         return {
             list: [],
             loading: false
@@ -36,12 +36,12 @@ export default {
         'my-role-editor': RoleEditor
     },
     methods: {
-        addRole () {
+        addRole() {
             let comp = this.$refs['my-role-editor'];
             comp.setEditorType('new');
             comp.open();
         },
-        async req () {
+        async req() {
             try {
                 let { data } = await this.$http.post('/admin/role/list', {
                     p: this.pagination.curPage
@@ -52,12 +52,12 @@ export default {
                 console.log(error);
             }
         },
-        edit (role) {
+        edit(role) {
             let comp = this.$refs['my-role-editor'];
             comp.setId(role.id);
             comp.open();
         },
-        async deleteRole (role) {
+        async deleteRole(role) {
             try {
                 await this.$http.post('/admin/role/delete', {
                     id: role.id
@@ -69,7 +69,7 @@ export default {
             }
         }
     },
-    mounted () {
+    mounted() {
         this.req();
     }
 };

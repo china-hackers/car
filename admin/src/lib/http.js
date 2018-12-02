@@ -61,7 +61,8 @@ instance.jsonp = (url, params) => {
     url += urlScheme;
     return new Promise(resolve => {
         jsonp(
-            url, {
+            url,
+            {
                 param: 'jsCallback',
                 name: `jsonp${new Date().getTime()}`
             },
@@ -73,7 +74,7 @@ instance.jsonp = (url, params) => {
 };
 
 export default {
-    install (Vue) {
+    install(Vue) {
         Vue.prototype.$http = instance;
     }
 };

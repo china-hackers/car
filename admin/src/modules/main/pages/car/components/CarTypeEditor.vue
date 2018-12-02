@@ -22,7 +22,7 @@ el-dialog(:title="title" :visible.sync="visible" width="600px")
 import dialogMixin from '@/mixins/dialog';
 export default {
     mixins: [dialogMixin],
-    data () {
+    data() {
         return {
             id: '',
             letter: '',
@@ -36,7 +36,7 @@ export default {
     },
 
     computed: {
-        title () {
+        title() {
             if (this.id === '') {
                 return '新增车型';
             } else {
@@ -46,8 +46,7 @@ export default {
     },
 
     methods: {
-
-        clear () {
+        clear() {
             Object.assign(this, {
                 id: '',
                 letter: '',
@@ -59,31 +58,31 @@ export default {
             });
         },
 
-        setLetter (letter) {
+        setLetter(letter) {
             this.letter = letter;
         },
 
-        setBrand (brand) {
+        setBrand(brand) {
             this.brand = brand;
         },
 
-        setEditData (data) {
+        setEditData(data) {
             data.keywords = data.keywords || [];
             Object.assign(this, data);
         },
 
-        handleClose (tag) {
+        handleClose(tag) {
             this.keywords.splice(this.keywords.indexOf(tag), 1);
         },
 
-        showInput () {
+        showInput() {
             this.inputVisible = true;
             this.$nextTick(_ => {
                 this.$refs.saveTagInput.$refs.input.focus();
             });
         },
 
-        handleInputConfirm () {
+        handleInputConfirm() {
             let inputValue = this.inputValue;
             if (inputValue) {
                 this.keywords.push(inputValue);
@@ -92,7 +91,7 @@ export default {
             this.inputValue = '';
         },
 
-        async saveNewType () {
+        async saveNewType() {
             try {
                 await this.$http.post('/admin/car/add', {
                     letter: this.letter,
@@ -109,7 +108,7 @@ export default {
             }
         },
 
-        async saveEditType () {
+        async saveEditType() {
             try {
                 await this.$http.post('/admin/car/edit', {
                     id: this.id,
@@ -127,14 +126,13 @@ export default {
             }
         },
 
-        save () {
+        save() {
             if (this.id === '') {
                 return this.saveNewType();
             } else {
                 return this.saveEditType();
             }
         }
-
     }
 };
 </script>

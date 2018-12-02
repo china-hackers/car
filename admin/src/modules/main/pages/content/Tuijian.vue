@@ -41,7 +41,7 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             img: '',
             car: [
@@ -51,13 +51,15 @@ export default {
                     keyword: '',
                     url: '',
                     img: ''
-                }, {
+                },
+                {
                     title: '',
                     model: '',
                     keyword: '',
                     url: '',
                     img: ''
-                }, {
+                },
+                {
                     title: '',
                     model: '',
                     keyword: '',
@@ -68,7 +70,7 @@ export default {
         };
     },
     methods: {
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/admin/banner/recommandsave', {
                     img: this.img,
@@ -79,13 +81,11 @@ export default {
                 console.log(error);
             }
         },
-        async getInfo () {
-
-        }
+        async getInfo() {}
     },
-    async created () {
+    async created() {
         try {
-            let {data} = await this.$http.post('/mobile/banner/recommand', {
+            let { data } = await this.$http.post('/mobile/banner/recommand', {
                 p: 1
             });
             Object.assign(this, data.data);

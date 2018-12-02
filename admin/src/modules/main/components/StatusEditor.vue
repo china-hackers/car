@@ -27,20 +27,20 @@ export default {
             default: ''
         }
     },
-    data () {
+    data() {
         return {
             myValue: '',
             id: ''
         };
     },
     methods: {
-        setValue (val) {
+        setValue(val) {
             this.myValue = `${val}`;
         },
-        setId (id) {
+        setId(id) {
             this.id = id;
         },
-        async save () {
+        async save() {
             try {
                 await this.$http.post(`/admin/finance/${this.ftype}state`, {
                     id: this.id,

@@ -55,30 +55,30 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import { mapState } from 'vuex';
 export default {
-    data () {
+    data() {
         return {
             activeIndex: ''
         };
     },
-    mounted () {
+
+    mounted() {
         // let index = window.location.hash.replace('#', '').split('/')[1];
         // this.activeIndex = '/' + index;
     },
+
     computed: mapState({
         originUnread: state => state.originUnread,
         curUnread: state => state.curUnread
-    }),
-    beforeRouteUpdate () {
-        console.log(arguments);
-    }
+    })
 };
 </script>
 
 <style lang="scss">
 .comp-aside {
     height: 100%;
+    overflow: auto;
     .aside-menu {
         height: 100%;
     }

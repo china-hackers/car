@@ -37,7 +37,7 @@ import pageMixin from '@/mixins/page';
 import CarFilter from '../../components/CarFilter';
 export default {
     mixins: [pageMixin],
-    data () {
+    data() {
         return {
             list: [],
             loading: false,
@@ -48,24 +48,24 @@ export default {
         'my-car-filter': CarFilter
     },
     methods: {
-        getState (state) {
+        getState(state) {
             return {
                 0: '已上架',
                 1: '已下架',
                 2: '已售'
             }[state];
         },
-        newCar () {
+        newCar() {
             this.$router.push({
                 path: '/car/add'
             });
         },
-        startSearch (data) {
+        startSearch(data) {
             this.pagination.curPage = 1;
             this.filter = data;
             this.req();
         },
-        async req () {
+        async req() {
             try {
                 let { data } = await this.$http.post('/admin/product/list', {
                     p: this.pagination.curPage,
@@ -77,7 +77,7 @@ export default {
                 console.log(error);
             }
         },
-        jumpToEdit (item) {
+        jumpToEdit(item) {
             this.$router.push({
                 path: '/car/edit',
                 query: {
@@ -85,7 +85,7 @@ export default {
                 }
             });
         },
-        async pass (item) {
+        async pass(item) {
             try {
                 await this.$confirm('确认审核通过该车辆');
                 await this.$http.post('/admin/product/check', {
@@ -97,7 +97,7 @@ export default {
                 console.log(error);
             }
         },
-        async unpass (item) {
+        async unpass(item) {
             try {
                 await this.$confirm('确认下架该车辆');
                 await this.$http.post('/admin/product/close', {
@@ -109,7 +109,7 @@ export default {
                 console.log(error);
             }
         },
-        async del (item) {
+        async del(item) {
             try {
                 await this.$confirm('确认删除该车辆');
                 await this.$http.post('/admin/product/delete', {

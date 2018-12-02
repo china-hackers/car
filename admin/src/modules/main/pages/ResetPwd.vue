@@ -10,13 +10,13 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             pswd: ''
         };
     },
     methods: {
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/admin/admin/password', {
                     pswd: this.pswd

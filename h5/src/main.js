@@ -1,40 +1,34 @@
 import Vue from 'vue';
 import './lib/common';
 /* eslint-disable */
-import {
-    Lazyload,
-    Toast,
-    Dialog,
-    ImagePreview,
-    Uploader
-} from 'vant';
+import { Lazyload, Toast, Dialog, ImagePreview, Uploader } from 'vant';
 import Vant from 'vant';
 import router from './router';
 import store from './store';
 import 'vant/lib/index.css';
 
-Uploader.methods.readFile = function () {
+Uploader.methods.readFile = function() {
     return new Promise(resolve => {
-        resolve('')
+        resolve('');
     });
-}
+};
 
 Vue.use(Vant);
 Vue.use(Lazyload);
 
-console.log(Vant)
+console.log(Vant);
 Vue.prototype.success = Toast.success;
 Vue.prototype.fail = Toast.fail;
-Vue.prototype.alert = (message) => {
+Vue.prototype.alert = message => {
     return Dialog.alert({
         message
     });
-}
-Vue.prototype.confirm = (message) => {
+};
+Vue.prototype.confirm = message => {
     return Dialog.confirm({
         message
     });
-}
+};
 Vue.prototype.ImagePreview = ImagePreview;
 Vue.prototype.loading = {
     show(msg) {
@@ -46,7 +40,7 @@ Vue.prototype.loading = {
     clear() {
         Toast.clear();
     }
-}
+};
 
 Vue.config.productionTip = false;
 

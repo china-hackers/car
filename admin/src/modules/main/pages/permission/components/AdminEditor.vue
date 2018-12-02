@@ -25,9 +25,8 @@ el-dialog(:title="`${titleText}管理员`" :visible.sync="visible" width="800px"
 import dialogMixin from '@/mixins/dialog';
 export default {
     mixins: [dialogMixin],
-    components: {
-    },
-    data () {
+    components: {},
+    data() {
         return {
             form: {
                 id: '',
@@ -42,7 +41,7 @@ export default {
         };
     },
     methods: {
-        async setDefaultValues () {
+        async setDefaultValues() {
             if (this.type === 'edit') {
                 try {
                     let { data } = await this.$http.post('/admin/admin/admin', {
@@ -65,7 +64,7 @@ export default {
                 });
             }
         },
-        async getRoles () {
+        async getRoles() {
             try {
                 let { data } = await this.$http.post('/admin/role/list', {
                     p: 1
@@ -76,7 +75,7 @@ export default {
                 console.log(error);
             }
         },
-        async saveAdmin () {
+        async saveAdmin() {
             try {
                 if (this.type === 'new') {
                     await this.$http.post('/admin/admin/add', {
@@ -98,7 +97,7 @@ export default {
             }
         }
     },
-    mounted () {
+    mounted() {
         this.getRoles();
     }
 };

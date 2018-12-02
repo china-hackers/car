@@ -28,13 +28,13 @@ import dialogMixin from '@/mixins/dialog';
 import pageMixin from '@/mixins/page';
 export default {
     mixins: [pageMixin, dialogMixin],
-    data () {
+    data() {
         return {
             form: {}
         };
     },
     methods: {
-        setData (data) {
+        setData(data) {
             this.form = {
                 address: data.address,
                 name: data.name,
@@ -47,7 +47,7 @@ export default {
                 id: data.id
             };
         },
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/admin/business/save', this.form);
                 this.success('修改成功');
@@ -58,6 +58,5 @@ export default {
             }
         }
     }
-
 };
 </script>

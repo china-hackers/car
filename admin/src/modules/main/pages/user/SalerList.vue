@@ -35,24 +35,24 @@ import DealerAppoint from './components/DealerAppoint.vue';
 import SalerEditor from './components/SalerEditor.vue';
 export default {
     mixins: [pageMixin],
-    components: {DealerAppoint, SalerEditor},
-    data () {
+    components: { DealerAppoint, SalerEditor },
+    data() {
         return {
             list: []
         };
     },
     methods: {
-        appoint (data) {
+        appoint(data) {
             let comp = this.$refs['dealer-appoint'];
             comp.setUId(data.uid);
             comp.open();
         },
-        edit (data) {
+        edit(data) {
             let comp = this.$refs['saler-editor'];
             comp.setData(data);
             comp.open();
         },
-        async pass (data) {
+        async pass(data) {
             try {
                 if (data.business === '') {
                     this.$alert('未指定车商，不能审核通过');
@@ -68,7 +68,7 @@ export default {
                 console.log(error);
             }
         },
-        async reject (data) {
+        async reject(data) {
             try {
                 await this.$confirm('确认删除吗？');
                 await this.$http.post('/admin/business/salerdelete', {
@@ -80,19 +80,22 @@ export default {
                 console.log(error);
             }
         },
-        async req () {
+        async req() {
             try {
                 let params = {
                     p: this.pagination.curPage
                 };
-                let { data } = await this.$http.post('/admin/business/salerlist', params);
+                let { data } = await this.$http.post(
+                    '/admin/business/salerlist',
+                    params
+                );
                 this.dealData(data.data);
             } catch (error) {
                 console.log(error);
             }
         }
     },
-    created () {
+    created() {
         this.req();
     }
 };

@@ -24,9 +24,8 @@ el-dialog(title="新增车商" :visible.sync="visible" width="800px")
 import dialogMixin from '@/mixins/dialog';
 export default {
     mixins: [dialogMixin],
-    components: {
-    },
-    data () {
+    components: {},
+    data() {
         return {
             form: {
                 img: '',
@@ -36,21 +35,21 @@ export default {
         };
     },
     methods: {
-        onUploadSuccess (res, file) {
+        onUploadSuccess(res, file) {
             if (res.code === 200) {
                 this.form.img = res.data[0];
             } else {
                 this.error('图片过大，限制10M以内');
             }
         },
-        clear () {
+        clear() {
             this.form = {
                 img: '',
                 outdate: '',
                 url: ''
             };
         },
-        setData (data) {
+        setData(data) {
             this.form = {
                 id: data.id,
                 img: data.img,
@@ -58,7 +57,7 @@ export default {
                 url: data.url
             };
         },
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/admin/banner/save', this.form);
                 this.success('保存成功');
