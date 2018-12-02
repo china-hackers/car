@@ -5,6 +5,7 @@ namespace app\controllers\mobile;
 use app\controllers\base\BaseController;
 use app\models\UploadModel;
 use app\models\User;
+use app\models\UserBusiness;
 use yii\web\UploadedFile;
 use yii;
 use abei2017\wx\Application;
@@ -67,12 +68,20 @@ class SiteController extends BaseController
             $url = '/mobile/site/index#'.$url;
             if(strpos($url,'?id=')){
                 $tmp = explode('=',$url);
-                $id = intval($tmp[1]);echo $id;exit;
+                $id = intval($tmp[1]);
                 if($id) $session->set('rid',$id);
             }
             $session->set('url',$url);
             if($this->uid){//已经获取了信息，直接跳转
+                $url = $session->get('url');
+                $url = $url?$url:'/';
                 $session->set('url',null);
+                if($session->get('rid') && strpos($url,'business')){
+                    $ub = UserBusiness::find()->where('uid='.$session->get('rid'))->one();
+                    if($ub){
+                        return $this->redirect('/mobile/api/join?key='.$ub->business_id);
+                    }
+                }
                 return $this->redirect($url);
             }else{//准备跳转腾讯
                 $oauth = (new Application())->driver('mp.oauth');

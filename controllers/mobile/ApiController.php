@@ -80,7 +80,7 @@ class ApiController extends BaseController
         $url = $session->get('url');
         $session->set('url',null);
         if($info['subscribe']==1){//已关注
-            if($model->rid){//通过有车商的人的链接
+            if($model->rid && strpos($url,'business')){//通过有车商的人的链接
                 $ub = UserBusiness::find()->where('uid='.$model->rid)->one();
                 if($ub){
                     return $this->redirect('/mobile/api/join?key='.$ub->business_id);
