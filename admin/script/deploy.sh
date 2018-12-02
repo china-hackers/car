@@ -14,7 +14,7 @@ else
     cp -r dist/* $FILE_PATH
     cd $GIT_PATH
     git add web/static/admin/*
-    git commit -a -m $word
+    git commit -a -m "$word"
     git push origin master
     exit
 fi
