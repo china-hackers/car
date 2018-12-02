@@ -63,7 +63,7 @@ class SiteController extends BaseController
 
         $session = Yii::$app->session;
         if(@$_GET['path']){//分享链接方式进来
-            $url = urldecode($_GET['path']);
+            $url = urldecode($_GET['path']);echo $url;exit;
             $url = '/mobile/site/index#'.$url;
             $session->set('url',$url);
             if($this->uid){//已经获取了信息，直接跳转
