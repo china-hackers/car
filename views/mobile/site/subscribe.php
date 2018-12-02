@@ -13,7 +13,7 @@
         <div class="cont">
             <div class="comp-avatar avatar">
                 <div class="img bg" data-src="/logo.png"
-                    lazy="loaded" style="background-image: url(&quot;/logo.png&quot;);"></div>
+                    lazy="loaded" style="background-image: url(/logo.png);"></div>
             </div>
             <div class="name">i品车微信公众号</div>
             <div class="usertype">i品车尊享客户</div>
@@ -108,6 +108,12 @@
         .comp-avatar .img {
             width: 100%;
             height: 100%;
+        }
+
+        .bg {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
     </style>
 </body>
