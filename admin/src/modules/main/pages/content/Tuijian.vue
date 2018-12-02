@@ -3,7 +3,7 @@
     my-page-title(title="首页推荐位")
     el-form(label-width="120px" label-position="left")
 
-        my-form-images(label="大图(375*96)" action="/admin/site/recommandimg" v-model="img")
+        my-form-images(label="大图(1125*288)" action="/admin/site/recommandimg" v-model="img" name="UploadModel[image]")
 
         el-form-item(label="推荐位1标题")
             el-input(v-model="car[0].title")
@@ -13,7 +13,7 @@
             el-input(v-model="car[0].keyword")
         el-form-item(label="推荐位1链接")
             el-input(v-model="car[0].url")
-        my-form-images(label="推荐位1封面(75*75)" action="/admin/site/recommandimg" v-model="car[0].img")
+        my-form-images(label="推荐位1封面(255*255)" action="/admin/site/recommandimg" v-model="car[0].img" name="UploadModel[image]")
 
         el-form-item(label="推荐位2标题")
             el-input(v-model="car[1].title")
@@ -23,7 +23,7 @@
             el-input(v-model="car[1].keyword")
         el-form-item(label="推荐位2链接")
             el-input(v-model="car[1].url")
-        my-form-images(label="推荐位2封面(75*75)" action="/admin/site/recommandimg" v-model="car[1].img")
+        my-form-images(label="推荐位2封面(255*255)" action="/admin/site/recommandimg" v-model="car[1].img" name="UploadModel[image]")
 
         el-form-item(label="推荐位3标题")
             el-input(v-model="car[2].title")
@@ -33,7 +33,7 @@
             el-input(v-model="car[2].keyword")
         el-form-item(label="推荐位3链接")
             el-input(v-model="car[2].url")
-        my-form-images(label="推荐位3封面(75*75)" action="/admin/site/recommandimg" v-model="car[2].img")
+        my-form-images(label="推荐位3封面(255*255)" action="/admin/site/recommandimg" v-model="car[2].img" name="UploadModel[image]")
 
         el-form-item(label="")
             my-button(type="primary" :click="save") 保存

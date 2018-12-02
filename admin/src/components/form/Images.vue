@@ -7,7 +7,7 @@
             :action="action"
             :name="name"
             accept="image/*"
-            :multiple="true"
+            :multiple="multiple"
             :show-file-list="false"
             :on-error="handleUploadError"
             :on-success="onUploadSuccess")
@@ -45,6 +45,11 @@ export default {
                 }
             },
             immediate: true
+        }
+    },
+    computed: {
+        multiple() {
+            return this.size > 1;
         }
     },
     data() {

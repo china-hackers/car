@@ -1,9 +1,9 @@
 <template lang="pug">
-el-dialog(title="新增车商" :visible.sync="visible" width="800px")
+el-dialog(title="新增幻灯" :visible.sync="visible" width="800px")
     .comp-banner-item-editor
         el-form(label-width="120px" label-position="left")
-            el-form-item(label="图片(375*210)")
-                my-image.image(v-if="form.img" :src="form.img")
+            el-form-item(label="图片(1125*630)")
+                my-image.image(v-if="form.img" :src="form.img" name="UploadModel[image]")
                 el-upload(class="uploader"
                     action="/admin/site/bannerimg"
                     name="UploadModel[image]"
