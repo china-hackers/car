@@ -11,7 +11,7 @@
                 .sub-items
                     .sub-item(v-for="(item, index) in yuegongList" :class="{choosed:index===yuegongIndex}" @click="setValue('yuegong',index,item.from,item.to)") {{item.text}}
             .item
-                .title 指导价
+                .title 卖价
                 .sub-items
                     .sub-item(v-for="(item, index) in priceList" :class="{choosed:index===priceIndex}" @click="setValue('price',index,item.from,item.to)") {{item.text}}
         my-bottom-bar.btns.flex
