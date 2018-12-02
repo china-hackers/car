@@ -16,5 +16,5 @@ else
     git add web/static/admin/*
     git commit -a -m $word
     git push origin master
-    exit 0
+    exit
 fi
