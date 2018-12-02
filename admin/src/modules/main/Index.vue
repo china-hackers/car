@@ -45,5 +45,6 @@ body {
 <style lang="scss" scoped>
 #aside {
     overflow: hidden;
+    height: 100%;
 }
 </style>
