@@ -65,6 +65,10 @@ class ApiController extends BaseController
             $model = new User();
             $model->attributes = $user;
             $model->sex = ($user['sex']==1)?'男':'女';
+            if($session->get('rid')){
+                $model->rid = $session->get('rid');
+                $session->set('rid',null);
+            }
             if($qrcode) $model->rid = $qrcode->uid;
             $model->save();
             $session->set('uid',$model->id);
