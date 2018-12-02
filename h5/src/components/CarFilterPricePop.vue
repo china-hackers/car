@@ -123,17 +123,35 @@ export default {
                     to: 0,
                     text: '40万以上'
                 }
-            ]
+            ],
+            oldData: {}
         };
     },
     methods: {
         open() {
             this.visible = true;
+            Object.assign(this.oldData, {
+                shoufuIndex: this.shoufuIndex,
+                yuegongIndex: this.yuegongIndex,
+                priceIndex: this.priceIndex,
+                shoufu_from: this.shoufu_from,
+                shoufu_to: this.shoufu_to,
+                yuegong_from: this.yuegong_from,
+                yuegong_to: this.yuegong_to,
+                price_from: this.price_from,
+                price_to: this.price_to
+            });
         },
         setValue(key, index, from, to) {
-            this[`${key}Index`] = index;
-            this[`${key}_from`] = from;
-            this[`${key}_to`] = to;
+            if (this[`${key}Index`] === index) {
+                this[`${key}Index`] = '';
+                this[`${key}_from`] = '';
+                this[`${key}_to`] = '';
+            } else {
+                this[`${key}Index`] = index;
+                this[`${key}_from`] = from;
+                this[`${key}_to`] = to;
+            }
         },
         view() {
             this.$emit('change', {
@@ -144,9 +162,10 @@ export default {
                 price_from: this.price_from,
                 price_to: this.price_to
             });
-            this.close();
+            this.visible = false;
         },
         close() {
+            Object.assign(this, this.oldData);
             this.visible = false;
         }
     }

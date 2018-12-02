@@ -76,21 +76,42 @@ export default {
                 }
             ],
             gear_boxList: ['手动', '自动'],
-            air_inList: ['自然吸气', '涡轮增压']
+            air_inList: ['自然吸气', '涡轮增压'],
+            oldData: {}
         };
     },
     methods: {
         open() {
             this.visible = true;
+            Object.assign(this.oldData, {
+                displacementIndex: this.displacementIndex,
+                gear_boxIndex: this.gear_boxIndex,
+                air_inIndex: this.air_inIndex,
+                displacement_from: this.displacement_from,
+                displacement_to: this.displacement_to,
+                gear_box: this.gear_box,
+                air_in: this.air_in
+            });
         },
         setValue(key, index, from, to) {
-            this[`${key}Index`] = index;
-            this[`${key}_from`] = from;
-            this[`${key}_to`] = to;
+            if (this[`${key}Index`] === index) {
+                this[`${key}Index`] = '';
+                this[`${key}_from`] = '';
+                this[`${key}_to`] = '';
+            } else {
+                this[`${key}Index`] = index;
+                this[`${key}_from`] = from;
+                this[`${key}_to`] = to;
+            }
         },
         setValue2(key, index, value) {
-            this[`${key}Index`] = index;
-            this[`${key}`] = value;
+            if (this[`${key}Index`] === index) {
+                this[`${key}Index`] = '';
+                this[`${key}`] = '';
+            } else {
+                this[`${key}Index`] = index;
+                this[`${key}`] = value;
+            }
         },
         view() {
             this.$emit('change', {
@@ -99,10 +120,11 @@ export default {
                 gear_box: this.gear_box,
                 air_in: this.air_in
             });
-            this.close();
+            this.visible = false;
         },
         close() {
             this.visible = false;
+            Object.assign(this, this.oldData);
         }
     }
 };
