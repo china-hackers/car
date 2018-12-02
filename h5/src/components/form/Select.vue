@@ -13,10 +13,8 @@ export default {
         },
         actions: {
             type: Array,
-            default () {
-                return [
-                    {name: '1'}
-                ];
+            default() {
+                return [{ name: '1' }];
             }
         },
         placeholder: {
@@ -30,7 +28,7 @@ export default {
     },
     watch: {
         value: {
-            handler (v) {
+            handler(v) {
                 let find = this.actions.find(item => {
                     return item.value === v;
                 });
@@ -43,11 +41,11 @@ export default {
         }
     },
     computed: {
-        displayValue () {
+        displayValue() {
             return this.valueText || this.placeholder;
         }
     },
-    data () {
+    data() {
         return {
             myValue: '',
             valueText: '',
@@ -55,7 +53,7 @@ export default {
         };
     },
     methods: {
-        onSelect (item) {
+        onSelect(item) {
             this.myValue = item.value;
             this.valueText = item.name;
             this.show = false;

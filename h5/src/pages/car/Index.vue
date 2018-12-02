@@ -15,24 +15,18 @@ export default {
         'car-filter': CarFilter,
         'car-list': CarList
     },
-    data () {
+    data() {
         return {
             finished: false,
             curPage: 1,
             title: '',
-            itypes: [
-                'i尊车',
-                'i品车',
-                'i享车',
-                'i优车',
-                'i值车'
-            ],
+            itypes: ['i尊车', 'i品车', 'i享车', 'i优车', 'i值车'],
             itype: '',
             filter: {}
         };
     },
     computed: {
-        allFilter () {
+        allFilter() {
             return {
                 itype: this.itype,
                 title: this.title,
@@ -41,13 +35,13 @@ export default {
         }
     },
     methods: {
-        switchIType (type) {
+        switchIType(type) {
             this.itype = type;
         },
-        handleFilterChange () {},
-        search () {}
+        handleFilterChange() {},
+        search() {}
     },
-    created () {
+    created() {
         this.itype = this.$route.query.itype;
         this.filter.brand = this.$route.query.brand;
         this.title = this.$route.query.title;

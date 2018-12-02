@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import { mapState } from 'vuex';
 export default {
-    data () {
+    data() {
         return {
             form: {
                 car_no: '',
@@ -25,15 +25,17 @@ export default {
         carModels: state => state.carModels
     }),
     methods: {
-        async getMyCar () {
+        async getMyCar() {
             try {
-                let { data } = await this.$http.post('/mobile/user/car', { p: 1 });
+                let { data } = await this.$http.post('/mobile/user/car', {
+                    p: 1
+                });
                 Object.assign(this.form, data);
             } catch (error) {
                 console.log(error);
             }
         },
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/mobile/user/carsave', this.form);
                 this.success('保存成功');
@@ -43,7 +45,7 @@ export default {
             }
         }
     },
-    created () {
+    created() {
         this.getMyCar();
     }
 };

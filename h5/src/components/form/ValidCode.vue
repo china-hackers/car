@@ -17,16 +17,16 @@ export default {
     },
     watch: {
         value: {
-            handler (v) {
+            handler(v) {
                 this.myValue = v;
             },
             immediate: true
         },
-        myValue () {
+        myValue() {
             this.$emit('input', this.myValue);
         }
     },
-    data () {
+    data() {
         return {
             myValue: '',
             count: 60,
@@ -34,7 +34,7 @@ export default {
         };
     },
     methods: {
-        async sendCode () {
+        async sendCode() {
             try {
                 if (this.phone === '') {
                     this.fail('电话号码不能为空');
@@ -51,7 +51,7 @@ export default {
             }
             this.doing = false;
         },
-        startCount () {
+        startCount() {
             return new Promise(resolve => {
                 let timer = setInterval(() => {
                     this.count -= 1;
@@ -65,6 +65,5 @@ export default {
             });
         }
     }
-
 };
 </script>

@@ -9,15 +9,15 @@ let store = new Vuex.Store({
         carConfig: config
     },
     mutations: {
-        setBrands (state, brands) {
+        setBrands(state, brands) {
             state.brands = brands;
         },
-        setCarModels (state, carModels) {
+        setCarModels(state, carModels) {
             state.carModels = carModels;
         }
     },
     actions: {
-        async getBrands ({ commit }) {
+        async getBrands({ commit }) {
             try {
                 let { data } = await Vue.prototype.$http.post(
                     '/mobile/car/brands',
@@ -30,7 +30,7 @@ let store = new Vuex.Store({
                 console.log(error);
             }
         },
-        async getCarModels ({ commit }) {
+        async getCarModels({ commit }) {
             try {
                 let { data } = await Vue.prototype.$http.post(
                     '/mobile/car/cars',

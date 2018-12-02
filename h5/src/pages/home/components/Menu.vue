@@ -23,12 +23,12 @@
 <script>
 export default {
     methods: {
-        jump (path) {
+        jump(path) {
             this.$router.push({
                 path
             });
         },
-        nofunc () {
+        nofunc() {
             this.$dialog.alert({
                 message: '对不起，该功能暂未开放'
             });

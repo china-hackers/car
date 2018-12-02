@@ -9,7 +9,7 @@
 <script>
 export default {
     methods: {
-        jumpToForm () {
+        jumpToForm() {
             this.$router.push('/loan/form');
         }
     }

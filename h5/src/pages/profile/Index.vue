@@ -42,15 +42,15 @@
 </template>
 
 <script>
-import {call} from '@/lib/util';
+import { call } from '@/lib/util';
 export default {
-    data () {
+    data() {
         return {
             user: {}
         };
     },
     computed: {
-        outdate () {
+        outdate() {
             if (this.user.outdate) {
                 return `${this.user.outdate}到期`;
             } else {
@@ -59,31 +59,32 @@ export default {
         }
     },
     methods: {
-        jumpToQr () {
+        jumpToQr() {
             this.$router.push({
                 path: '/my/qr',
-                query: {
-                }
+                query: {}
             });
         },
-        addMyCar () {
+        addMyCar() {
             this.$router.push({
                 path: '/my/mycar'
             });
         },
-        call () {
+        call() {
             call(this.user.user.phone);
         },
-        async getInfo () {
+        async getInfo() {
             try {
-                let {data} = await this.$http.post('/mobile/user/user', {id: 1});
+                let { data } = await this.$http.post('/mobile/user/user', {
+                    id: 1
+                });
                 this.user = data;
             } catch (error) {
                 console.log(error);
             }
         }
     },
-    created () {
+    created() {
         this.getInfo();
     }
 };

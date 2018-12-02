@@ -14,25 +14,27 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             qr: '',
             user: {}
         };
     },
     methods: {
-        async getUser () {
+        async getUser() {
             try {
-                let {data} = await this.$http.post('/mobile/user/user', {id: 1});
+                let { data } = await this.$http.post('/mobile/user/user', {
+                    id: 1
+                });
                 this.user = data;
             } catch (error) {
                 console.log(error);
             }
         }
     },
-    async created () {
+    async created() {
         try {
-            let {data} = await this.$http.post('/mobile/user/qrcode', {
+            let { data } = await this.$http.post('/mobile/user/qrcode', {
                 p: 1,
                 id: this.$route.query.id
             });

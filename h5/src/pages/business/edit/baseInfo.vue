@@ -16,11 +16,11 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import { mapState } from 'vuex';
 import carEditMixin from '../mixins/carEdit';
 export default {
     mixins: [carEditMixin],
-    data () {
+    data() {
         return {
             cityName: '成都',
             form: {
@@ -34,16 +34,18 @@ export default {
                 emission_std: '',
                 car_id: 1
             }
-
         };
     },
     computed: mapState({
         carModels: state => state.carModels
     }),
     methods: {
-        async save () {
+        async save() {
             try {
-                let {data} = await this.$http.post('/mobile/product/productsave', this.form);
+                let { data } = await this.$http.post(
+                    '/mobile/product/productsave',
+                    this.form
+                );
                 console.log(data);
                 this.success('保存成功');
                 history.back();
@@ -52,7 +54,7 @@ export default {
             }
         }
     },
-    async created () {
+    async created() {
         try {
             let { data } = await this.$http.post('/mobile/product/product', {
                 id: this.$route.query.id

@@ -12,15 +12,15 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             img: '',
             car: []
         };
     },
-    async created () {
+    async created() {
         try {
-            let {data} = await this.$http.post('/mobile/banner/recommand', {
+            let { data } = await this.$http.post('/mobile/banner/recommand', {
                 p: 1
             });
             Object.assign(this, data);

@@ -16,14 +16,14 @@
 import carEditMixin from '../mixins/carEdit';
 export default {
     mixins: [carEditMixin],
-    data () {
+    data() {
         return {
             guide: true,
             list: []
         };
     },
     methods: {
-        async onRead (files) {
+        async onRead(files) {
             try {
                 this.loading.show('上传中...');
                 let param = new FormData(); // 创建form对象
@@ -37,9 +37,13 @@ export default {
                 // 通过append向form对象添加数据
                 param.append('id', this.$route.query.id);
                 let config = {
-                    headers: {'Content-Type': 'multipart/form-data'}
+                    headers: { 'Content-Type': 'multipart/form-data' }
                 }; // 添加请求头
-                let { data } = await this.$http.post('/admin/site/productimg', param, config);
+                let { data } = await this.$http.post(
+                    '/admin/site/productimg',
+                    param,
+                    config
+                );
                 data.forEach(item => {
                     this.list.push({
                         id: item[0],
@@ -51,7 +55,7 @@ export default {
             }
             this.loading.clear();
         },
-        async delItem (item, index) {
+        async delItem(item, index) {
             try {
                 await this.confirm('确认删除？');
                 await this.$http.post('/mobile/product/imgdelete', {
@@ -63,17 +67,17 @@ export default {
                 console.log(error);
             }
         },
-        preview (index) {
+        preview(index) {
             this.ImagePreview({
                 images: this.list.map(item => item.img),
                 startPosition: index
             });
         },
-        hideGuide () {
+        hideGuide() {
             this.guide = false;
         }
     },
-    async created () {
+    async created() {
         try {
             let { data } = await this.$http.post('/mobile/product/img', {
                 id: this.$route.query.id

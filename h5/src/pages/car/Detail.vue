@@ -61,7 +61,7 @@
 <script>
 import { ImagePreview } from 'vant';
 export default {
-    data () {
+    data() {
         return {
             id: '',
             product: {},
@@ -74,7 +74,7 @@ export default {
         };
     },
     computed: {
-        baseParams () {
+        baseParams() {
             return [
                 {
                     key: '车门数',
@@ -86,7 +86,9 @@ export default {
                 },
                 {
                     key: '长宽高(mm)',
-                    val: `${this.base.length}/${this.base.width}/${this.base.height}`
+                    val: `${this.base.length}/${this.base.width}/${
+                        this.base.height
+                    }`
                 },
                 {
                     key: '轴距(mm)',
@@ -103,16 +105,20 @@ export default {
                 {
                     key: '颜色',
                     val: this.base.color
-                }, {
+                },
+                {
                     key: '变速箱',
                     val: this.base.gear_box
-                }, {
+                },
+                {
                     key: '变速箱型号',
                     val: this.base.gear_model
-                }, {
+                },
+                {
                     key: '车型',
                     val: this.base.model
-                }, {
+                },
+                {
                     key: '轮毂',
                     val: this.base.wheel
                 }
@@ -120,7 +126,7 @@ export default {
         }
     },
     methods: {
-        showMoreParams () {
+        showMoreParams() {
             this.$router.push({
                 path: '/car/param',
                 query: {
@@ -128,7 +134,7 @@ export default {
                 }
             });
         },
-        jumpToFrom () {
+        jumpToFrom() {
             this.$router.push({
                 path: '/car/form',
                 query: {
@@ -136,13 +142,13 @@ export default {
                 }
             });
         },
-        previewImg (index) {
+        previewImg(index) {
             ImagePreview({
                 images: this.imgs.map(item => item.img),
                 startPosition: index
             });
         },
-        async collect () {
+        async collect() {
             try {
                 let { data } = await this.$http.post('/mobile/product/store', {
                     pid: this.id,
@@ -156,7 +162,7 @@ export default {
                 console.log(error);
             }
         },
-        async getImgs () {
+        async getImgs() {
             try {
                 let { data } = await this.$http.post('/mobile/product/img', {
                     id: this.id,
@@ -167,7 +173,7 @@ export default {
                 console.log(error);
             }
         },
-        async getEvaluate () {
+        async getEvaluate() {
             try {
                 let { data } = await this.$http.post('/mobile/product/info', {
                     id: this.id
@@ -177,7 +183,7 @@ export default {
                 console.log(error);
             }
         },
-        async getBase () {
+        async getBase() {
             try {
                 let { data } = await this.$http.post('/mobile/product/base', {
                     id: this.id
@@ -187,17 +193,20 @@ export default {
                 console.log(error);
             }
         },
-        async getProduct () {
+        async getProduct() {
             try {
-                let { data } = await this.$http.post('/mobile/product/product', {
-                    id: this.id
-                });
+                let { data } = await this.$http.post(
+                    '/mobile/product/product',
+                    {
+                        id: this.id
+                    }
+                );
                 this.product = data;
             } catch (error) {
                 console.log(error);
             }
         },
-        async getKoubei () {
+        async getKoubei() {
             try {
                 let { data } = await this.$http.post('/mobile/product/koubei', {
                     id: this.id
@@ -208,7 +217,7 @@ export default {
                 console.log(error);
             }
         },
-        async getCollectStatus () {
+        async getCollectStatus() {
             try {
                 let { data } = await this.$http.post('/mobile/product/store', {
                     pid: this.id,
@@ -220,7 +229,7 @@ export default {
             }
         }
     },
-    created () {
+    created() {
         this.id = this.$route.query.id;
         this.getImgs();
         this.getEvaluate();

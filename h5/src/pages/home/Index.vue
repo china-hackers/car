@@ -23,15 +23,15 @@ export default {
         'home-hot-car': HotCar,
         'car-list': CarList
     },
-    data () {
+    data() {
         return {
             banner: []
         };
     },
     methods: {
-        async getBanner () {
+        async getBanner() {
             try {
-                let {data} = await this.$http.post('/mobile/banner/list', {
+                let { data } = await this.$http.post('/mobile/banner/list', {
                     p: 1
                 });
                 this.banner = data.list;
@@ -40,7 +40,7 @@ export default {
                 console.log(error);
             }
         },
-        handleItemClick (index) {
+        handleItemClick(index) {
             let item = this.banner[index];
             this.$router.push({
                 path: item.url,
@@ -50,7 +50,7 @@ export default {
             });
         }
     },
-    created () {
+    created() {
         this.getBanner();
     }
 };

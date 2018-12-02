@@ -16,7 +16,7 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             hasPhone: false,
             hasRecommend: false,
@@ -24,15 +24,15 @@ export default {
             phone: '',
             type: '1',
             form: {
-                'name': '',
-                'sex': '男',
-                'city': '成都',
-                'id_card': ''
+                name: '',
+                sex: '男',
+                city: '成都',
+                id_card: ''
             }
         };
     },
     computed: {
-        bindPhone () {
+        bindPhone() {
             if (this.hasPhone) {
                 return this.phone;
             } else {
@@ -41,13 +41,13 @@ export default {
         }
     },
     methods: {
-        async save () {
+        async save() {
             if (this.phone === '') {
                 this.fail('请先绑定手机');
                 return false;
             }
             try {
-                let params = {...this.form};
+                let params = { ...this.form };
                 if (this.type === '0') {
                     params.business = this.business;
                 }
@@ -61,9 +61,11 @@ export default {
             }
         }
     },
-    async created () {
+    async created() {
         try {
-            let {data} = await this.$http.post('/mobile/business/info', {p: 1});
+            let { data } = await this.$http.post('/mobile/business/info', {
+                p: 1
+            });
             if (data.phone) {
                 this.phone = data.phone;
                 this.hasPhone = true;

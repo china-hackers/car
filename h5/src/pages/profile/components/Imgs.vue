@@ -10,13 +10,13 @@ export default {
     props: {
         list: {
             type: Array,
-            default () {
+            default() {
                 return [];
             }
         }
     },
     methods: {
-        preview (index) {
+        preview(index) {
             this.ImagePreview({
                 images: this.list,
                 startPosition: index

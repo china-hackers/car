@@ -16,7 +16,7 @@
 import carEditMixin from '../mixins/carEdit';
 export default {
     mixins: [carEditMixin],
-    data () {
+    data() {
         return {
             form: {
                 nian_date: '',
@@ -29,7 +29,7 @@ export default {
         };
     },
     methods: {
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/mobile/product/taxsave', {
                     id: this.$route.query.id,
@@ -42,7 +42,7 @@ export default {
             }
         }
     },
-    async created () {
+    async created() {
         try {
             let { data } = await this.$http.post('/mobile/product/tax', {
                 id: this.$route.query.id

@@ -14,29 +14,31 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             active: 0
         };
     },
-    beforeRouteUpdate ({fullPath}, from, next) {
+    beforeRouteUpdate({ fullPath }, from, next) {
         fullPath = fullPath.replace('#', '').split('?')[0];
-        this.active = {
-            '/main/home': 0,
-            '/main/car': 1,
-            '/main/loan': 2,
-            '/main/profile': 3
-        }[fullPath] || 0;
+        this.active =
+            {
+                '/main/home': 0,
+                '/main/car': 1,
+                '/main/loan': 2,
+                '/main/profile': 3
+            }[fullPath] || 0;
         next();
     },
-    created () {
+    created() {
         let path = window.location.hash.replace('#', '').split('?')[0];
-        this.active = {
-            '/main/home': 0,
-            '/main/car': 1,
-            '/main/loan': 2,
-            '/main/profile': 3
-        }[path] || 0;
+        this.active =
+            {
+                '/main/home': 0,
+                '/main/car': 1,
+                '/main/loan': 2,
+                '/main/profile': 3
+            }[path] || 0;
     }
 };
 </script>

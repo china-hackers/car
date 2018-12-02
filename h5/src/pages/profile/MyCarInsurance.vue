@@ -16,7 +16,7 @@ export default {
     components: {
         Imgs
     },
-    data () {
+    data() {
         return {
             data: {
                 d_price: 0,
@@ -27,9 +27,9 @@ export default {
             }
         };
     },
-    async created () {
+    async created() {
         try {
-            let {data} = await this.$http.post('/mobile/user/safe', {p: 1});
+            let { data } = await this.$http.post('/mobile/user/safe', { p: 1 });
             console.log(data);
             data.options.forEach(element => {
                 element.val = '';

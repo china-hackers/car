@@ -17,7 +17,7 @@ export default {
         }
     },
     methods: {
-        handleLeftClick () {
+        handleLeftClick() {
             if (history.length > 1) {
                 history.back();
             } else {
@@ -26,7 +26,7 @@ export default {
                 });
             }
         },
-        onClickRight () {
+        onClickRight() {
             this.$emit('right-click');
         }
     }

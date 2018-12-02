@@ -19,13 +19,13 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             activeName: 1
         };
     },
     methods: {
-        jumpToForm () {
+        jumpToForm() {
             this.$router.push('/safe/form');
         }
     }

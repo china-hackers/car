@@ -12,13 +12,13 @@ export default {
     props: {
         data: {
             type: Object,
-            default () {
+            default() {
                 return {};
             }
         }
     },
     methods: {
-        goDetail () {
+        goDetail() {
             this.$dialog.alert({
                 message: '对不起，该功能暂未开放'
             });

@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             visible: false,
             defaultIndex: 0,
@@ -14,22 +14,28 @@ export default {
                 {
                     text: '智能排序',
                     value: ''
-                }, {
+                },
+                {
                     text: '首付由低到高',
                     value: 'shoufu asc'
-                }, {
+                },
+                {
                     text: '首付由高到低',
                     value: 'shoufu desc'
-                }, {
+                },
+                {
                     text: '月供由低到高',
                     value: 'yuegong asc'
-                }, {
+                },
+                {
                     text: '月供由高到低',
                     value: 'yuegong desc'
-                }, {
+                },
+                {
                     text: '车价由低到高',
                     value: 'price asc'
-                }, {
+                },
+                {
                     text: '车价由高到低',
                     value: 'price desc'
                 }
@@ -37,15 +43,15 @@ export default {
         };
     },
     methods: {
-        open () {
+        open() {
             this.visible = true;
         },
-        handleConfirm (value, index) {
+        handleConfirm(value, index) {
             console.log(arguments);
             this.$emit('change', value);
             this.close();
         },
-        close () {
+        close() {
             this.visible = false;
         }
     }

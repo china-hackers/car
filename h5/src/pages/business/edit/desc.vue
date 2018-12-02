@@ -10,7 +10,7 @@
 </template>
 <script>
 export default {
-    data () {
+    data() {
         return {
             form: {
                 business: '',
@@ -20,7 +20,7 @@ export default {
         };
     },
     methods: {
-        async getInfo () {
+        async getInfo() {
             try {
                 let { data } = await this.$http.post('/mobile/product/info', {
                     id: this.$route.query.id
@@ -30,7 +30,7 @@ export default {
                 console.log(error);
             }
         },
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/mobile/product/infosave', {
                     id: this.$route.query.id,
@@ -43,9 +43,8 @@ export default {
             }
         }
     },
-    mounted () {
+    mounted() {
         this.getInfo();
     }
-
 };
 </script>

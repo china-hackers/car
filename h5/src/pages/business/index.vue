@@ -13,7 +13,7 @@
 <script>
 import MenuItem from './components/MenuItem';
 export default {
-    data () {
+    data() {
         return {
             role: ''
         };
@@ -21,7 +21,7 @@ export default {
     components: {
         MenuItem
     },
-    created () {
+    created() {
         this.role = this.$route.query.role;
     }
 };

@@ -12,13 +12,13 @@ export default {
             default: () => {}
         }
     },
-    data () {
+    data() {
         return {
             loading: false
         };
     },
     methods: {
-        async handleClick () {
+        async handleClick() {
             if (!this.loading) {
                 try {
                     this.loading = true;

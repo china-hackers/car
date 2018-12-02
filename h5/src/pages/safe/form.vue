@@ -10,9 +10,9 @@
         .g-bottom-btn 立即报价
 </template>
 <script>
-import {mapState} from 'vuex';
+import { mapState } from 'vuex';
 export default {
-    data () {
+    data() {
         return {
             form: {
                 name: '',
@@ -26,7 +26,7 @@ export default {
         carModels: state => state.carModels
     }),
     methods: {
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/mobile/finance/safeadd', this.form);
                 this.success('保存成功');

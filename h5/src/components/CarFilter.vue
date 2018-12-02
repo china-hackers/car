@@ -28,7 +28,7 @@ export default {
     props: {
         value: {
             type: Object,
-            default () {
+            default() {
                 return {};
             }
         }
@@ -41,14 +41,14 @@ export default {
     },
     watch: {
         value: {
-            handler (v) {
+            handler(v) {
                 console.log(v);
                 Object.assign(this.filter, v);
             },
             immediate: true
         }
     },
-    data () {
+    data() {
         return {
             orderName: '智能排序',
             filter: {
@@ -68,28 +68,28 @@ export default {
         };
     },
     methods: {
-        handleOrderChange (order) {
+        handleOrderChange(order) {
             this.orderName = order.text;
             this.filter.order = order.value;
             this.emitValue();
         },
-        handlePriceFilterChange (data) {
+        handlePriceFilterChange(data) {
             Object.assign(this.filter, data);
             this.emitValue();
         },
-        handleOtherFilterChange (data) {
+        handleOtherFilterChange(data) {
             Object.assign(this.filter, data);
             this.emitValue();
         },
-        openSortPop () {
+        openSortPop() {
             let comp = this.$refs['car-filter-sort-pop'];
             comp.open();
         },
-        openPop (name) {
+        openPop(name) {
             let comp = this.$refs[name];
             comp.open();
         },
-        emitValue () {
+        emitValue() {
             this.$emit('input', this.filter);
             this.$emit('filter-change');
         }

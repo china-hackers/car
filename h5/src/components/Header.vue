@@ -19,19 +19,19 @@ export default {
     },
     watch: {
         value: {
-            handler (v) {
+            handler(v) {
                 this.text = v;
             },
             immediate: true
         }
     },
-    data () {
+    data() {
         return {
             text: ''
         };
     },
     methods: {
-        handleSearch () {
+        handleSearch() {
             console.log('search');
             if (window.location.hash.indexOf('main/home') !== -1) {
                 this.$router.push({
