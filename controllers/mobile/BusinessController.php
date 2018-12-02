@@ -193,7 +193,9 @@ class BusinessController extends MController{
     }
 
     public function actionQrcode(){
-        $model = UserBusiness::find()->where('uid='.$this->uid)->one();
+        $uid = @$this->post['uid'];
+        $uid = $uid?$uid:$this->uid;
+        $model = UserBusiness::find()->where('uid='.$uid)->one();
         if(!$model){
             return $this->json(404,'您还不是车商');
         }elseif(!$model->is_checked){
