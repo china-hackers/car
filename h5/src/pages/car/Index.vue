@@ -36,7 +36,11 @@ export default {
     },
     methods: {
         switchIType(type) {
-            this.itype = type;
+            if (this.itype === type) {
+                this.itype = '';
+            } else {
+                this.itype = type;
+            }
         },
         handleFilterChange() {},
         search() {}

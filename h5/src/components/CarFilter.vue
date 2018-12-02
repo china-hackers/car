@@ -4,9 +4,9 @@
         .item.flex.sort(@click="openPop('car-filter-sort-pop')")
             span {{orderName}}
             i.iconfont &#xe610;
-        .item.flex(@click="openPop('car-filter-brand-pop')")
-            span 品牌
-            i.iconfont &#xe610;
+        //- .item.flex(@click="openPop('car-filter-brand-pop')")
+        //-     span 品牌
+        //-     i.iconfont &#xe610;
         .item.flex(@click="openPop('car-filter-price-pop')")
             span 价格
             i.iconfont &#xe610;
@@ -100,14 +100,14 @@ export default {
 <style lang="scss" scoped>
 .comp-car-filter {
     .item {
-        width: 22%;
+        width: 30%;
         padding: 0.5rem 0;
         justify-content: center;
         span {
             font-size: 0.9rem;
         }
         &.sort {
-            width: 34%;
+            width: 40%;
         }
     }
 }
