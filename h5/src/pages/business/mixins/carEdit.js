@@ -1,8 +1,6 @@
-import {
-    mapState
-} from 'vuex';
+import { mapState } from 'vuex';
 
-function transparent (array) {
+function transparent(array) {
     return array.map(item => {
         return {
             name: item,
@@ -23,7 +21,8 @@ export default {
         fuelLabel: state => transparent(state.carConfig.fuelLabel),
         drivingModel: state => transparent(state.carConfig.drivingModel),
         steeringSystem: state => transparent(state.carConfig.steeringSystem),
-        suspensionSystem: state => transparent(state.carConfig.suspensionSystem),
+        suspensionSystem: state =>
+            transparent(state.carConfig.suspensionSystem),
         brake: state => transparent(state.carConfig.brake)
     })
 };

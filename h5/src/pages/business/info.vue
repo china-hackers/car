@@ -14,7 +14,7 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             form: {
                 name: '',
@@ -23,9 +23,11 @@ export default {
             }
         };
     },
-    async created () {
+    async created() {
         try {
-            let {data} = await this.$http.post('/mobile/business/business', {p: 1});
+            let { data } = await this.$http.post('/mobile/business/business', {
+                p: 1
+            });
             console.log(data);
             this.form = {
                 name: data.name,

@@ -15,7 +15,7 @@
 <script>
 import CarList from '@/components/CarList';
 export default {
-    data () {
+    data() {
         return {
             form: {
                 name: '',
@@ -27,7 +27,7 @@ export default {
         'car-list': CarList
     },
     methods: {
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/mobile/finance/buyadd', {
                     ...this.form,

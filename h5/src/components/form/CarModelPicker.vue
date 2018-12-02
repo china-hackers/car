@@ -11,6 +11,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 let index0Hash = {};
 let index1Hash = {};
 export default {
@@ -21,9 +22,8 @@ export default {
         },
         data: {
             type: Array,
-            default () {
-                return [
-                ];
+            default() {
+                return [];
             }
         },
         placeholder: {
@@ -37,20 +37,20 @@ export default {
     },
     watch: {
         value: {
-            handler: function (v) {
+            handler: function(v) {
                 this.countValue();
             },
             immediate: true
         },
-        data () {
+        data() {
             this.countValue();
         }
     },
     computed: {
-        displayValue () {
+        displayValue() {
             return this.valueText || this.placeholder;
         },
-        columns () {
+        columns() {
             let [c1, c2, c3] = [{}, {}, {}];
 
             c1 = {
@@ -65,28 +65,32 @@ export default {
             c2 = {
                 className: 'c2',
                 defaultIndex: this.index1,
-                values: c2Data ? c2Data.children.map((item, index) => {
-                    index1Hash[item.label] = index;
-                    return item.label;
-                }) : []
+                values: c2Data
+                    ? c2Data.children.map((item, index) => {
+                          index1Hash[item.label] = index;
+                          return item.label;
+                      })
+                    : []
             };
             if (c2Data) {
                 let c3Data = c2Data.children[this.index1];
                 c3 = {
                     className: 'c3',
                     defaultIndex: this.index2,
-                    values: c3Data ? c3Data.children.map(item => {
-                        return {
-                            text: item.label,
-                            value: item.value
-                        };
-                    }) : []
+                    values: c3Data
+                        ? c3Data.children.map(item => {
+                              return {
+                                  text: item.label,
+                                  value: item.value
+                              };
+                          })
+                        : []
                 };
             }
             return [c1, c2, c3];
         }
     },
-    data () {
+    data() {
         return {
             myValue: '',
             valueText: '',
@@ -97,20 +101,20 @@ export default {
         };
     },
     methods: {
-        handleConfirm ([,, c3]) {
+        handleConfirm([, , c3]) {
             this.myValue = c3.value;
             this.valueText = c3.text;
             this.show = false;
             this.$emit('input', this.myValue);
         },
-        handleCancel () {
+        handleCancel() {
             this.show = false;
         },
-        handleChange (picker, [c1, c2, c3]) {
+        handleChange(picker, [c1, c2, c3]) {
             this.index0 = index0Hash[c1];
             this.index1 = index1Hash[c2];
         },
-        countValue () {
+        countValue() {
             if (this.data.length) {
                 this.data.forEach((letter, index0) => {
                     letter.children.forEach((brand, index1) => {

@@ -12,7 +12,6 @@ van-list.comp-car-list(:loading="loading" :finished="finished" @load="onLoad" :o
 </template>
 
 <script>
-
 export default {
     props: {
         type: {
@@ -25,18 +24,18 @@ export default {
         },
         filter: {
             type: Object,
-            default () {
+            default() {
                 return {};
             }
         },
         params: {
             type: Object,
-            default () {
+            default() {
                 return {};
             }
         }
     },
-    data () {
+    data() {
         return {
             curPage: 1,
             loading: false,
@@ -45,12 +44,12 @@ export default {
         };
     },
     watch: {
-        filter () {
+        filter() {
             this.research();
         }
     },
     methods: {
-        jumpToDetail (item) {
+        jumpToDetail(item) {
             this.$router.push({
                 path: '/car/detail',
                 query: {
@@ -58,21 +57,24 @@ export default {
                 }
             });
         },
-        research () {
+        research() {
             this.curPage = 1;
             this.finished = false;
             this.list = [];
             this.onLoad();
         },
-        async onLoad () {
+        async onLoad() {
             if (!this.loading) {
                 this.loading = true;
                 try {
-                    let { data } = await this.$http.post('/mobile/product/list', {
-                        p: this.curPage,
-                        ...this.filter,
-                        ...this.params
-                    });
+                    let { data } = await this.$http.post(
+                        '/mobile/product/list',
+                        {
+                            p: this.curPage,
+                            ...this.filter,
+                            ...this.params
+                        }
+                    );
                     this.list = this.list.concat(data.list);
                     if (this.list.length >= data.total) {
                         this.finished = true;

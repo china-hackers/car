@@ -26,13 +26,13 @@ export default {
     },
     watch: {
         value: {
-            handler () {
+            handler() {
                 this.brand = this.value;
             },
             immediate: true
         }
     },
-    data () {
+    data() {
         return {
             brand: '',
             visible: false
@@ -45,24 +45,22 @@ export default {
     },
 
     methods: {
-        open () {
+        open() {
             this.visible = true;
         },
-        choose () {
+        choose() {
             this.$emit('input', this.brand);
             this.$emit('change');
             this.visible = false;
         },
-        cancel () {
+        cancel() {
             this.visible = false;
             this.brand = '';
             this.$emit('input', this.brand);
             this.$emit('change');
         }
     },
-    async created () {
-
-    }
+    async created() {}
 };
 </script>
 

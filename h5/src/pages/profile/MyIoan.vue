@@ -30,7 +30,7 @@ export default {
     components: {
         Imgs
     },
-    data () {
+    data() {
         return {
             data: {
                 d_money: 0,
@@ -41,9 +41,9 @@ export default {
             }
         };
     },
-    async created () {
+    async created() {
         try {
-            let {data} = await this.$http.post('/mobile/user/loan', {p: 1});
+            let { data } = await this.$http.post('/mobile/user/loan', { p: 1 });
             this.data = data;
         } catch (error) {
             console.log(error);

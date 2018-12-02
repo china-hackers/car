@@ -7,14 +7,16 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             list: []
         };
     },
-    async created () {
+    async created() {
         try {
-            let {data} = await this.$http.post('/mobile/business/salerlist', {p: 1});
+            let { data } = await this.$http.post('/mobile/business/salerlist', {
+                p: 1
+            });
             this.list = data;
         } catch (error) {
             console.log(error);

@@ -13,7 +13,7 @@
 <script>
 export default {
     methods: {
-        jump (type, value) {
+        jump(type, value) {
             let query = {};
             query[type] = value;
             this.$router.push({

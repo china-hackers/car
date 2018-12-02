@@ -23,7 +23,7 @@ export default {
         }
     },
     methods: {
-        handleRightClick () {
+        handleRightClick() {
             this.$emit('right-click');
         }
     }

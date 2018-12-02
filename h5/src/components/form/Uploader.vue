@@ -24,30 +24,34 @@ export default {
         }
     },
     watch: {
-        value (v) {
+        value(v) {
             this.myValue = v;
         }
     },
     computed: {
-        displayValue () {
+        displayValue() {
             return this.myValue || this.placeholder;
         }
     },
-    data () {
+    data() {
         return {
             myValue: '',
             show: false
         };
     },
     methods: {
-        async onRead (file) {
+        async onRead(file) {
             try {
                 let param = new FormData(); // 创建form对象
-                param.append('UploadModel[image]', file.file);// 通过append向form对象添加数据
+                param.append('UploadModel[image]', file.file); // 通过append向form对象添加数据
                 let config = {
-                    headers: {'Content-Type': 'multipart/form-data'}
+                    headers: { 'Content-Type': 'multipart/form-data' }
                 }; // 添加请求头
-                let { data } = await this.$http.post('/mobile/site/safeimg', param, config);
+                let { data } = await this.$http.post(
+                    '/mobile/site/safeimg',
+                    param,
+                    config
+                );
                 this.myValue = data[0];
             } catch (error) {
                 console.log(error);

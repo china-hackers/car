@@ -20,7 +20,7 @@
 import carEditMixin from '../mixins/carEdit';
 export default {
     mixins: [carEditMixin],
-    data () {
+    data() {
         return {
             form: {
                 oil_wear: 0,
@@ -37,7 +37,7 @@ export default {
         };
     },
     methods: {
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/mobile/product/enginesave', {
                     id: this.$route.query.id,
@@ -50,7 +50,7 @@ export default {
             }
         }
     },
-    async created () {
+    async created() {
         try {
             let { data } = await this.$http.post('/mobile/product/engine', {
                 id: this.$route.query.id

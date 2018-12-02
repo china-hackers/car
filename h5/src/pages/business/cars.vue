@@ -24,7 +24,7 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             active: 0,
             loading: false,
@@ -34,13 +34,13 @@ export default {
         };
     },
     watch: {
-        active (v) {
+        active(v) {
             this.active = v;
             this.research();
         }
     },
     computed: {
-        rightWidth () {
+        rightWidth() {
             return {
                 0: 120,
                 1: 60,
@@ -49,7 +49,7 @@ export default {
         }
     },
     methods: {
-        jump (path, item) {
+        jump(path, item) {
             if (item.state === 2) {
                 this.fail('已出售车辆无法修改');
                 return false;
@@ -61,7 +61,7 @@ export default {
                 }
             });
         },
-        async xiajia (item) {
+        async xiajia(item) {
             try {
                 await this.confirm('确认下架吗？');
                 await this.$http.post('/mobile/business/productclose', {
@@ -73,7 +73,7 @@ export default {
                 console.log(error);
             }
         },
-        async del (item, index) {
+        async del(item, index) {
             try {
                 await this.confirm('确认删除吗？');
                 await this.$http.post('/mobile/business/productdelete', {
@@ -85,20 +85,23 @@ export default {
                 console.log(error);
             }
         },
-        research () {
+        research() {
             this.finished = false;
             this.list = [];
             this.curPage = 1;
             this.loading = false;
         },
-        async onLoad () {
+        async onLoad() {
             if (!this.loading) {
                 this.loading = true;
                 try {
-                    let { data } = await this.$http.post('/mobile/business/productlist', {
-                        p: this.curPage,
-                        state: this.active
-                    });
+                    let { data } = await this.$http.post(
+                        '/mobile/business/productlist',
+                        {
+                            p: this.curPage,
+                            state: this.active
+                        }
+                    );
                     console.log(data);
                     this.list = this.list.concat(data.list);
                     if (this.list.length >= data.total) {

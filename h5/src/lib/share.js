@@ -1,7 +1,5 @@
 import router from '../router/index';
-import {
-    instance
-} from '../lib/http';
+import { instance } from '../lib/http';
 
 let wxConfig = window.wxConfig;
 
@@ -20,15 +18,15 @@ wx.config({
 
 let userId = '';
 let dataReady = false;
-instance.post('/mobile/user/user', {
-    id: 1
-}).then(({
-    data
-}) => {
-    userId = data.id;
-    dataReady = true;
-    setShareData();
-});
+instance
+    .post('/mobile/user/user', {
+        id: 1
+    })
+    .then(({ data }) => {
+        userId = data.id;
+        dataReady = true;
+        setShareData();
+    });
 /* eslint-disable */
 function setShareData(path) {
     path = path || window.location.hash;
@@ -40,19 +38,23 @@ function setShareData(path) {
         title: '加入I品车，更多车源更多客户',
         desc: '加入I品车，更多车源更多客户',
         imgUrl: wxConfig.headimgurl,
-        success: function () {}
+        success: function() {}
     };
     path = path.replace('#', '');
-    if (path.indexOf('/my/qr') === -1) {
 
-    } else {
+    if (path.indexOf('/my/qr') !== -1) {
         path = '/my/qr?id=' + userId;
+    } else if (path.indexOf('/business/qr') !== -1) {
+        path = '/business/qr?id=' + userId;
     }
+    // if (path.indexOf('/my/qr') === -1) {
+    // } else {
+    //     path = '/my/qr?id=' + userId;
+    // }
     path = encodeURIComponent(path);
-    path =
-        shareData.link = wxConfig.host + '?uid=' + userId + '&path=' + path;
+    path = shareData.link = wxConfig.host + '?uid=' + userId + '&path=' + path;
 
-    wx.ready(function () {
+    wx.ready(function() {
         wx.onMenuShareTimeline(shareData);
         wx.onMenuShareAppMessage(shareData);
         wx.onMenuShareQQ(shareData);
@@ -61,7 +63,7 @@ function setShareData(path) {
 }
 
 /* eslint-disable */
-router.afterEach((to) => {
+router.afterEach(to => {
     // console.log('to')
     setShareData(to.path);
 });

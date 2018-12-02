@@ -10,7 +10,7 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             form: {
                 phone: '',
@@ -19,7 +19,7 @@ export default {
         };
     },
     methods: {
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/mobile/user/bindphone', this.form);
                 this.success('绑定成功');

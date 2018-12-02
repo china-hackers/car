@@ -12,14 +12,17 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             qr: ''
         };
     },
-    async created () {
+    async created() {
         try {
-            let {data} = await this.$http.post('/mobile/business/qrcode', {p: 1});
+            let { data } = await this.$http.post('/mobile/business/qrcode', {
+                p: 1,
+                id: this.$route.query.id
+            });
             this.qr = data.qrcode;
         } catch (error) {
             console.log(error);

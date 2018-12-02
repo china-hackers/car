@@ -19,7 +19,7 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             active: 0,
             loading: false,
@@ -29,30 +29,33 @@ export default {
         };
     },
     watch: {
-        active (v) {
+        active(v) {
             this.research();
         }
     },
     computed: {
-        rightWidth () {
+        rightWidth() {
             return this.active === 0 ? 120 : 0;
         }
     },
     methods: {
-        research () {
+        research() {
             this.finished = false;
             this.list = [];
             this.curPage = 1;
             this.loading = false;
         },
-        async onLoad () {
+        async onLoad() {
             if (!this.loading) {
                 this.loading = true;
                 try {
-                    let { data } = await this.$http.post('/mobile/business/orderlist', {
-                        is_deal: this.active,
-                        p: this.curPage
-                    });
+                    let { data } = await this.$http.post(
+                        '/mobile/business/orderlist',
+                        {
+                            is_deal: this.active,
+                            p: this.curPage
+                        }
+                    );
                     console.log(data);
                     this.list = this.list.concat(data.list);
                     if (this.list.length >= data.total) {
@@ -65,7 +68,7 @@ export default {
                 this.loading = false;
             }
         },
-        makeDeal (data) {
+        makeDeal(data) {
             this.$router.push({
                 path: '/business/customers/deal',
                 query: {
@@ -73,7 +76,7 @@ export default {
                 }
             });
         },
-        async shixiao (data) {
+        async shixiao(data) {
             try {
                 await this.confirm('确认失效');
                 await this.$http.post('/mobile/business/orderclose', {

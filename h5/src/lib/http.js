@@ -52,11 +52,9 @@ instance.openWindow = (url, query = {}) => {
 };
 
 export default {
-    install (Vue) {
+    install(Vue) {
         Vue.prototype.$http = instance;
     }
 };
 
-export {
-    instance
-};
+export { instance };

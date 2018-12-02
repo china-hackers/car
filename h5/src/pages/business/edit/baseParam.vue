@@ -22,7 +22,7 @@
 import carEditMixin from '../mixins/carEdit';
 export default {
     mixins: [carEditMixin],
-    data () {
+    data() {
         return {
             form: {
                 model: '',
@@ -42,7 +42,7 @@ export default {
         };
     },
     methods: {
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/mobile/product/basesave', {
                     id: this.$route.query.id,
@@ -55,7 +55,7 @@ export default {
             }
         }
     },
-    async created () {
+    async created() {
         try {
             let { data } = await this.$http.post('/mobile/product/base', {
                 id: this.$route.query.id

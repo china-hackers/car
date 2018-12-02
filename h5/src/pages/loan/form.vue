@@ -13,16 +13,18 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             typeActions: [
                 {
                     name: '新车贷款',
                     value: '新车贷款'
-                }, {
+                },
+                {
                     name: '二手车贷款',
                     value: '二手车贷款'
-                }, {
+                },
+                {
                     name: '有车贷款',
                     value: '有车贷款'
                 }
@@ -31,16 +33,20 @@ export default {
                 {
                     name: '1年',
                     value: '1'
-                }, {
+                },
+                {
                     name: '2年',
                     value: '2'
-                }, {
+                },
+                {
                     name: '3年',
                     value: '3'
-                }, {
+                },
+                {
                     name: '4年',
                     value: '4'
-                }, {
+                },
+                {
                     name: '5年',
                     value: '5'
                 }
@@ -55,7 +61,7 @@ export default {
         };
     },
     methods: {
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/mobile/finance/loanadd', this.form);
                 this.success('保存成功');

@@ -26,14 +26,13 @@ export default {
             type: String,
             default: ''
         }
-
     },
     computed: {
-        displayValue () {
+        displayValue() {
             return this.valueText || this.placeholder;
         }
     },
-    data () {
+    data() {
         return {
             myValue: '',
             valueText: '',
@@ -46,30 +45,33 @@ export default {
         };
     },
     methods: {
-        onSelect (item) {
+        onSelect(item) {
             this.myValue = item.id;
             this.valueText = item.title;
             this.show = false;
             this.$emit('input', this.myValue);
         },
-        handleLeftClick () {
+        handleLeftClick() {
             this.show = false;
         },
-        research () {
+        research() {
             this.finished = false;
             this.list = [];
             this.curPage = 1;
             this.loading = false;
         },
-        async onLoad () {
+        async onLoad() {
             if (!this.loading) {
                 this.loading = true;
                 try {
-                    let { data } = await this.$http.post('/mobile/business/productlist', {
-                        state: 0,
-                        p: this.curPage,
-                        title: this.searchText
-                    });
+                    let { data } = await this.$http.post(
+                        '/mobile/business/productlist',
+                        {
+                            state: 0,
+                            p: this.curPage,
+                            title: this.searchText
+                        }
+                    );
                     this.list = this.list.concat(data.list);
                     if (this.list.length >= data.total) {
                         this.finished = true;

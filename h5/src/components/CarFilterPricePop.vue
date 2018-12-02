@@ -21,7 +21,7 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             visible: false,
             shoufuIndex: '',
@@ -38,86 +38,104 @@ export default {
                     from: 0,
                     to: 10000,
                     text: '1万以内'
-                }, {
+                },
+                {
                     from: 10000,
                     to: 20000,
                     text: '1-2万'
-                }, {
+                },
+                {
                     from: 20000,
                     to: 30000,
                     text: '2-3万'
-                }, {
+                },
+                {
                     from: 30000,
                     to: 40000,
                     text: '3-4万'
-                }, {
+                },
+                {
                     from: 40000,
                     to: 0,
                     text: '4万以上'
                 }
             ],
-            yuegongList: [{
-                from: 0,
-                to: 1000,
-                text: '1千以内'
-            }, {
-                from: 1000,
-                to: 2000,
-                text: '1-2千'
-            }, {
-                from: 2000,
-                to: 3000,
-                text: '2-3千'
-            }, {
-                from: 3000,
-                to: 4000,
-                text: '3-4千'
-            }, {
-                from: 4000,
-                to: 0,
-                text: '4千以上'
-            } ],
-            priceList: [{
-                from: 0,
-                to: 5,
-                text: '5万以下'
-            }, {
-                from: 5,
-                to: 8,
-                text: '5-8万'
-            }, {
-                from: 8,
-                to: 12,
-                text: '8-12万'
-            }, {
-                from: 12,
-                to: 18,
-                text: '12-18万'
-            }, {
-                from: 18,
-                to: 25,
-                text: '18-25万'
-            }, {
-                from: 25,
-                to: 40,
-                text: '25-40万'
-            }, {
-                from: 40,
-                to: 0,
-                text: '40万以上'
-            } ]
+            yuegongList: [
+                {
+                    from: 0,
+                    to: 1000,
+                    text: '1千以内'
+                },
+                {
+                    from: 1000,
+                    to: 2000,
+                    text: '1-2千'
+                },
+                {
+                    from: 2000,
+                    to: 3000,
+                    text: '2-3千'
+                },
+                {
+                    from: 3000,
+                    to: 4000,
+                    text: '3-4千'
+                },
+                {
+                    from: 4000,
+                    to: 0,
+                    text: '4千以上'
+                }
+            ],
+            priceList: [
+                {
+                    from: 0,
+                    to: 5,
+                    text: '5万以下'
+                },
+                {
+                    from: 5,
+                    to: 8,
+                    text: '5-8万'
+                },
+                {
+                    from: 8,
+                    to: 12,
+                    text: '8-12万'
+                },
+                {
+                    from: 12,
+                    to: 18,
+                    text: '12-18万'
+                },
+                {
+                    from: 18,
+                    to: 25,
+                    text: '18-25万'
+                },
+                {
+                    from: 25,
+                    to: 40,
+                    text: '25-40万'
+                },
+                {
+                    from: 40,
+                    to: 0,
+                    text: '40万以上'
+                }
+            ]
         };
     },
     methods: {
-        open () {
+        open() {
             this.visible = true;
         },
-        setValue (key, index, from, to) {
+        setValue(key, index, from, to) {
             this[`${key}Index`] = index;
             this[`${key}_from`] = from;
             this[`${key}_to`] = to;
         },
-        view () {
+        view() {
             this.$emit('change', {
                 shoufu_from: this.shoufu_from,
                 shoufu_to: this.shoufu_to,
@@ -128,7 +146,7 @@ export default {
             });
             this.close();
         },
-        close () {
+        close() {
             this.visible = false;
         }
     }

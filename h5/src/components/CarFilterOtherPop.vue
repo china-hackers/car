@@ -38,7 +38,7 @@
 
 <script>
 export default {
-    data () {
+    data() {
         return {
             visible: false,
             displacementIndex: '',
@@ -53,42 +53,46 @@ export default {
                     from: 0,
                     to: 1,
                     text: '1.0以下'
-                }, {
+                },
+                {
                     from: 1,
                     to: 2,
                     text: '1.0-2.0'
-                }, {
+                },
+                {
                     from: 2,
                     to: 3,
                     text: '2.0-3.0'
-                }, {
+                },
+                {
                     from: 3,
                     to: 4,
                     text: '3.0-4.0'
-                }, {
+                },
+                {
                     from: 4,
                     to: 0,
                     text: '4.0以上'
                 }
             ],
-            gear_boxList: [ '手动', '自动' ],
-            air_inList: [ '自然吸气', '涡轮增压' ]
+            gear_boxList: ['手动', '自动'],
+            air_inList: ['自然吸气', '涡轮增压']
         };
     },
     methods: {
-        open () {
+        open() {
             this.visible = true;
         },
-        setValue (key, index, from, to) {
+        setValue(key, index, from, to) {
             this[`${key}Index`] = index;
             this[`${key}_from`] = from;
             this[`${key}_to`] = to;
         },
-        setValue2 (key, index, value) {
+        setValue2(key, index, value) {
             this[`${key}Index`] = index;
             this[`${key}`] = value;
         },
-        view () {
+        view() {
             this.$emit('change', {
                 displacement_from: this.displacement_from,
                 displacement_to: this.displacement_to,
@@ -97,7 +101,7 @@ export default {
             });
             this.close();
         },
-        close () {
+        close() {
             this.visible = false;
         }
     }

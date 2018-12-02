@@ -10,21 +10,21 @@ export default {
     props: {
         list: {
             type: Array,
-            default () {
+            default() {
                 return [];
             }
         }
     },
-    data () {
+    data() {
         return {
             curIndex: 0
         };
     },
     methods: {
-        handleItemClick () {
+        handleItemClick() {
             this.$emit('item-click', this.curIndex);
         },
-        handleChange (index) {
+        handleChange(index) {
             this.curIndex = index;
         }
     }

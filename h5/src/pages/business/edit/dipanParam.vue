@@ -14,7 +14,7 @@
 import carEditMixin from '../mixins/carEdit';
 export default {
     mixins: [carEditMixin],
-    data () {
+    data() {
         return {
             form: {
                 dirve_type: '',
@@ -25,7 +25,7 @@ export default {
         };
     },
     methods: {
-        async save () {
+        async save() {
             try {
                 await this.$http.post('/mobile/product/undersave', {
                     id: this.$route.query.id,
@@ -38,7 +38,7 @@ export default {
             }
         }
     },
-    async created () {
+    async created() {
         try {
             let { data } = await this.$http.post('/mobile/product/under', {
                 id: this.$route.query.id
