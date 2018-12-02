@@ -12,6 +12,7 @@ use app\models\ILoanLog;
 use app\models\ISafeImg;
 use app\models\ISafeLog;
 use app\models\ISafeOption;
+use app\models\Product;
 use app\models\User;
 use app\models\UserBusiness;
 
@@ -23,6 +24,7 @@ class FinanceController extends AController
         $data['loan'] = (int)ILoan::find()->count();
         $data['safe'] = (int)ISafe::find()->count();
         $data['buy'] = (int)IBuy::find()->count();
+        $data['product'] = (int)Product::find()->count();
         $this->data['data'] = $data;
         return $this->json();
     }
@@ -269,7 +271,7 @@ class FinanceController extends AController
             $list = IBuy::find()->where('name like "%' . $this->post['name'] . '%"')->orderBy('id DESC')->offset(($p - 1) * 20)->limit(20)->all();
         }else{
             $count = IBuy::find()->count();
-            $list = IBuy::find()->offset(($p-1)*20)->limit(20)->all();
+            $list = IBuy::find()->orderBy('id DESC')->offset(($p-1)*20)->limit(20)->all();
         }
         $data = ['total'=>intval($count)];
         $l2 = [];
