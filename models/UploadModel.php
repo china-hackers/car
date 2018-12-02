@@ -54,7 +54,7 @@ class UploadModel extends Model
         if ($this->validate(['images'])) {
             $list = [];
             $date = date('Y-m');
-            $time = time();
+            $time = str_replace(' ', '-',microtime());
             $path .= $date.'/';
             $this->mkdirs($path);
             foreach ($this->images as $i => $file) {
