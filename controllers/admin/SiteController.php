@@ -54,7 +54,7 @@ class SiteController extends BaseController
         $this->layout = false;
         $model = new UploadModel();
         if (Yii::$app->request->isPost) {
-            $model->image = UploadedFile::getInstance($model, 'images');
+            $model->images = UploadedFile::getInstances($model, 'images');
             $list = $model->uploads('recommand');
             if (count($list)) {
                 $this->data['data'] = $list;
