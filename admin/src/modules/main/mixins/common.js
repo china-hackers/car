@@ -32,11 +32,6 @@ export default {
         async deal(item) {
             try {
                 let comp = this.$refs['dealer-editor'];
-                // console.log(item);
-                // debugger;
-                // if (item.state !== '4') {
-                //     comp.setDefaultData && comp.setDefaultData(item);
-                // }
                 comp.setId(item.id);
                 comp.open();
             } catch (error) {
