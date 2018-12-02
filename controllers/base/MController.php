@@ -8,7 +8,7 @@ class MController extends BaseController
 {
 
     protected function checkUser(){
-        if(YII_DEBUG)
+        if(YII_ENV=='dev')
             $this->uid = 1;
         else
             $this->uid = Yii::$app->session->get('uid');

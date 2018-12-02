@@ -58,7 +58,7 @@ class SiteController extends BaseController
     }
 
     public function actionIndex(){
-        if(YII_DEBUG)
+        if(YII_ENV=='dev')
             return $this->render('index',['signature'=>['timestamp'=>0]]);
 
         $session = Yii::$app->session;
