@@ -67,7 +67,7 @@ class SiteController extends BaseController
             $url = '/mobile/site/index#'.$url;
             if(strpos($url,'?id=')){
                 $tmp = explode('=',$url);
-                $id = intval($tmp[1]);
+                $id = intval($tmp[1]);echo $id;exit;
                 if($id) $session->set('rid',$id);
             }
             $session->set('url',$url);
