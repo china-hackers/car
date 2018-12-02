@@ -44,7 +44,7 @@ class ILoan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created', 'uid', 'money', 'years', 'state', 'd_money', 'd_month', 'd_money_return'], 'integer'],
+            [['created', 'uid', 'money', 'years', 'state', 'd_money', 'd_month', 'd_money_return', 'd_pay'], 'integer'],
             [['money', 'years'], 'required'],
             [['d_date'], 'safe'],
             [['name', 'phone', 'itype', 'd_type'], 'string', 'max' => 20],
