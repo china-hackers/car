@@ -1,3 +1,2 @@
 <?php
-$str = "abc";
-echo $str[1];
+echo str_replace(' ', '-',microtime());
