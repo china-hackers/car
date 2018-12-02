@@ -17,7 +17,7 @@ use Yii;
  * @property int $user_id
  * @property string $reg_date 上牌时间
  * @property int $city_id 归属地
- * @property int $km 公里数
+ * @property string $km 公里数
  * @property string $emission_std 排放标准
  * @property string $itype 类型
  * @property string $brand 品牌
@@ -55,8 +55,8 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['car_id', 'business_id', 'user_id', 'city_id', 'km', 'shoufu', 'yuegong', 'displacement', 'state'], 'integer'],
-            [['price', 'price_new', 'tax'], 'number'],
+            [['car_id', 'business_id', 'user_id', 'city_id', 'shoufu', 'yuegong', 'displacement', 'state'], 'integer'],
+            [['price', 'price_new', 'tax', 'km'], 'number'],
             [['business_id', 'user_id'], 'required'],
             [['title'], 'string', 'max' => 250],
             [['reg_date', 'emission_std', 'brand', 'gear_box', 'air_in'], 'string', 'max' => 20],
