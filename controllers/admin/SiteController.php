@@ -54,10 +54,10 @@ class SiteController extends BaseController
         $this->layout = false;
         $model = new UploadModel();
         if (Yii::$app->request->isPost) {
-            $model->image = UploadedFile::getInstance($model, 'image');
-            $path = $model->upload('recommand');
-            if ($path) {
-                $this->data['data'][] = $path;
+            $model->image = UploadedFile::getInstance($model, 'images');
+            $list = $model->uploads('recommand');
+            if (count($list)) {
+                $this->data['data'] = $list;
                 return $this->json();
             }else{
                 return $this->json(401,'文件过大，不能超过10MB');

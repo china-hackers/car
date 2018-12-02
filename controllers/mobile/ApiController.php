@@ -91,19 +91,19 @@ class ApiController extends BaseController
                 {
                     "type": "view", 
                     "name": "首页", 
-                    "url": "http://test.iamlk.cn/", 
+                    "url": "http://ipche365.cn/", 
                     "sub_button": [ ]
                 }, 
                 {
                     "type": "view", 
                     "name": "i拼车", 
-                    "url": "http://test.iamlk.cn/", 
+                    "url": "http://ipche365.cn/#/main/car", 
                     "sub_button": [ ]
                 }, 
                 {
                     "type": "view", 
                     "name": "个人中心", 
-                    "url": "http://test.iamlk.cn/", 
+                    "url": "http://ipche365.cn/#/main/profile", 
                     "sub_button": [ ]
                 }
             ]
