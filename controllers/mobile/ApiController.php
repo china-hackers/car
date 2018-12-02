@@ -5,6 +5,7 @@ namespace app\controllers\mobile;
 use app\controllers\base\BaseController;
 use abei2017\wx\Application;
 use app\models\User;
+use app\models\UserBusiness;
 use app\models\UserQrcode;
 use yii;
 
@@ -79,6 +80,12 @@ class ApiController extends BaseController
         $url = $session->get('url');
         $session->set('url',null);
         if($info['subscribe']==1){//已关注
+            if($model->rid){//通过有车商的人的链接
+                $ub = UserBusiness::find()->where('uid='.$model->rid)->one();
+                if($ub){
+                    return $this->redirect('/mobile/api/join?key='.$ub->business_id);
+                }
+            }
             if($url)
                 return $this->redirect($url);
             else
